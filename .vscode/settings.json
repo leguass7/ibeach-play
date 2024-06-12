@@ -3,6 +3,9 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "always"
   },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "[json]": {
     "editor.formatOnSave": true,
@@ -27,8 +30,7 @@
     "titleBar.inactiveBackground": "#2b215799",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "conventionalCommits.scopes": [
-    "adiciona link de webhook no retorno da rota de integração"
-  ],
-  "cSpell.words": ["pagarme", "Pagarme"]
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }
