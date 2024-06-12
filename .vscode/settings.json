@@ -26,9 +26,5 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#2b215799",
     "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "conventionalCommits.scopes": [
-    "adiciona link de webhook no retorno da rota de integração"
-  ],
-  "cSpell.words": ["pagarme", "Pagarme"]
+  }
 }
