@@ -21,7 +21,7 @@ export const ButtonChakra: React.FC<ButtonProps> = ({
 }) => {
   const hasChild = children ? true : false
   return (
-    <Button onClick={onClick} {...rest}>
+    <Button onClick={onClick} colorScheme={colorScheme} size={size} variant={variant} {...rest}>
       {hasChild ? children : textButton?.toLocaleUpperCase()}
     </Button>
   )
