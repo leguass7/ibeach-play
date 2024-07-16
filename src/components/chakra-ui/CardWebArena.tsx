@@ -4,15 +4,15 @@ import React from 'react'
 import { ButtonChakra } from './ButtonChakra'
 
 interface Props {
-  imageUrl: string
-  imageAlt: string
-  available: number
-  busy: number
-  title: string
-  formattedPrice: string
-  address: string
-  reviewCount: number
-  rating: number
+  imageUrl?: string
+  imageAlt?: string
+  available?: number
+  busy?: number
+  title?: string
+  formattedPrice?: string
+  address?: string
+  reviewCount?: number
+  rating?: number
 }
 
 const property: Props = {
@@ -27,22 +27,22 @@ const property: Props = {
   rating: 4
 }
 
-export const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title }) => {
+export const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title, rating = 4, available = 3, busy = 0 }) => {
   return (
     <Card maxW={380} minW={380} maxHeight="lg" overflow="hidden">
       <Box height="200px" overflow="hidden">
-        <Image src={property.imageUrl} alt={imageAlt} width="100%" height="100%" objectFit="cover" />
+        <Image src={property?.imageUrl} alt={imageAlt} width="100%" height="100%" objectFit="cover" />
       </Box>
 
       <CardHeader p={'10px 20px'}>
         <Stack direction="row" justify="space-between" align="center">
-          <Heading size="md">{property.title.toLocaleUpperCase()}</Heading>
+          <Heading size="md">{property?.title?.toLocaleUpperCase?.()}</Heading>
         </Stack>
         <Box display="flex" alignItems="center">
           {Array(5)
             .fill('')
             .map((_, i) => (
-              <StarIcon key={i} color={i < property.rating ? 'teal.500' : 'gray.300'} />
+              <StarIcon key={i} color={!!(i < rating) ? 'teal.500' : 'gray.300'} />
             ))}
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             {property.reviewCount} reviews
@@ -63,7 +63,7 @@ export const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title }) => 
             Quadras Livre:
           </Badge>
           <Box color="gray.500" fontWeight="semibold" letterSpacing="wide" fontSize="xs" textTransform="uppercase" ml="2">
-            {property.available > 0 ? property.available : 'Nenhuma'}
+            {available > 0 ? property?.available : 'Nenhuma'}
           </Box>
         </Box>
 
@@ -72,7 +72,7 @@ export const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title }) => 
             Quadras Ocupadas:
           </Badge>
           <Box color="gray.500" fontWeight="semibold" letterSpacing="wide" fontSize="xs" textTransform="uppercase" ml="2">
-            {property.busy > 0 ? property.busy : 'Nenhuma'}
+            {busy || 'Nenhuma'}
           </Box>
         </Box>
       </CardBody>
