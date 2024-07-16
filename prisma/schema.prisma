@@ -15,7 +15,96 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id                 Int                     @id @default(autoincrement())
+  email              String                  @unique
+  password           String?
+  nick               String?
+  name               String?
+  cpf                String?
+  birday             DateTime?               @db.Date
+  gender             UserGender?             @default(M)
+  phone              String?
+  imageUrl           String?
+  cityId             Int?
+  emailVerified      DateTime?
+  shirtSize          ShirtSize?              @default(M)
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime?               @updatedAt
+  lastAcess          DateTime?
+  beachTennisProfile UserBeachTennisProfile?
+  accessGroups       UserAccessGroup[]
+
+  @@map("users")
+}
+
+model UserBeachTennisProfile {
+  id        Int                 @id @default(autoincrement())
+  userId    Int                 @unique // relation scalar field (used in the `@relation` attribute above)
+  user      User                @relation(fields: [userId], references: [id])
+  bio       String?             @db.Text
+  category  BeachTennisCategory
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  public    Boolean?            @default(true)
+
+  @@map("users_bt_profiles")
+}
+
+model UserAccessGroup {
+  userId      Int
+  groupId     Int
+  createdAt   DateTime    @default(now())
+  user        User        @relation(fields: [userId], references: [id])
+  accessGroup AccessGroup @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+  @@map("users_access_groups")
+}
+
+model AccessGroup {
+  id               Int               @id @default(autoincrement())
+  name             String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  userAccessGroups UserAccessGroup[]
+
+  @@map("access_groups")
+}
+
+// @see https://www.ibge.gov.br/explica/codigos-dos-municipios.php
+model City {
+  id   Int    @id // utilizar códigos do IGBE
+  name String
+  ufId Int
+  uf   Uf     @relation(fields: [ufId], references: [id])
+}
+
+model Uf {
+  id     Int    @id // utilizar códigos do IGBE
+  name   String
+  cities City[]
+}
+
+enum BeachTennisCategory {
+  PRO
+  A
+  B
+  C
+  D
+}
+
+enum UserGender {
+  M
+  F
+  X
+}
+
+enum ShirtSize {
+  PP
+  P
+  M
+  G
+  GG
+  EG
+  EGG
 }
