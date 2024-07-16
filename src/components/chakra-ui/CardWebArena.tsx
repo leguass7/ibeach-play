@@ -10,6 +10,7 @@ interface Props {
   busy: number
   title: string
   formattedPrice: string
+  address: string
   reviewCount: number
   rating: number
 }
@@ -19,21 +20,38 @@ const property: Props = {
   imageAlt: 'Rear view of modern home with pool',
   available: 3,
   busy: 0,
-  title: 'Summer',
+  title: 'Summer Beach',
   formattedPrice: '$1,900.00',
+  address: 'R. Tremembés, 03 - Praia de Iracema, Fortaleza - CE, 60060-250',
   reviewCount: 34,
   rating: 4
 }
 
-const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title }) => {
+export const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title }) => {
   return (
-    <Card maxW={380} minW={380} maxHeight="md" overflow="hidden">
+    <Card maxW={380} minW={380} maxHeight="lg" overflow="hidden">
       <Box height="200px" overflow="hidden">
         <Image src={property.imageUrl} alt={imageAlt} width="100%" height="100%" objectFit="cover" />
       </Box>
 
-      <CardHeader p={'15px 20px'}>
-        <Heading size="md">{property.title}</Heading>
+      <CardHeader p={'10px 20px'}>
+        <Stack direction="row" justify="space-between" align="center">
+          <Heading size="md">{property.title.toLocaleUpperCase()}</Heading>
+        </Stack>
+        <Box display="flex" alignItems="center">
+          {Array(5)
+            .fill('')
+            .map((_, i) => (
+              <StarIcon key={i} color={i < property.rating ? 'teal.500' : 'gray.300'} />
+            ))}
+          <Box as="span" ml="2" color="gray.600" fontSize="sm">
+            {property.reviewCount} reviews
+          </Box>
+        </Box>
+
+        <Text mt={1} fontSize="sm" color="gray.500">
+          {property.address}
+        </Text>
       </CardHeader>
 
       <CardBody p={'10px 20px'}>
@@ -59,23 +77,9 @@ const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title }) => {
         </Box>
       </CardBody>
 
-      <CardFooter justify="space-between" alignItems="center" p={'10px 20px'}>
-        <Box display="flex" mb="2" alignItems="center">
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <StarIcon key={i} color={i < property.rating ? 'teal.500' : 'gray.300'} />
-            ))}
-          <Box as="span" ml="2" color="gray.600" fontSize="sm">
-            {property.reviewCount} reviews
-          </Box>
-        </Box>
-        <Stack spacing={4} direction="row" align="center" justify="flex-end">
-          <ButtonChakra colorScheme="teal" size="md" variant="solid" textButton="Reservar" />
-        </Stack>
+      <CardFooter justify="flex-end" alignItems="center" p={'10px 20px'}>
+        <ButtonChakra colorScheme="teal" width={'100%'} variant="solid" textButton="Reservar" />
       </CardFooter>
     </Card>
   )
 }
-
-export default CardWebArena
