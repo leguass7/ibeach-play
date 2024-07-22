@@ -7,7 +7,7 @@ import { parse } from 'next-useragent'
 import { secret } from '~/config'
 
 import type { AuthorizedApiRequest } from './auth.dto'
-import { authorizedDto, type JwtOrSession } from './auth.helper'
+import { authorizedDto } from './auth.helper'
 import type { Session } from 'next-auth'
 
 /** Decorator para autenticação das rotas com `next-api-decorators` */
