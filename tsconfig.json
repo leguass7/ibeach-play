@@ -15,7 +15,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@ui/*": ["./src/components/ui/*"],
-      "@chakra/*": ["./src/components/ui/chakra-ui/*"]
+      "@chakra/*": ["./src/components/ui/chakra-ui/*"],
+      "~/*": ["./src/@server-side/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

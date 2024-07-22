@@ -12,3 +12,7 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Rotas API
+
+[next-api-decorators](https://next-api-decorators.vercel.app/docs/)
