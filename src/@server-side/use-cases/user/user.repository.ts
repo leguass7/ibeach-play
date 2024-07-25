@@ -1,31 +1,41 @@
-import type { PrismaClient } from '@prisma/client'
+import type { Prisma, PrismaClient, User } from '@prisma/client'
 import type { UpdateUserDTO, CreateUserDTO, UserDTO } from './user.dto'
+import type { AdapterUser } from 'next-auth/adapters'
 
 export class UserRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  async createUser(data: CreateUserDTO) {
+  async createAdapterUser(data: AdapterUser) {
+    const user = this.create(data as CreateUserDTO)
+    return user
+  }
+
+  async create(data: Prisma.UserCreateInput) {
     const user = await this.prisma.user.create({ data })
     return user
   }
 
-  async findUserById(id: number) {
-    const user = await this.prisma.user.findUnique({ where: { id } })
+  async findUserById(id: number | string) {
+    const userId = typeof id === 'string' ? +id || null : id
+    if (!userId) return null
+    const user = await this.prisma.user.findUnique({ where: { id: userId } })
     return user
   }
 
-  async findUserByEmail(email: string): Promise<UserDTO | null> {
-    const user = await this.prisma.user.findFirst({ where: { email } })
+  async findUserByEmail(email: string) {
+    const user = await this.prisma.user.findFirst({ where: { email }, include: { accounts: true } })
     return user
   }
 
-  async updateUser(id: number, data: UpdateUserDTO) {
+  async updateUser(id: number, data: Prisma.UserUpdateInput) {
     const user = await this.prisma.user.update({ where: { id }, data })
     return user
   }
 
-  async deleteUser(id: number) {
-    const user = await this.prisma.user.delete({ where: { id } })
-    return user
+  async remove(userId: number | string) {
+    const id = +userId || null
+    if (!id) return null
+    const deleted = await this.prisma.user.delete({ where: { id } })
+    return deleted
   }
 }

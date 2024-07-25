@@ -1,50 +1,13 @@
 import { type Adapter, type AdapterAccount, type AdapterSession, type AdapterUser } from 'next-auth/adapters'
 
-import type { PrismaClient } from '@prisma/client'
+import type { Prisma, PrismaClient } from '@prisma/client'
 import { userToAdapterUser, type UserRepository } from '~/use-cases/user'
+import type { AccountRepository } from '@/@server-side/use-cases/account/account.repository'
+import { accountToAdapterAccount } from '@/@server-side/use-cases/account'
 
-export type CreateAdapter = (userRepository: UserRepository) => Adapter
+export type CreateAdapter = (userRepository: UserRepository, accountRepository: AccountRepository) => Adapter
 
-export const CustomAdapter: CreateAdapter = userRepository => {
-  //
-  const accDto = (data: Partial<Account>): AdapterAccount => {
-    if (data) {
-      const {
-        access_token,
-        expires_at,
-        id,
-        id_token,
-        oauth_token,
-        oauth_token_secret,
-        provider,
-        providerAccountId,
-        refresh_token,
-        scope,
-        session_state,
-        token_type,
-        type,
-        userId
-      } = data
-      return {
-        access_token,
-        expires_at,
-        id,
-        id_token,
-        oauth_token,
-        oauth_token_secret,
-        provider,
-        providerAccountId,
-        refresh_token,
-        scope,
-        session_state,
-        token_type,
-        type: type as ProviderType,
-        userId
-      }
-    }
-    return null
-  }
-
+export const CustomAdapter: CreateAdapter = (userRepository, accountRepository) => {
   return {
     async createUser(user) {
       const userData = { ...user } as AdapterUser
@@ -53,66 +16,49 @@ export const CustomAdapter: CreateAdapter = userRepository => {
       if (email) {
         // deve atualizar usuário caso já exista
         const userExists = await userRepository.findUserByEmail(email?.toLowerCase().trim())
-        if (userExists) userData.id = userExists.id
-      } else delete userData?.id
+        if (userExists) userData.id = `${userExists.id}`
+        // @ts-ignore
+      } else if (userData?.id) delete userData.id
 
-      const data = await repo.save(repo.create(userData))
-      return userToAdapterUser(data)
+      const result = await userRepository.createAdapterUser(userData)
+      return userToAdapterUser(result)
     },
 
     async getUser(id) {
-      const result = await repo.findOne({ where: { id } })
-      // console.log('\n getUser \n', result)
-      return userDto(result)
+      const result = await userRepository.findUserById(id)
+      return result ? userToAdapterUser(result) : null
     },
+
     async getUserByEmail(email) {
-      const ds = await getDS()
-      const repo = ds.getRepository(User)
-      const result = await repo.findOne({ where: { email }, relations: { accounts: true } })
-
+      const result = await userRepository.findUserByEmail(email)
       if (!result?.accounts?.length) return null // para enganar o next-auth e forçar criar novo usuário
-      const u = result ? userDto(result) : null
-      // console.log('\n getUserByEmail \n', u)
-      return u
+      const user = result ? userToAdapterUser(result) : null
+      return user
     },
-    async getUserByAccount({ providerAccountId, provider }) {
-      const ds = await getDS()
-      const repo = ds.getRepository(Account)
-      const result = await repo.findOne({ where: { providerAccountId, provider }, relations: { user: true } })
-      const u = result?.user ? userDto(result?.user) : null
-      // console.log('\n getUserByAccount \n', u)
-      return u
-    },
-    async updateUser(user) {
-      const ds = await getDS()
-      const repo = ds.getRepository(User)
-      const saveData = repo.create(user)
-      const data = await repo.save(saveData)
-      // ds.destroy()
-      return userDto(data)
-    },
-    async deleteUser(userId) {
-      const ds = await getDS()
-      const repo = ds.getRepository(User)
-      await repo.delete(userId)
-      // ds.destroy()
-    },
-    async linkAccount(account): Promise<AdapterAccount> {
-      const ds = await getDS()
-      const repo = ds.getRepository(Account)
-      const saveData = repo.create(account)
-      const result = await repo.save(saveData)
 
-      // console.log('\n linkAccount \n', result)
-      // ds.destroy()
-      return accDto(result)
+    async getUserByAccount({ providerAccountId, provider }) {
+      const result = await accountRepository.getOne(provider, providerAccountId)
+      const user = result?.user ? userToAdapterUser(result?.user) : null
+      return user
+    },
+
+    async updateUser({ id, ...data }) {
+      const user = await userRepository.updateUser(+id, data)
+      return userToAdapterUser(user)
+    },
+
+    async deleteUser(userId) {
+      return userRepository.remove(userId)
+    },
+
+    async linkAccount(account): Promise<AdapterAccount> {
+      const result = await accountRepository.create(account)
+      return accountToAdapterAccount(result)
     },
 
     async unlinkAccount({ providerAccountId, provider }) {
-      const ds = await getDS()
-      const repo = ds.getRepository(Account)
-      await repo.delete({ provider, providerAccountId })
-      // ds.destroy()
+      const filter = { providerAccountId, provider } as Prisma.AccountWhereUniqueInput
+      await accountRepository.remove(filter)
     },
 
     async createSession({ sessionToken, userId, expires }) {
