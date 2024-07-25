@@ -18,7 +18,7 @@ export class UserRepository {
   async findUserById(id: number | string) {
     const userId = typeof id === 'string' ? +id || null : id
     if (!userId) return null
-    const user = await this.prisma.user.findUnique({ where: { id: userId } })
+    const user = await this.prisma.user.findUnique({ where: { id: userId }, include: { accessGroups: true } })
     return user
   }
 
@@ -27,7 +27,7 @@ export class UserRepository {
     return user
   }
 
-  async updateUser(id: number, data: Prisma.UserUpdateInput) {
+  async update(id: number, data: Prisma.UserUpdateInput) {
     const user = await this.prisma.user.update({ where: { id }, data })
     return user
   }

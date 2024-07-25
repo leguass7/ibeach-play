@@ -42,5 +42,6 @@ export function tryDate(str?: Date | string | null | number, formats: string | s
       return acc
     }, null as Date | null)
 
-  return typeof str === 'string' ? trying(str) : str
+  if (typeof str === 'number') return new Date(str)
+  return typeof str === 'string' ? trying(str) || null : str || null
 }

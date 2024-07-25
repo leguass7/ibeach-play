@@ -1,4 +1,4 @@
-import prisma from '@/@server-side/database'
+import prisma from '~/database'
 import { UserRepository } from './user.repository'
 import { UserAuthService } from './user-auth.service'
 export * from './user.dto'

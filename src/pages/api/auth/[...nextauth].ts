@@ -1,12 +1,15 @@
-import { type NextApiHandler } from 'next'
+import { accountRepository } from '~/use-cases/account'
+import { sessionRepository } from '~/use-cases/session'
+import { verificationTokenRepository } from '~/use-cases/verification-token'
+import type { NextApiHandler } from 'next'
 import NextAuth, { type AuthOptions } from 'next-auth'
 import AzureAd from 'next-auth/providers/azure-ad'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
 import { googleSecrets, isDevMode, secret, azureSecrets } from '~/config'
-import { CustomAdapter } from '~/server-side/database/CustomAdapter'
-import { userAuthService } from '~/use-cases/user'
+import { CustomAdapter } from '~/database/CustomAdapter'
+import { userAuthService, userRepository } from '~/use-cases/user'
 
 type Credentials = Record<'email' | 'password', string>
 // const authorizationUrl = 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code'
@@ -30,14 +33,14 @@ const options: AuthOptions = {
       async authorize(credentials, _req) {
         const { email, password } = credentials as Credentials
         const user = await userAuthService.checkCredentials(email, password)
-        return user ? { ...user } : null
+        return user || null
       }
     })
   ],
   callbacks: {
     async jwt({ token, user }) {
-      const u = await getUserCredentials(user?.id || token?.sub)
-      token.level = u?.level
+      const u = await userAuthService.getUserCredentials(user?.id || token?.sub)
+      token.groups = u?.accessGroups?.map(g => g.groupId) || []
       return token
     }
     // async session({ session, token, user }) {
@@ -67,6 +70,6 @@ export default authHandler
 
 export async function createOAuthOptions(): Promise<[AuthOptions]> {
   const opt = { ...options } as AuthOptions
-  // opt.adapter = CustomAdapter(ds, prepareConnection)
+  opt.adapter = CustomAdapter(userRepository, accountRepository, sessionRepository, verificationTokenRepository)
   return [opt]
 }
