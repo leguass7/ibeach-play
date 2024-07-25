@@ -2,12 +2,13 @@ import { type Adapter, type AdapterAccount, type AdapterSession, type AdapterUse
 
 import type { Prisma, PrismaClient } from '@prisma/client'
 import { userToAdapterUser, type UserRepository } from '~/use-cases/user'
-import type { AccountRepository } from '@/@server-side/use-cases/account/account.repository'
-import { accountToAdapterAccount } from '@/@server-side/use-cases/account'
+import { accountToAdapterAccount, type AccountRepository } from '~/use-cases/account'
+import type { SessionAndUserDTO, SessionRepository } from '~/use-cases/session'
+import { sessionToAdapterSession } from '@/@server-side/use-cases/session/session.helper'
 
-export type CreateAdapter = (userRepository: UserRepository, accountRepository: AccountRepository) => Adapter
+export type CreateAdapter = (userRepository: UserRepository, accountRepository: AccountRepository, sessionRepository: SessionRepository) => Adapter
 
-export const CustomAdapter: CreateAdapter = (userRepository, accountRepository) => {
+export const CustomAdapter: CreateAdapter = (userRepository, accountRepository, sessionRepository) => {
   return {
     async createUser(user) {
       const userData = { ...user } as AdapterUser
@@ -62,40 +63,30 @@ export const CustomAdapter: CreateAdapter = (userRepository, accountRepository) 
     },
 
     async createSession({ sessionToken, userId, expires }) {
-      const ds = await getDS()
-      const repo = ds.getRepository(Session)
-      const saveData = repo.create({ sessionToken, userId, expires })
-      const result = await repo.save(saveData)
-      // ds.destroy()
-      return result
+      const session = await sessionRepository.create({ sessionToken, userId, expires })
+      return session
     },
+
     async getSessionAndUser(sessionToken) {
-      const ds = await getDS()
-      const repo = ds.getRepository(Session)
-      const { user, ...session } = await repo.findOne({ where: { sessionToken }, relations: { user: true } })
-      const result: { session: AdapterSession; user: AdapterUser } = { user: userDto(user), session }
-      // ds.destroy()
-      return result
+      const { user, ...rest } = (await sessionRepository.getOneAndUser(sessionToken)) || {}
+      const u = user ? userToAdapterUser(user) : null
+      const session = rest ? sessionToAdapterSession(rest) : null
+      return { user: u, session }
     },
-    async updateSession({ sessionToken }) {
-      const ds = await getDS()
-      const repo = ds.getRepository(Session)
-      const session = await repo.findOne({ where: { sessionToken } })
+
+    async updateSession({ sessionToken, ...rest }) {
+      const session = await sessionRepository.getOne(sessionToken)
       if (session) {
-        const saveData = repo.create(session)
-        const result = await repo.save({ ...saveData, sessionToken })
-        // ds.destroy()
+        const result = await sessionRepository.update(sessionToken, { ...session, ...rest })
         return result
       }
-      // ds.destroy()
-      return null
+      return session
     },
+
     async deleteSession(sessionToken) {
-      const ds = await getDS()
-      const repo = ds.getRepository(Session)
-      await repo.delete({ sessionToken })
-      // ds.destroy()
+      return sessionRepository.remove(sessionToken)
     },
+
     async createVerificationToken({ identifier, expires, token }) {
       const ds = await getDS()
       const repo = ds.getRepository(VerificationToken)
