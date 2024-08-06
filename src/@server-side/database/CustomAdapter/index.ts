@@ -21,7 +21,7 @@ export const CustomAdapter: CreateAdapter = (userRepository, accountRepository, 
 
       if (email) {
         // deve atualizar usuário caso já exista
-        const userExists = await userRepository.findUserByEmail(email?.toLowerCase().trim())
+        const userExists = await userRepository.findUserByEmail(email?.toLowerCase?.()?.trim?.())
         if (userExists) userData.id = `${userExists.id}`
         // @ts-ignore
       } else if (userData?.id) delete userData.id

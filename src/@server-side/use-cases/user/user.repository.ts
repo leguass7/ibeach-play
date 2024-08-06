@@ -1,16 +1,22 @@
 import type { Prisma, PrismaClient, User } from '@prisma/client'
 import type { UpdateUserDTO, CreateUserDTO, UserDTO } from './user.dto'
 import type { AdapterUser } from 'next-auth/adapters'
+import { tryInteger } from '@/helpers/number'
 
 export class UserRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  async createAdapterUser(data: AdapterUser) {
-    const user = this.create(data as CreateUserDTO)
+  async createAdapterUser({ id, ...data }: AdapterUser) {
+    const userId = tryInteger(id)
+    console.log('UserRepository createAdapterUser', { userId, data })
+    const toSave = userId ? { ...data, id: userId } : data
+    const user = await this.create(toSave as CreateUserDTO)
     return user
   }
 
   async create(data: Prisma.UserCreateInput) {
+    console.log('UserRepository create', { data })
+
     const user = await this.prisma.user.create({ data })
     return user
   }
@@ -23,6 +29,7 @@ export class UserRepository {
   }
 
   async findUserByEmail(email: string) {
+    console.log('UserRepository findUserByEmail', email)
     const user = await this.prisma.user.findFirst({ where: { email }, include: { accounts: true } })
     return user
   }

@@ -58,7 +58,7 @@ const options: AuthOptions = {
     //   return true // Do different verification for other providers that don't have `email_verified`
     // }
   },
-  debug: !!isDevMode
+  debug: true
 }
 
 const authHandler: NextApiHandler = async (req, res) => {

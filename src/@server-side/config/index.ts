@@ -1,7 +1,7 @@
 import type { ISmtpConfig } from '~/services/EmailService/smtp.provider'
 
 export const isDevMode = process.env.NODE_ENV !== 'production'
-export const secret = process.env.SECRET
+export const secret = process.env.NEXTAUTH_JWT_SECRET
 export const nextAuthUrl = process.env.NEXTAUTH_URL
 
 export const googleSecrets = {
