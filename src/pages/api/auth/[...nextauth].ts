@@ -2,7 +2,7 @@ import { accountRepository } from '~/use-cases/account'
 import { sessionRepository } from '~/use-cases/session'
 import { verificationTokenRepository } from '~/use-cases/verification-token'
 import type { NextApiHandler } from 'next'
-import NextAuth, { type AuthOptions } from 'next-auth'
+import NextAuth, { type AuthOptions, type DefaultSession } from 'next-auth'
 import AzureAd from 'next-auth/providers/azure-ad'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
@@ -14,6 +14,20 @@ import { userAuthService, userRepository } from '~/use-cases/user'
 type Credentials = Record<'email' | 'password', string>
 // const authorizationUrl = 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code'
 const maxAge = 30 * 24 * 60 * 60 // 30 days
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      userId?: number
+      personId?: number
+    } & DefaultSession['user']
+  }
+
+  interface User {
+    userId?: number
+    personId?: number
+  }
+}
 
 const options: AuthOptions = {
   secret,
