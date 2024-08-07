@@ -1,0 +1,35 @@
+[
+  {
+    "type": "header",
+    "version": "5.2.1",
+    "comment": "Export to JSON plugin for PHPMyAdmin"
+  },
+  { "type": "database", "name": "cea" },
+  {
+    "type": "table",
+    "name": "access_group",
+    "database": "cea",
+    "data": [
+      {
+        "id": 1,
+        "name": "Admin",
+        "createdAt": "2022-11-26 18:55:46"
+      },
+      {
+        "id": 2,
+        "name": "Parceiro",
+        "createdAt": "2022-11-26 18:55:46"
+      },
+      {
+        "id": 3,
+        "name": "Gestor",
+        "createdAt": "2022-11-26 18:55:46"
+      },
+      {
+        "id": 4,
+        "name": "Atleta",
+        "createdAt": "2022-11-26 18:55:46"
+      }
+    ]
+  }
+]
