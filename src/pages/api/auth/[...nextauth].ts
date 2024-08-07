@@ -29,6 +29,13 @@ declare module 'next-auth' {
   }
 }
 
+declare module 'next-auth/jwt' {
+  interface JWT {
+    userId?: number
+    personId?: number
+  }
+}
+
 const options: AuthOptions = {
   secret,
   session: { strategy: 'jwt', maxAge },
