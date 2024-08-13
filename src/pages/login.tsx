@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import React from 'react'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
 
@@ -18,14 +17,17 @@ import {
   FormHelperText,
   InputRightElement
 } from '@chakra-ui/react'
+import type { NextPage } from 'next'
 import { signIn } from 'next-auth/react'
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
-type Props = {}
+type Props = {
+  //
+}
 
-const LoginPage: NextPage = () => {
+const LoginPage: NextPage<Props> = () => {
   const [showPassword, setShowPassword] = React.useState(false)
 
   const handleShowClick = () => setShowPassword(!showPassword)

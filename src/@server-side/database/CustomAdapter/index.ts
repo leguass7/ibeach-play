@@ -1,9 +1,11 @@
-import { type Adapter, type AdapterSession, type AdapterUser } from 'next-auth/adapters'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import type { Prisma, PrismaClient } from '@prisma/client'
-import { userToAdapterUser, type UserRepository } from '~/use-cases/user'
+import type { Prisma } from '@prisma/client'
+import type { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters'
+
 import { accountToAdapterAccount, type AccountRepository } from '~/use-cases/account'
 import { sessionToAdapterSession, type SessionRepository } from '~/use-cases/session'
+import { userToAdapterUser, type UserRepository } from '~/use-cases/user'
 import { VerificationTokenRepository } from '~/use-cases/verification-token'
 
 export type CreateAdapter = (
@@ -21,22 +23,31 @@ export const CustomAdapter: CreateAdapter = (userRepository, accountRepository, 
 
       if (email) {
         // deve atualizar usuário caso já exista
+        console.log('UserRepository deveria atualizar', userData)
         const userExists = await userRepository.findUserByEmail(email?.toLowerCase?.()?.trim?.())
-        if (userExists) userData.id = `${userExists.id}`
+        if (userExists) {
+          userData.id = `${userExists.id}`
+          userExists.lastAccess = new Date()
+          await userRepository.update(userExists.id, { lastAccess: userExists.lastAccess })
+          return userToAdapterUser(userExists) as AdapterUser
+        }
         // @ts-ignore
       } else if (userData?.id) delete userData.id
 
+      console.log('UserRepository deveria criar', userData)
       const result = await userRepository.createAdapterUser(userData)
       return userToAdapterUser(result) as AdapterUser
     },
 
     async getUser(id) {
+      console.log('UserRepository getUser', typeof id, id)
       const user = await userRepository.findUserById(id)
       const result = user ? userToAdapterUser(user) : null
       return result as AdapterUser
     },
 
     async getUserByEmail(email) {
+      console.log('UserRepository getUserByEmail', typeof email, email)
       const result = await userRepository.findUserByEmail(email)
       if (!result?.accounts?.length) return null // para enganar o next-auth e forçar criar novo usuário
       const user = result ? userToAdapterUser(result) : null

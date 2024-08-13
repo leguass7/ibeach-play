@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { Button } from '@/components/ui/Button'
 import { ButtonChakra } from '@/components/chakra-ui/ButtonChakra'
 import { CardWebArena } from '@/components/chakra-ui/CardWebArena'
+import { Button } from '@/components/ui/Button'
+import { Inter } from 'next/font/google'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -1,7 +1,8 @@
 import type { Account } from '@prisma/client'
-import type { AccountDTO } from './account.dto'
 import type { AdapterAccount } from 'next-auth/adapters'
 import type { ProviderType } from 'next-auth/providers/index'
+
+import type { AccountDTO } from './account.dto'
 
 export function accountToAdapterAccount(data: AccountDTO): AdapterAccount {
   const {

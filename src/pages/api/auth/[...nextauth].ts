@@ -1,40 +1,42 @@
-import { accountRepository } from '~/use-cases/account'
-import { sessionRepository } from '~/use-cases/session'
-import { verificationTokenRepository } from '~/use-cases/verification-token'
+import type { User as PrismaUser } from '@prisma/client'
 import type { NextApiHandler } from 'next'
-import NextAuth, { type AuthOptions, type DefaultSession } from 'next-auth'
+import type { AuthOptions, DefaultSession, User, Awaitable } from 'next-auth'
+import NextAuth from 'next-auth'
 import AzureAd from 'next-auth/providers/azure-ad'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
-import { googleSecrets, isDevMode, secret, azureSecrets } from '~/config'
+import { azureSecrets, googleSecrets, secret } from '~/config'
 import { CustomAdapter } from '~/database/CustomAdapter'
+import { accountRepository } from '~/use-cases/account'
+import { sessionRepository } from '~/use-cases/session'
 import { userAuthService, userRepository } from '~/use-cases/user'
+import { verificationTokenRepository } from '~/use-cases/verification-token'
 
 type Credentials = Record<'email' | 'password', string>
 // const authorizationUrl = 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code'
 const maxAge = 30 * 24 * 60 * 60 // 30 days
 
+// interface U extends User {
 declare module 'next-auth' {
   interface Session {
     user: {
-      userId?: number
+      id?: number
       personId?: number
     } & DefaultSession['user']
   }
 
-  interface User {
-    userId?: number
-    personId?: number
+  interface User extends Partial<Omit<PrismaUser, 'id'>> {
+    id?: number
   }
 }
 
-declare module 'next-auth/jwt' {
-  interface JWT {
-    userId?: number
-    personId?: number
-  }
-}
+// declare module 'next-auth/jwt' {
+//   interface JWT {
+//     userId?: number
+//     personId?: number
+//   }
+// }
 
 const options: AuthOptions = {
   secret,
@@ -54,7 +56,7 @@ const options: AuthOptions = {
       async authorize(credentials, _req) {
         const { email, password } = credentials as Credentials
         const user = await userAuthService.checkCredentials(email, password)
-        return user || null
+        return (user as Awaitable<User>) || null
       }
     })
   ],

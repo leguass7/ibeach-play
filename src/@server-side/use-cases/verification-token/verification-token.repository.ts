@@ -1,6 +1,6 @@
+import { isObject, isObjectEmpty } from '@/helpers/validation'
 import type { Prisma, PrismaClient } from '@prisma/client'
 import type { AdapterAccount } from 'next-auth/adapters'
-import { isObject, isObjectEmpty } from '@/helpers/validation'
 
 type UniqueId = {
   identifier: string

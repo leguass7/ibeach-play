@@ -1,7 +1,8 @@
-import type { Session, User } from '@prisma/client'
-import type { SessionDTO } from './session.dto'
-import type { AdapterSession } from 'next-auth/adapters'
 import { tryDate } from '@/helpers/date'
+import type { Session, User } from '@prisma/client'
+import type { AdapterSession } from 'next-auth/adapters'
+
+import type { SessionDTO } from './session.dto'
 
 export function sessionToAdapterSession(session?: SessionDTO | AdapterSession | Session | null): AdapterSession | null {
   if (!session) return null

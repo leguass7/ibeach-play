@@ -3,7 +3,7 @@ export function tryInteger(n: string | number): number | null {
   try {
     const num = parseInt(n) || null
     return num
-  } catch (error) {
+  } catch {
     return null
   }
 }

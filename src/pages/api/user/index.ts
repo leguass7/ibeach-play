@@ -1,5 +1,6 @@
-import type { CreateUserDTO } from '~/use-cases/user'
 import { Body, createHandler, Post, ValidationPipe } from 'next-api-decorators'
+
+import type { CreateUserDTO } from '~/use-cases/user'
 
 class UserHandler {
   @Post()

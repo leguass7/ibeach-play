@@ -1,7 +1,8 @@
 import type { User } from '@prisma/client'
-import type { UserRepository } from './user.repository'
 import { compareSync } from 'bcrypt'
-import type { DefaultUser } from 'next-auth'
+import type { Awaitable, DefaultUser } from 'next-auth'
+
+import type { UserRepository } from './user.repository'
 
 export type AuthorizedUser = DefaultUser & {
   // id?: number
@@ -13,18 +14,10 @@ export type AuthorizedUser = DefaultUser & {
 export class UserAuthService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async checkCredentials(email = '', password = '') {
+  async checkCredentials(email = '', password = ''): Promise<Awaitable<User | null>> {
     const user = await this.userRepository.findUserByEmail(email.toLowerCase().trim())
     if (!user) return null
-
-    const result: AuthorizedUser = {
-      id: `${user?.id}`,
-      email: user.email,
-      image: user.image,
-      name: user.name
-    }
-
-    return compareSync(password, `${user?.password}`) ? result : null
+    return compareSync(password, `${user?.password}`) ? user : null
   }
 
   async getUserCredentials(id?: string | number) {
@@ -34,7 +27,7 @@ export class UserAuthService {
     if (!user) return null
 
     const data = { id: user?.id, email: user?.email, image: user?.image, name: user?.name }
-    await this.userRepository.update(user.id, { lastAcess: new Date() })
+    await this.userRepository.update(user.id, { lastAccess: new Date() })
     return { ...user, ...data }
   }
 }

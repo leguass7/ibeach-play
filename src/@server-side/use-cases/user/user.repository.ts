@@ -1,7 +1,8 @@
-import type { Prisma, PrismaClient, User } from '@prisma/client'
-import type { UpdateUserDTO, CreateUserDTO, UserDTO } from './user.dto'
-import type { AdapterUser } from 'next-auth/adapters'
 import { tryInteger } from '@/helpers/number'
+import type { Prisma, PrismaClient, User } from '@prisma/client'
+import type { AdapterUser } from 'next-auth/adapters'
+
+import type { UpdateUserDTO, CreateUserDTO, UserDTO } from './user.dto'
 
 export class UserRepository {
   constructor(private readonly prisma: PrismaClient) {}

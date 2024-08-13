@@ -31,7 +31,7 @@ model User {
   shirtSize           ShirtSize?              @default(M)
   createdAt           DateTime                @default(now())
   updatedAt           DateTime?               @updatedAt
-  lastAcess           DateTime?
+  lastAccess          DateTime?
   beachTennisProfile  UserBeachTennisProfile?
   accessGroups        UserAccessGroup[]
   createdAccessGroups UserAccessGroup[]       @relation("Created_UserAccessGroup")

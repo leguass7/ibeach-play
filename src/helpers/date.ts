@@ -1,4 +1,5 @@
 import { format, isValid, parse, parseISO, parseJSON } from 'date-fns'
+
 import { makeArray } from './array'
 
 export function validDate(date?: Date | string) {
@@ -37,10 +38,13 @@ export function tryDate(str?: Date | string | null | number, formats: string | s
   }
 
   const trying = (v: string) =>
-    supportedList.reduce((acc, supported) => {
-      if (!acc) acc = parsing(supported, v)
-      return acc
-    }, null as Date | null)
+    supportedList.reduce(
+      (acc, supported) => {
+        if (!acc) acc = parsing(supported, v)
+        return acc
+      },
+      null as Date | null
+    )
 
   if (typeof str === 'number') return new Date(str)
   return typeof str === 'string' ? trying(str) || null : str || null

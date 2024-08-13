@@ -1,7 +1,8 @@
+import { isObject, isObjectEmpty } from '@/helpers/validation'
 import type { Prisma, PrismaClient } from '@prisma/client'
 import type { AdapterAccount, AdapterSession } from 'next-auth/adapters'
-import { isObject, isObjectEmpty } from '@/helpers/validation'
 import type { ProviderType } from 'next-auth/providers/index'
+
 import type { SessionAndUserDTO } from './session.dto'
 
 export class SessionRepository {

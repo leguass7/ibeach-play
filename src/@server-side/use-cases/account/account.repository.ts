@@ -1,8 +1,9 @@
-import type { Prisma, PrismaClient } from '@prisma/client'
-import type { AccountDTO } from './account.dto'
-import type { AdapterAccount } from 'next-auth/adapters'
 import { isObject, isObjectEmpty } from '@/helpers/validation'
+import type { Prisma, PrismaClient } from '@prisma/client'
+import type { AdapterAccount } from 'next-auth/adapters'
 import type { ProviderType } from 'next-auth/providers/index'
+
+import type { AccountDTO } from './account.dto'
 
 type UniqueId = {
   providerAccountId: string

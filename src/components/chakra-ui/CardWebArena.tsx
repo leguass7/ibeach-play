@@ -1,6 +1,8 @@
-import { Box, Image, Badge, Card, CardBody, CardFooter, CardHeader, Heading, Stack, Text } from '@chakra-ui/react'
-import { StarIcon } from '@chakra-ui/icons'
 import React from 'react'
+
+import { StarIcon } from '@chakra-ui/icons'
+import { Box, Image, Badge, Card, CardBody, CardFooter, CardHeader, Heading, Stack, Text } from '@chakra-ui/react'
+
 import { ButtonChakra } from './ButtonChakra'
 
 interface Props {

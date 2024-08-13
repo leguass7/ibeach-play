@@ -1,4 +1,5 @@
 import prisma from '~/database'
+
 import { VerificationTokenRepository } from './verification-token.repository'
 export * from './verification-token.dto'
 
