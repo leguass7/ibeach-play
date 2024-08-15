@@ -17,8 +17,8 @@ export function sessionToAuthorizedDto(data?: Session | null): IAuthorizedUser |
 }
 
 export function tokenToAuthorizedDto(data?: JWT | null): IAuthorizedUser | null {
-  const userId = data?.sub ? +data?.sub || 0 : 0
-  if (userId) return null
+  const userId = data?.sub ? +data.sub || 0 : 0
+  if (!userId) return null
   return {
     userId,
     name: data?.name || '',
