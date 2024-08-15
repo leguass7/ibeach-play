@@ -15,8 +15,8 @@ export interface PublicApiRequest<Body = AnyObject> extends NextApiRequest {
 }
 
 export interface IAuthorizedUser {
-  userId: string
+  userId: number
   name: string
   email?: string
-  level?: number
+  groups?: number[]
 }
