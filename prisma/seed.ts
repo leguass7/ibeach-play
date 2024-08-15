@@ -1,34 +1,62 @@
-import { PrismaClient, type User } from '@prisma/client'
+import { tryDate } from '@/helpers/date'
+import { PrismaClient, type AccessGroup, type User, type UserAccessGroup } from '@prisma/client'
 import { parse } from 'date-fns'
-import path from 'node:path'
-import fs from 'node:fs/promises'
+
+import { loadFile } from './seed-helper'
 
 const prisma = new PrismaClient()
 
-async function loadFile(fileName: string) {
-  const filePath = path.resolve(__dirname, 'provision', fileName)
-  const buffer = await fs.readFile(filePath)
-  const jsonData = buffer.toString()
-  const [, , data] = JSON.parse(jsonData)
-  return data?.data
-}
-
-async function main() {
+async function users() {
   const data = (await loadFile('users.json')) as User[]
-  console.log('Implementar seed', data)
-
   await Promise.all(
     data
-      .map(({ id, birday, lastAcess, emailVerified, ...user }) => {
+      .map(({ id: _, birday, lastAccess, emailVerified, ...user }) => {
         const b = birday ? parse(`${birday}`, 'yyyy-MM-dd', new Date()) : null
-        const a = birday ? parse(`${lastAcess}`, 'yyyy-MM-dd HH:mm:ss', new Date()) : null
+        const a = birday ? parse(`${lastAccess}`, 'yyyy-MM-dd HH:mm:ss', new Date()) : null
         const e = emailVerified ? parse(`${emailVerified}`, 'yyyy-MM-dd HH:mm:ss', new Date()) : null
-        return { ...user, birday: b, lastAcess: a, emailVerified: e } as User
+        return { ...user, birday: b, lastAccess: a, emailVerified: e } as User
       })
       .map(async user => {
         return prisma.user.upsert({ where: { email: user.email }, create: user, update: user })
       })
   )
+}
+
+async function accessGroup() {
+  const data = (await loadFile('access_group.json')) as AccessGroup[]
+  await Promise.all(
+    data
+      .map(({ id, name, createdAt }) => {
+        const created = parse(`${createdAt}`, 'yyyy-MM-dd HH:mm:ss', new Date())
+        return { id, name, createdAt: created } as AccessGroup
+      })
+      .map(async d => {
+        return prisma.accessGroup.upsert({ where: { id: d.id }, create: d, update: d })
+      })
+  )
+}
+
+async function usersAccessGroup() {
+  const data = (await loadFile('users_access_group.json')) as UserAccessGroup[]
+  await Promise.all(
+    data
+      .map(userAccessGroup => {
+        return { ...userAccessGroup, createdAt: tryDate(userAccessGroup.createdAt) } as UserAccessGroup
+      })
+      .map(async userAccessGroup => {
+        return prisma.userAccessGroup.upsert({
+          where: { userId_groupId: { userId: userAccessGroup.userId, groupId: userAccessGroup.groupId } },
+          create: userAccessGroup,
+          update: userAccessGroup
+        })
+      })
+  )
+}
+
+async function main() {
+  await users()
+  await accessGroup()
+  await usersAccessGroup()
 }
 
 main()

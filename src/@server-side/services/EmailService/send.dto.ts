@@ -13,7 +13,7 @@ export interface SendPayloadDto extends Omit<SenderPayload, 'from'> {
   from?: string
 }
 
-export interface EmailServiceResponse extends Record<any, any> {
+export interface EmailServiceResponse extends AnyObject {
   method: 'smtp'
   accepted: string[]
 }

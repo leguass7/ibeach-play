@@ -2,14 +2,14 @@ import type { NextApiRequest } from 'next'
 import type { UserAgent } from 'next-useragent'
 
 type Q = Partial<{ [key: string]: string | string[] }>
-export type AuthorizedApiRequest<Body = Record<string, any>, Query = Q> = NextApiRequest & {
+export type AuthorizedApiRequest<Body = AnyObject, Query = Q> = NextApiRequest & {
   ua?: UserAgent | null
   auth: IAuthorizedUser
   body: Body
   query: Query
 }
 
-export interface PublicApiRequest<Body = Record<string, any>> extends NextApiRequest {
+export interface PublicApiRequest<Body = AnyObject> extends NextApiRequest {
   ua?: UserAgent | null
   body: Body
 }

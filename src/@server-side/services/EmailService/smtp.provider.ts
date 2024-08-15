@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createTransport, type Transporter } from 'nodemailer'
 import { type Attachment } from 'nodemailer/lib/mailer'
+import type SMTPTransport from 'nodemailer/lib/smtp-transport'
 
 import type { EmailServiceResponse, EmailServiceSender } from './send.dto'
-import type SMTPTransport from 'nodemailer/lib/smtp-transport'
 
 export interface ISmtpConfig {
   host: string
@@ -24,7 +25,7 @@ export function createTransporterSMTP(config: ISmtpConfig): EmailServiceSender |
       const response = await transporter.sendMail({ from, to, subject, html, attachments })
       transporter = null
       return { ...response, method: 'smtp' } as EmailServiceResponse
-    } catch (error: Error | any) {
+    } catch (error: any) {
       // eslint-disable-next-line no-console
       console.error('createTransporterSMTP', error?.message, error)
       return null
