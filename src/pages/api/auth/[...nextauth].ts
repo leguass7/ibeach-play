@@ -1,7 +1,8 @@
 import type { User as PrismaUser } from '@prisma/client'
 import type { NextApiHandler } from 'next'
-import type { AuthOptions, DefaultSession, User, Awaitable } from 'next-auth'
+import type { AuthOptions, Awaitable, DefaultSession, User } from 'next-auth'
 import NextAuth from 'next-auth'
+import type { DefaultJWT } from 'next-auth/jwt'
 import AzureAd from 'next-auth/providers/azure-ad'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
@@ -20,23 +21,26 @@ const maxAge = 30 * 24 * 60 * 60 // 30 days
 // interface U extends User {
 declare module 'next-auth' {
   interface Session {
+    groups?: number[]
     user: {
       id?: number
-      personId?: number
     } & DefaultSession['user']
   }
 
   interface User extends Partial<Omit<PrismaUser, 'id'>> {
     id?: number
   }
+
+  // interface Account extends Partial<Omit<PrismaAccount, 'userId'>> {
+  //   // userId?: number
+  // }
 }
 
-// declare module 'next-auth/jwt' {
-//   interface JWT {
-//     userId?: number
-//     personId?: number
-//   }
-// }
+declare module 'next-auth/jwt' {
+  interface JWT extends DefaultJWT {
+    groups: number[]
+  }
+}
 
 const options: AuthOptions = {
   secret,
@@ -65,14 +69,14 @@ const options: AuthOptions = {
       const u = await userAuthService.getUserCredentials(user?.id || token?.sub)
       token.groups = u?.accessGroups?.map(g => g.groupId) || []
       return token
-    }
-    // async session({ session, token, user }) {
-    //   // Send properties to the client, like an access_token and user id from a provider.
-    //   session.accessToken = token.accessToken
-    //   session.user.id = token.id
+    },
 
-    //   return session
-    // }
+    async session({ session, token }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.groups = token?.groups || []
+      return session
+    }
+
     // async signIn({ account }) {
     //   if (account.provider === 'google') {
     //     // return profile.email_verified && profile.email.endsWith('@example.com')

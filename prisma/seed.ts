@@ -1,8 +1,7 @@
+import { tryDate } from '@/helpers/date'
 import { PrismaClient, type AccessGroup, type User, type UserAccessGroup } from '@prisma/client'
 import { parse } from 'date-fns'
-import path from 'node:path'
-import fs from 'node:fs/promises'
-import { tryDate } from '@/helpers/date'
+
 import { loadFile } from './seed-helper'
 
 const prisma = new PrismaClient()
@@ -11,11 +10,11 @@ async function users() {
   const data = (await loadFile('users.json')) as User[]
   await Promise.all(
     data
-      .map(({ id, birday, lastAcess, emailVerified, ...user }) => {
+      .map(({ id: _, birday, lastAccess, emailVerified, ...user }) => {
         const b = birday ? parse(`${birday}`, 'yyyy-MM-dd', new Date()) : null
-        const a = birday ? parse(`${lastAcess}`, 'yyyy-MM-dd HH:mm:ss', new Date()) : null
+        const a = birday ? parse(`${lastAccess}`, 'yyyy-MM-dd HH:mm:ss', new Date()) : null
         const e = emailVerified ? parse(`${emailVerified}`, 'yyyy-MM-dd HH:mm:ss', new Date()) : null
-        return { ...user, birday: b, lastAcess: a, emailVerified: e } as User
+        return { ...user, birday: b, lastAccess: a, emailVerified: e } as User
       })
       .map(async user => {
         return prisma.user.upsert({ where: { email: user.email }, create: user, update: user })

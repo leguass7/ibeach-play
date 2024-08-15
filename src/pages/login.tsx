@@ -18,17 +18,18 @@ import {
   InputRightElement
 } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
 type Props = {
-  //
+  recaptchaSiteKey?: string
 }
 
 const LoginPage: NextPage<Props> = () => {
   const [showPassword, setShowPassword] = React.useState(false)
+  const { data } = useSession()
 
   const handleShowClick = () => setShowPassword(!showPassword)
 
@@ -85,6 +86,7 @@ const LoginPage: NextPage<Props> = () => {
           Sign Up
         </Link>
       </Box>
+      <p>{JSON.stringify(data)}</p>
     </Flex>
   )
 }

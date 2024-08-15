@@ -19,35 +19,17 @@ export const CustomAdapter: CreateAdapter = (userRepository, accountRepository, 
   return {
     async createUser(user): Promise<AdapterUser> {
       const userData = { ...user } as AdapterUser
-      const email = user?.email as string
-
-      if (email) {
-        // deve atualizar usuário caso já exista
-        console.log('UserRepository deveria atualizar', userData)
-        const userExists = await userRepository.findUserByEmail(email?.toLowerCase?.()?.trim?.())
-        if (userExists) {
-          userData.id = `${userExists.id}`
-          userExists.lastAccess = new Date()
-          await userRepository.update(userExists.id, { lastAccess: userExists.lastAccess })
-          return userToAdapterUser(userExists) as AdapterUser
-        }
-        // @ts-ignore
-      } else if (userData?.id) delete userData.id
-
-      console.log('UserRepository deveria criar', userData)
       const result = await userRepository.createAdapterUser(userData)
-      return userToAdapterUser(result) as AdapterUser
+      return result
     },
 
     async getUser(id) {
-      console.log('UserRepository getUser', typeof id, id)
       const user = await userRepository.findUserById(id)
       const result = user ? userToAdapterUser(user) : null
       return result as AdapterUser
     },
 
     async getUserByEmail(email) {
-      console.log('UserRepository getUserByEmail', typeof email, email)
       const result = await userRepository.findUserByEmail(email)
       if (!result?.accounts?.length) return null // para enganar o next-auth e forçar criar novo usuário
       const user = result ? userToAdapterUser(result) : null
@@ -70,7 +52,7 @@ export const CustomAdapter: CreateAdapter = (userRepository, accountRepository, 
     },
 
     async linkAccount(account) {
-      const result = await accountRepository.create(account)
+      const result = await accountRepository.adapterCreate(account)
       return accountToAdapterAccount(result)
     },
 

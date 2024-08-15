@@ -1,18 +1,25 @@
-import { tryInteger } from '@/helpers/number'
-import type { Prisma, PrismaClient, User } from '@prisma/client'
+import type { Prisma, PrismaClient } from '@prisma/client'
 import type { AdapterUser } from 'next-auth/adapters'
 
-import type { UpdateUserDTO, CreateUserDTO, UserDTO } from './user.dto'
+import type { CreateUserDTO } from './user.dto'
+import { userToAdapterUser } from './user.helper'
 
 export class UserRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  async createAdapterUser({ id, ...data }: AdapterUser) {
-    const userId = tryInteger(id)
-    console.log('UserRepository createAdapterUser', { userId, data })
-    const toSave = userId ? { ...data, id: userId } : data
-    const user = await this.create(toSave as CreateUserDTO)
-    return user
+  async createAdapterUser({ id: _, ...data }: AdapterUser) {
+    const email = data?.email as string
+    if (email) {
+      const userExists = await this.findUserByEmail(email?.toLowerCase?.()?.trim?.())
+      if (userExists) {
+        userExists.lastAccess = new Date()
+        await this.update(userExists.id, { lastAccess: userExists.lastAccess })
+        return userToAdapterUser(userExists) as AdapterUser
+      }
+    }
+
+    const user = await this.create(data as CreateUserDTO)
+    return userToAdapterUser(user) as AdapterUser
   }
 
   async create(data: Prisma.UserCreateInput) {
