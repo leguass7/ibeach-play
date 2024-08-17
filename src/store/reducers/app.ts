@@ -13,7 +13,7 @@ const initialState: IAppState = {
 
 export const slice = createSlice({
   initialState,
-  name: '@auth',
+  name: '@app',
   reducers: {
     clearApp: state => {
       const ignore = ['propname']
