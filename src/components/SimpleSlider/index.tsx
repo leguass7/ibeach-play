@@ -2,9 +2,9 @@ import React, { ReactNode } from 'react'
 import Slider from 'react-slick'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
-import { Box, IconButton, Stack } from '@chakra-ui/react'
-import 'slick-carousel/slick/slick.css'
+import { IconButton, Stack } from '@chakra-ui/react'
 import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
 
 interface Props {
   children: ReactNode

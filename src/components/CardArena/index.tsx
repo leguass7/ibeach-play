@@ -41,13 +41,13 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
 
       {busy ? (
         <Box position="absolute" top={2} right={2}>
-          <Badge borderWidth={3} borderColor="#db7878cf" borderRadius="full" px="3" py="1" colorScheme="red">
+          <Badge borderWidth={2} borderColor="#db7878cf" borderRadius="full" px="3" py="1" colorScheme="red">
             Quadras Ocupadas
           </Badge>
         </Box>
       ) : (
         <Box position="absolute" top={2} right={2}>
-          <Badge colorScheme="green" borderWidth={3} borderColor="#8ac389c7" borderRadius="full" px="3" py="1">
+          <Badge colorScheme="green" borderWidth={2} borderColor="#8ac389c7" borderRadius="full" px="3" py="1">
             Quadras Livres: {available > 0 ? property?.available : 'Nenhuma'}
           </Badge>
         </Box>
