@@ -9,7 +9,7 @@ type Props = {
 }
 
 export const LayoutContainer: React.FC<Props> = ({ children }) => (
-  <Box display="flex" flexDirection="column" minH="100vh" justifyContent={'space-between'}>
+  <Box display="flex" flexDirection="column" minH="100vh">
     <Header />
     <MainContainer>{children}</MainContainer>
     <Footer />
