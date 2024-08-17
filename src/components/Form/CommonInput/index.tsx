@@ -8,6 +8,6 @@ interface InputProps extends InputPropsChakra {
   variant?: 'outline' | 'filled' | 'flushed' | 'unstyled'
 }
 
-export const InputChakra: React.FC<InputProps> = ({ colorScheme = 'gray', size = 'md', variant = 'outline', ...rest }) => {
+export const CommonInput: React.FC<InputProps> = ({ colorScheme = 'gray', size = 'md', variant = 'outline', ...rest }) => {
   return <Input {...rest} />
 }
