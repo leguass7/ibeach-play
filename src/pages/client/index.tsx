@@ -1,14 +1,14 @@
-import { CardWebArena } from '@/components/chakra-ui/CardWebArena'
+import { CardArena } from '@/components/CardArena'
+import { Box } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
 
 type Props = {}
 
 const ClientDashPage: NextPage<Props> = ({}) => {
   return (
-    <div>
-      <h1>Client Dashboard</h1>
-      <CardWebArena />
-    </div>
+    <Box>
+      <CardArena />
+    </Box>
   )
 }
 

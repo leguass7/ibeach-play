@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonPropsChakra {
   textButton?: string
 }
 
-export const ButtonChakra: React.FC<ButtonProps> = ({
+export const CommonButton: React.FC<ButtonProps> = ({
   children,
   onClick,
   colorScheme = 'gray',

@@ -1,9 +1,8 @@
 import React from 'react'
 
+import { CommonButton } from '@/components/Form/CommonButton'
 import { StarIcon } from '@chakra-ui/icons'
 import { Box, Image, Badge, Card, CardBody, CardFooter, CardHeader, Heading, Stack, Text } from '@chakra-ui/react'
-
-import { ButtonChakra } from '../Form/ButtonChakra'
 
 interface Props {
   imageUrl?: string
@@ -29,7 +28,7 @@ const property: Props = {
   rating: 4
 }
 
-export const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title, rating = 4, available = 3, busy = 0 }) => {
+export const CardArena: React.FC<Props> = ({ imageUrl, imageAlt, title, rating = 4, available = 3, busy = 0 }) => {
   return (
     <Card maxW={380} minW={380} maxHeight="lg" overflow="hidden">
       <Box height="200px" overflow="hidden">
@@ -80,7 +79,7 @@ export const CardWebArena: React.FC<Props> = ({ imageUrl, imageAlt, title, ratin
       </CardBody>
 
       <CardFooter justify="flex-end" alignItems="center" p={'10px 20px'}>
-        <ButtonChakra colorScheme="teal" width={'100%'} variant="solid" textButton="Reservar" />
+        <CommonButton colorScheme="teal" width={'100%'} variant="solid" textButton="Reservar" />
       </CardFooter>
     </Card>
   )
