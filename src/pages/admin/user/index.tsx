@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { AdminUsers } from '@/components/admin/AdminUsers'
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import { useSession } from 'next-auth/react'
 
 type Props = {
@@ -20,3 +20,9 @@ const PageUser: NextPage<Props> = () => {
 }
 
 export default PageUser
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  return {
+    props: {}
+  }
+}
