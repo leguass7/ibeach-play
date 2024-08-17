@@ -1,6 +1,6 @@
 import { CardArena } from '@/components/CardArena'
 import { SimpleSlider } from '@/components/SimpleSlider'
-import { Box, Text, Container } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
 
 type Props = {}

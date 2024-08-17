@@ -57,7 +57,7 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
         <Stack direction="row" justify="space-between" align="center">
           <Heading size="md">{property?.title?.toLocaleUpperCase?.()}</Heading>
           <Link bgColor={'gray.100'} rounded={'full'} href={googleMapsUrl} isExternal _hover={{ textDecoration: 'none' }}>
-            <IconButton aria-label="Como Chegar" icon={<FaCarAlt />} colorScheme="teal" variant="ghost" size="lg" _hover={{ bgColor: 'teal.50' }} />
+            <IconButton aria-label="Como Chegar" icon={<FaCarAlt />} variant="ghost" size="md" _hover={{ bgColor: 'teal.50' }} />
           </Link>
         </Stack>
 
