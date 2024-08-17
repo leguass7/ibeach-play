@@ -10,6 +10,7 @@ type Props = {
 
 const PageUser: NextPage<Props> = () => {
   const { data } = useSession()
+
   return (
     <div>
       <AdminUsers />
