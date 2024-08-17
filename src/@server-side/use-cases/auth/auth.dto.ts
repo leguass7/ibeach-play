@@ -4,7 +4,7 @@ import type { UserAgent } from 'next-useragent'
 type Q = Partial<{ [key: string]: string | string[] }>
 export type AuthorizedApiRequest<Body = AnyObject, Query = Q> = NextApiRequest & {
   ua?: UserAgent | null
-  auth: IAuthorizedUser
+  auth?: IAuthorizedUser
   body: Body
   query: Query
 }

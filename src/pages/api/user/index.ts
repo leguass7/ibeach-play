@@ -1,5 +1,5 @@
 import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.dto'
-import { Body, createHandler, Get, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
+import { Body, createHandler, Get, HttpException, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
 
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
 import type { CreateUserDTO } from '~/use-cases/user'
@@ -16,7 +16,8 @@ class UserHandler {
   @AuthJwtGuard()
   async paginateUser(@Query() query: Record<string, unknown>, @Req() req: AuthorizedApiRequest) {
     console.log('req', req?.auth)
-    return { success: true, query }
+    // return { success: true, query }
+    throw new HttpException(400, 'not_found')
   }
 }
 
