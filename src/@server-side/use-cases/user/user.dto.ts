@@ -1,4 +1,4 @@
-import { Prisma, type User } from '@prisma/client'
+import type { User } from '@prisma/client'
 import { IsNotEmpty, IsEmail, IsOptional } from 'class-validator'
 
 export type UserDTO = Partial<User>

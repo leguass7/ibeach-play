@@ -1,19 +1,28 @@
+import type { Fetcher } from 'swr'
+
+import type { ResponseApi } from '../ClientAxios'
 import { normalizeUrl } from './client-fetcher.helper'
 import type { ClientFetcherOptions, METHOD, RequestParams } from './client.fetcher.dto'
 
 export class ClientFetcher {
   constructor(private readonly options: ClientFetcherOptions) {}
 
-  async fetcher(method: METHOD, url: string, data?: object) {
+  async fetcher<R = ResponseApi>(method: METHOD, url: string, data?: AnyObject) {
     try {
       const response = await fetch(`${this.options.baseURL}${url}`, {
         body: data ? JSON.stringify(data) : undefined,
         method,
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
       }).then(res => res.json())
-      return response
+      return response as R
     } catch {
-      return { success: false, message: 'timeout' }
+      return { success: false, message: 'timeout' } as R
+    }
+  }
+
+  getFetcher<R = ResponseApi>(): Fetcher<R> {
+    return async (url: string) => {
+      return this.fetcher<R>('GET', url)
     }
   }
 

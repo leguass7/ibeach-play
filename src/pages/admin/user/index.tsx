@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AdminUsers } from '@/components/admin/Users'
+import { AdminUsers } from '@/components/admin/AdminUsers'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 

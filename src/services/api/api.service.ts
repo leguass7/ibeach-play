@@ -1,3 +1,3 @@
-import { ClientFetcher } from '@/services/ClientFetcher/client-fetcher'
+import { ClientAxios } from '@/services/ClientAxios/client-axios'
 
-export const apiService = new ClientFetcher({ baseURL: '/api' })
+export const apiService = new ClientAxios({ baseURL: '/api' })
