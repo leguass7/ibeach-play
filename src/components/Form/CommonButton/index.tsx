@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonPropsChakra {
   onClick?: () => void
   children?: React.ReactNode
   textButton?: string
+  icon?: React.ReactNode
 }
 
 export const CommonButton: React.FC<ButtonProps> = ({
@@ -18,12 +19,20 @@ export const CommonButton: React.FC<ButtonProps> = ({
   size = 'md',
   variant = 'solid',
   textButton = 'Button',
+  icon,
   ...rest
 }) => {
   const hasChild = children ? true : false
   return (
-    <Button onClick={onClick} colorScheme={colorScheme} size={size} variant={variant} {...rest}>
-      {hasChild ? children : textButton?.toLocaleUpperCase()}
+    <Button
+      rightIcon={React.isValidElement(icon) ? icon : undefined}
+      onClick={onClick}
+      colorScheme={colorScheme}
+      size={size}
+      variant={variant}
+      {...rest}
+    >
+      {hasChild ? children : textButton}
     </Button>
   )
 }
