@@ -20,7 +20,7 @@ export const LayoutContainer: React.FC<Props> = ({ children }) => (
     backgroundRepeat="no-repeat"
   >
     <Header />
-    <Container maxW="container.xl" mt={40}>
+    <Container maxW="container.xl">
       <MainContainer>{children}</MainContainer>
     </Container>
     <Footer />
