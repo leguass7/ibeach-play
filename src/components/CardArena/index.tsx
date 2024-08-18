@@ -1,10 +1,12 @@
 import React from 'react'
 import { FaCarAlt } from 'react-icons/fa'
+import { GiTennisCourt } from 'react-icons/gi' // Importe o ícone de quadra de tênis
 import { IoTennisball } from 'react-icons/io5'
-import { MdArrowOutward } from 'react-icons/md'
+import { MdArrowOutward, MdEventBusy } from 'react-icons/md'
 
+import thumbArena from '@/assets/speed-img.png'
 import { CommonButton } from '@/components/Form/CommonButton'
-import { Badge, Box, Card, CardFooter, CardHeader, Heading, IconButton, Image, Link, Stack, Text } from '@chakra-ui/react'
+import { Badge, Box, Card, CardFooter, CardHeader, Flex, Heading, HStack, IconButton, Image, Link, Stack, Text } from '@chakra-ui/react'
 
 interface Props {
   imageUrl?: string
@@ -19,7 +21,7 @@ interface Props {
 }
 
 const property: Props = {
-  imageUrl: 'http://res.cloudinary.com/lptennis/image/upload/c_fit,h_420,q_auto,w_1260/v1705602828/iwhlfsvb4q0bmb3ads0d.jpg',
+  imageUrl: '',
   imageAlt: 'Rear view of modern home with pool',
   available: 3,
   busy: false,
@@ -36,28 +38,34 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
   return (
     <Card cursor="pointer" maxHeight="lg" maxW={{ base: 'full', md: 320 }} overflow="hidden" rounded="2xl" _hover={{ shadow: 'lg' }}>
       <Box height="200px" overflow="hidden">
-        <Image src={property?.imageUrl} alt={imageAlt} width="100%" height="100%" objectFit="cover" />
+        <Image src={property?.imageUrl || thumbArena.src} alt={imageAlt} width="100%" height="100%" objectFit="cover" />
       </Box>
 
       {busy ? (
-        <Box position="absolute" top={2} right={2}>
-          <Badge borderWidth={2} borderColor="#db7878cf" borderRadius="full" px="3" py="1" colorScheme="red">
+        <Box position="absolute" top={4} right={4}>
+          <Badge borderWidth={2} borderColor="#de4646" color="gray.50" borderRadius="full" px="3" py="1" backgroundColor={'#de4646'}>
             Quadras Ocupadas
           </Badge>
         </Box>
       ) : (
-        <Box position="absolute" top={2} right={2}>
-          <Badge colorScheme="green" borderWidth={2} borderColor="#8ac389c7" borderRadius="full" px="3" py="1">
-            Quadras Livres: {available > 0 ? property?.available : 'Nenhuma'}
+        <Box position="absolute" top={4} right={4}>
+          <Badge backgroundColor="#51b028" color="gray.50" borderWidth={2} borderColor="#6baa6beb" borderRadius="full" px="3" py="1">
+            Quadras Livres
           </Badge>
         </Box>
       )}
 
-      <CardHeader padding={4}>
+      <CardHeader paddingY={2} paddingX={4}>
         <Stack direction="row" justify="space-between" align="center">
           <Heading size="md">{property?.title?.toLocaleUpperCase?.()}</Heading>
           <Link bgColor={'gray.100'} rounded={'full'} href={googleMapsUrl} isExternal _hover={{ textDecoration: 'none' }}>
-            <IconButton aria-label="Como Chegar" icon={<FaCarAlt />} variant="ghost" size="md" _hover={{ bgColor: 'teal.50' }} />
+            <IconButton
+              aria-label="Como Chegar"
+              icon={<FaCarAlt />}
+              variant="ghost"
+              size="md"
+              _hover={{ transform: 'scale(1.1)', transition: 'transform 0.2s' }}
+            />
           </Link>
         </Stack>
 
@@ -79,17 +87,38 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
         </Link>
       </CardHeader>
 
-      <CardFooter justify="flex-end" alignItems="center" pt={2} px={4}>
-        <CommonButton
-          icon={<MdArrowOutward />}
-          colorScheme="teal"
-          width={{ base: 'full', md: 130 }}
-          bgColor={'#05ACB4'}
-          variant="solid"
-          height={10}
-          textButton="Reservar"
-          rounded="full"
-        />
+      <CardFooter alignItems="center" py={6} px={4}>
+        <HStack flexDirection={{ base: 'column', md: 'row' }} width={'100%'} justify="space-between" align="center">
+          <Flex justifyContent="flex-start" alignItems="center" width={'50%'}>
+            {busy ? (
+              <>
+                <MdEventBusy size={24} color="#888585" />
+                <Text textColor="gray.200" fontSize={12}>
+                  {' '}
+                  Todas Ocupadas
+                </Text>
+              </>
+            ) : (
+              <>
+                <GiTennisCourt size={24} color="teal" />
+                <Text fontWeight="bold" fontSize="lg" ml={2}>
+                  {available} Quadras
+                </Text>
+              </>
+            )}
+          </Flex>
+          <CommonButton
+            isDisabled={busy}
+            icon={<MdArrowOutward />}
+            colorScheme="teal"
+            width={{ base: 'full', md: 130 }}
+            bgColor={'#05ACB4'}
+            variant="solid"
+            height={{ base: 12, md: 9 }}
+            textButton="Reservar"
+            rounded="full"
+          />
+        </HStack>
       </CardFooter>
     </Card>
   )

@@ -13,9 +13,18 @@ interface Props {
   speed?: number
   slidesToShow?: number
   slidesToScroll?: number
+  isMobile?: boolean
 }
 
-export const SimpleSlider: React.FC<Props> = ({ children, dots = true, infinite = true, speed = 500, slidesToShow = 3, slidesToScroll = 1 }) => {
+export const SimpleSlider: React.FC<Props> = ({
+  isMobile = false,
+  children,
+  dots = true,
+  infinite = true,
+  speed = 500,
+  slidesToShow = 3,
+  slidesToScroll = 1
+}) => {
   const settings = {
     dots,
     infinite,
@@ -45,38 +54,42 @@ export const SimpleSlider: React.FC<Props> = ({ children, dots = true, infinite 
   }
 
   return (
-    <Stack position="relative" width="full" maxWidth="1200px" mx="auto" my={8}>
+    <Stack position="relative" width="full" maxWidth="1200px" mx="auto">
       <Slider {...settings} ref={sliderRef}>
         {children}
       </Slider>
 
-      <IconButton
-        aria-label="Previous slide"
-        icon={<ChevronLeftIcon />}
-        position="absolute"
-        top="50%"
-        left="10px"
-        transform="translateY(-50%)"
-        zIndex="1"
-        rounded={'full'}
-        onClick={handlePrev}
-        colorScheme="teal"
-        size="sm"
-      />
+      {isMobile ? null : (
+        <>
+          <IconButton
+            aria-label="Previous slide"
+            icon={<ChevronLeftIcon />}
+            position="absolute"
+            top="50%"
+            left="-50px"
+            transform="translateY(-50%)"
+            zIndex="1"
+            rounded={'full'}
+            onClick={handlePrev}
+            colorScheme="teal"
+            size="sm"
+          />
 
-      <IconButton
-        aria-label="Next slide"
-        icon={<ChevronRightIcon />}
-        position="absolute"
-        top="50%"
-        right="10px"
-        transform="translateY(-50%)"
-        zIndex="1"
-        rounded={'full'}
-        onClick={handleNext}
-        colorScheme="teal"
-        size="sm"
-      />
+          <IconButton
+            aria-label="Next slide"
+            icon={<ChevronRightIcon />}
+            position="absolute"
+            top="50%"
+            right="-50px"
+            transform="translateY(-50%)"
+            zIndex="1"
+            rounded={'full'}
+            onClick={handleNext}
+            colorScheme="teal"
+            size="sm"
+          />
+        </>
+      )}
     </Stack>
   )
 }
