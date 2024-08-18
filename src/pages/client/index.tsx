@@ -5,7 +5,7 @@ import logoDefault from '@/assets/logo/ibeachplay-logo.png'
 import { CardArena } from '@/components/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { SearchIcon } from '@chakra-ui/icons'
-import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Text, Image, VStack, Flex } from '@chakra-ui/react'
+import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Image, VStack, Flex } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
 
 const ClientDashPage: NextPage = () => {

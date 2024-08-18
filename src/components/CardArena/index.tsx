@@ -3,7 +3,6 @@ import { FaCarAlt } from 'react-icons/fa'
 import { GiTennisCourt } from 'react-icons/gi' // Importe o ícone de quadra de tênis
 import { IoTennisball } from 'react-icons/io5'
 import { MdArrowOutward, MdEventBusy } from 'react-icons/md'
-import { FaCalendarAlt } from 'react-icons/fa'
 
 import thumbArena from '@/assets/speed-img.png'
 import { CommonButton } from '@/components/Form/CommonButton'
