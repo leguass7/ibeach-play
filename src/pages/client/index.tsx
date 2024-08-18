@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { FaTimesCircle } from 'react-icons/fa'
 
+import logoDefault from '@/assets/logo/ibeachplay-logo.png'
 import { CardArena } from '@/components/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { SearchIcon } from '@chakra-ui/icons'
 import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Text, Image, VStack, Flex } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
-import logoDefault from '@/assets/logo/ibeachplay-logo.png'
 
 const ClientDashPage: NextPage = () => {
   const [inputValue, setInputValue] = useState('')
@@ -22,7 +22,7 @@ const ClientDashPage: NextPage = () => {
   return (
     <LayoutContainer>
       <Stack>
-        <VStack minHeight="100vh" justify="center" align="center" spacing={6}>
+        <VStack justify="center" align="center" spacing={6}>
           <Flex justifyContent="center" alignItems="center" width={'100%'}>
             <Image src={logoDefault.src} alt="Logo" width={460} height="auto" objectFit="contain" />
           </Flex>
