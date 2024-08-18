@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react'
+import bgDefault from '@/assets/bg-default.png'
+import { Box, Container } from '@chakra-ui/react'
 
 import { Footer } from '../Footer'
 import { Header } from '../Header'
@@ -9,9 +10,19 @@ type Props = {
 }
 
 export const LayoutContainer: React.FC<Props> = ({ children }) => (
-  <Box display="flex" flexDirection="column" minH="100vh">
+  <Box
+    display="flex"
+    flexDirection="column"
+    minH="100vh"
+    backgroundImage={`url(${bgDefault.src})`}
+    backgroundSize="cover"
+    backgroundPosition="center left"
+    backgroundRepeat="no-repeat"
+  >
     <Header />
-    <MainContainer>{children}</MainContainer>
+    <Container maxW="container.xl" mt={40}>
+      <MainContainer>{children}</MainContainer>
+    </Container>
     <Footer />
   </Box>
 )
