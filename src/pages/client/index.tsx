@@ -5,11 +5,14 @@ import logoDefault from '@/assets/logo/ibeachplay-logo.png'
 import { CardArena } from '@/components/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { SearchIcon } from '@chakra-ui/icons'
-import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Image, VStack, Flex } from '@chakra-ui/react'
+import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Image, VStack, Flex, HStack } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
+import { SimpleSlider } from '@/components/SimpleSlider'
+import useMobile from '@/hooks/useMobile'
 
 const ClientDashPage: NextPage = () => {
   const [inputValue, setInputValue] = useState('')
+  const { isMobile } = useMobile()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
@@ -22,9 +25,9 @@ const ClientDashPage: NextPage = () => {
   return (
     <LayoutContainer>
       <Stack>
-        <VStack justify="center" align="center" spacing={6}>
+        <VStack minHeight="100vh" justify="center" align="center" px={{ base: 0, md: '100px' }} spacing={6}>
           <Flex justifyContent="center" alignItems="center" width={'100%'}>
-            <Image src={logoDefault.src} alt="Logo" width={460} height="auto" objectFit="contain" />
+            <Image src={logoDefault.src} alt="Logo" width={{ base: 300, md: 460 }} height="auto" objectFit="contain" />
           </Flex>
           <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" padding={1} rounded="full" position="relative">
             <InputGroup borderRadius="full">
@@ -40,7 +43,7 @@ const ClientDashPage: NextPage = () => {
                 borderRadius="full"
                 fontWeight="bold"
                 fontSize="xl"
-                color="#084c6b"
+                color="#08567a"
                 _placeholder={{
                   color: 'gray.300',
                   fontWeight: 'bold',
@@ -72,49 +75,121 @@ const ClientDashPage: NextPage = () => {
               )}
             </InputGroup>
           </Box>
-          <Stack
-            width={{ base: '100%', md: 'auto' }}
-            direction={{ base: 'column', sm: 'row' }}
-            align={'center'}
-            spacing={4}
-            wrap="wrap"
-            justify="center"
-            mt={2}
-          >
-            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
-              Arenas bem avaliadas
-            </Button>
-            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
-              Novas arenas
-            </Button>
-            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
-              Arenas com vagas
-            </Button>
-            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
-              Arenas mais procuradas
-            </Button>
-          </Stack>
+          {isMobile ? (
+            <Stack width={{ base: '100%', md: 'auto' }} direction={'row'} align={'center'} spacing={4} wrap="wrap" justify="center" mt={2}>
+              <SimpleSlider variableWidth={true} isMobile={isMobile}>
+                <Box width={'100%'} paddingX={1}>
+                  <Button
+                    _hover={{ bgColor: 'primary.50' }}
+                    py={{ base: 6, md: 0 }}
+                    variant="solid"
+                    color="#05344a"
+                    bgColor={'primary.100'}
+                    borderRadius="xl"
+                  >
+                    Melhores avaliadas
+                  </Button>
+                </Box>
+                <Box width={'100%'} paddingX={1}>
+                  <Button
+                    _hover={{ bgColor: 'primary.50' }}
+                    py={{ base: 6, md: 0 }}
+                    variant="solid"
+                    color="#05344a"
+                    bgColor={'primary.100'}
+                    borderRadius="xl"
+                  >
+                    Novas arenas
+                  </Button>
+                </Box>
+                <Box width={'100%'} paddingX={1}>
+                  <Button
+                    _hover={{ bgColor: 'primary.50' }}
+                    py={{ base: 6, md: 0 }}
+                    variant="solid"
+                    color="#05344a"
+                    bgColor={'primary.100'}
+                    borderRadius="xl"
+                  >
+                    Arenas com vagas
+                  </Button>
+                </Box>
+                <Box width={'100%'} paddingX={1}>
+                  <Button
+                    _hover={{ bgColor: 'primary.50' }}
+                    py={{ base: 6, md: 0 }}
+                    variant="solid"
+                    color="#05344a"
+                    bgColor={'primary.100'}
+                    borderRadius="xl"
+                  >
+                    Mais procuradas
+                  </Button>
+                </Box>
+              </SimpleSlider>
+            </Stack>
+          ) : (
+            <HStack width={{ base: '100%', md: 'auto' }} align={'center'} spacing={4} wrap="wrap" justify="center" mt={2}>
+              <Button
+                _hover={{ bgColor: 'primary.50' }}
+                py={{ base: 6, md: 0 }}
+                variant="solid"
+                color="#05344a"
+                bgColor={'primary.100'}
+                borderRadius="xl"
+              >
+                Melhores avaliadas
+              </Button>
+              <Button
+                _hover={{ bgColor: 'primary.50' }}
+                py={{ base: 6, md: 0 }}
+                variant="solid"
+                color="#05344a"
+                bgColor={'primary.100'}
+                borderRadius="xl"
+              >
+                Novas arenas
+              </Button>
+              <Button
+                _hover={{ bgColor: 'primary.50' }}
+                py={{ base: 6, md: 0 }}
+                variant="solid"
+                color="#05344a"
+                bgColor={'primary.100'}
+                borderRadius="xl"
+              >
+                Arenas com vagas
+              </Button>
+              <Button
+                _hover={{ bgColor: 'primary.50' }}
+                py={{ base: 6, md: 0 }}
+                variant="solid"
+                color="#05344a"
+                bgColor={'primary.100'}
+                borderRadius="xl"
+              >
+                Mais procuradas
+              </Button>
+            </HStack>
+          )}
         </VStack>
 
-        <Box mt={6}>
-          <Grid
-            templateColumns={{
-              sm: 'repeat(1, 1fr)',
-              md: 'repeat(3, 1fr)',
-              xl: 'repeat(4, 1fr)'
-            }}
-            gap={4}
-          >
-            <CardArena />
-            <CardArena />
-            <CardArena />
-            <CardArena />
-            <CardArena />
-            <CardArena />
-            <CardArena />
-            <CardArena />
-          </Grid>
-        </Box>
+        <HStack paddingY={24}>
+          <SimpleSlider mobileSlidesToShow={1} isMobile={isMobile}>
+            <Box px={2}>
+              <CardArena />
+            </Box>
+            <Box px={2}>
+              <CardArena />
+            </Box>
+            <Box px={2}>
+              <CardArena />
+            </Box>
+            <Box px={2}>
+              <CardArena />
+            </Box>
+          </SimpleSlider>
+        </HStack>
       </Stack>
     </LayoutContainer>
   )

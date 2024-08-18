@@ -14,6 +14,8 @@ interface Props {
   slidesToShow?: number
   slidesToScroll?: number
   isMobile?: boolean
+  mobileSlidesToShow?: number
+  variableWidth?: boolean
 }
 
 export const SimpleSlider: React.FC<Props> = ({
@@ -23,7 +25,9 @@ export const SimpleSlider: React.FC<Props> = ({
   infinite = true,
   speed = 500,
   slidesToShow = 3,
-  slidesToScroll = 1
+  slidesToScroll = 1,
+  mobileSlidesToShow = 1,
+  variableWidth = false
 }) => {
   const settings = {
     dots,
@@ -36,8 +40,9 @@ export const SimpleSlider: React.FC<Props> = ({
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToShow: mobileSlidesToShow,
+          slidesToScroll: 1,
+          variableWidth: variableWidth
         }
       }
     ]
@@ -54,7 +59,7 @@ export const SimpleSlider: React.FC<Props> = ({
   }
 
   return (
-    <Stack position="relative" width="full" maxWidth="1200px" mx="auto">
+    <Stack position="relative" width="full" mx="auto">
       <Slider {...settings} ref={sliderRef}>
         {children}
       </Slider>
@@ -69,12 +74,11 @@ export const SimpleSlider: React.FC<Props> = ({
             left="-50px"
             transform="translateY(-50%)"
             zIndex="1"
-            rounded={'full'}
+            rounded="full"
             onClick={handlePrev}
             colorScheme="teal"
             size="sm"
           />
-
           <IconButton
             aria-label="Next slide"
             icon={<ChevronRightIcon />}
@@ -83,7 +87,7 @@ export const SimpleSlider: React.FC<Props> = ({
             right="-50px"
             transform="translateY(-50%)"
             zIndex="1"
-            rounded={'full'}
+            rounded="full"
             onClick={handleNext}
             colorScheme="teal"
             size="sm"

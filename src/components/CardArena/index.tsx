@@ -36,7 +36,7 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
   const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(property.address!)}`
 
   return (
-    <Card cursor="pointer" maxHeight="lg" maxW={{ base: 'full', md: 320 }} overflow="hidden" rounded="2xl" _hover={{ shadow: 'lg' }}>
+    <Card cursor="pointer" maxHeight="lg" maxW={{ base: '100%', md: 320 }} overflow="hidden" rounded="2xl" _hover={{ shadow: 'lg' }}>
       <Box height="200px" overflow="hidden">
         <Image src={property?.imageUrl || thumbArena.src} alt={imageAlt} width="100%" height="100%" objectFit="cover" />
       </Box>
@@ -55,7 +55,7 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
         </Box>
       )}
 
-      <CardHeader paddingY={2} paddingX={4}>
+      <CardHeader paddingY={2} paddingX={{ base: 6, md: 4 }}>
         <Stack direction="row" justify="space-between" align="center">
           <Heading size="md">{property?.title?.toLocaleUpperCase?.()}</Heading>
           <Link bgColor={'gray.100'} rounded={'full'} href={googleMapsUrl} isExternal _hover={{ textDecoration: 'none' }}>
@@ -87,7 +87,7 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
         </Link>
       </CardHeader>
 
-      <CardFooter alignItems="center" py={6} px={4}>
+      <CardFooter alignItems="center" py={6} paddingX={{ base: 6, md: 4 }}>
         <HStack flexDirection={{ base: 'column', md: 'row' }} width={'100%'} justify="space-between" align="center">
           <Flex justifyContent="flex-start" alignItems="center" width={'50%'}>
             {busy ? (
@@ -108,12 +108,12 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
             )}
           </Flex>
           <CommonButton
-            _hover={{ bgColor: '#adca08' }}
+            _hover={{ bgColor: 'primary.50' }}
             color={'#05344a'}
             isDisabled={busy}
             icon={<MdArrowOutward />}
             width={{ base: 'full', md: 130 }}
-            bgColor={'#c8eb07'}
+            bgColor={'primary.100'}
             variant="solid"
             height={{ base: 12, md: 9 }}
             textButton="Reservar"

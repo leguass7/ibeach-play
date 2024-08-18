@@ -46,7 +46,7 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
 
   return (
     <>
-      <Stack justify="space-between" bg={useColorModeValue('transparent', 'gray.900')}>
+      <Stack paddingX={4} justify="space-between" bg={useColorModeValue('transparent', 'gray.900')}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
@@ -55,7 +55,7 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'} px={4}>
+          <HStack spacing={8} alignItems={'center'}>
             <Box>
               <Image width={10} src={iconLogo.src} alt="Logo" />
             </Box>
@@ -67,7 +67,7 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'} px={4}>
+          <Flex alignItems={'center'}>
             <UserProfile />
           </Flex>
         </Flex>
