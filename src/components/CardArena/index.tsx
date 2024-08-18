@@ -3,6 +3,7 @@ import { FaCarAlt } from 'react-icons/fa'
 import { GiTennisCourt } from 'react-icons/gi' // Importe o ícone de quadra de tênis
 import { IoTennisball } from 'react-icons/io5'
 import { MdArrowOutward, MdEventBusy } from 'react-icons/md'
+import { FaCalendarAlt } from 'react-icons/fa'
 
 import thumbArena from '@/assets/speed-img.png'
 import { CommonButton } from '@/components/Form/CommonButton'
@@ -108,11 +109,12 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
             )}
           </Flex>
           <CommonButton
+            _hover={{ bgColor: '#adca08' }}
+            color={'#05344a'}
             isDisabled={busy}
             icon={<MdArrowOutward />}
-            colorScheme="teal"
             width={{ base: 'full', md: 130 }}
-            bgColor={'#05ACB4'}
+            bgColor={'#c8eb07'}
             variant="solid"
             height={{ base: 12, md: 9 }}
             textButton="Reservar"

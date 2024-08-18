@@ -4,8 +4,9 @@ import { FaTimesCircle } from 'react-icons/fa'
 import { CardArena } from '@/components/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { SearchIcon } from '@chakra-ui/icons'
-import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Text, Image, VStack, Flex } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
+import logoDefault from '@/assets/logo/ibeachplay-logo.png'
 
 const ClientDashPage: NextPage = () => {
   const [inputValue, setInputValue] = useState('')
@@ -20,9 +21,12 @@ const ClientDashPage: NextPage = () => {
 
   return (
     <LayoutContainer>
-      <Stack paddingY={8}>
-        <VStack justify="center" align="center" mb={10}>
-          <Box width={{ base: '100%', md: '100%' }} bgColor="gray.50" padding={1} rounded="full" position="relative">
+      <Stack>
+        <VStack minHeight="100vh" justify="center" align="center" spacing={6}>
+          <Flex justifyContent="center" alignItems="center" width={'100%'}>
+            <Image src={logoDefault.src} alt="Logo" width={460} height="auto" objectFit="contain" />
+          </Flex>
+          <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" padding={1} rounded="full" position="relative">
             <InputGroup borderRadius="full">
               <InputLeftElement top={1} left={2} pointerEvents="none">
                 <SearchIcon color="gray.300" />
@@ -36,7 +40,7 @@ const ClientDashPage: NextPage = () => {
                 borderRadius="full"
                 fontWeight="bold"
                 fontSize="xl"
-                color="teal.600"
+                color="#084c6b"
                 _placeholder={{
                   color: 'gray.300',
                   fontWeight: 'bold',
@@ -77,19 +81,16 @@ const ClientDashPage: NextPage = () => {
             justify="center"
             mt={2}
           >
-            <Text fontSize={'sm'} fontWeight={'bold'} textColor={'gray.50'}>
-              Faca uma busca Rápida
-            </Text>
-            <Button py={{ base: 6, md: 0 }} variant="solid" colorScheme="teal" borderRadius="lg">
+            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
               Arenas bem avaliadas
             </Button>
-            <Button py={{ base: 6, md: 0 }} variant="solid" colorScheme="teal" borderRadius="lg">
+            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
               Novas arenas
             </Button>
-            <Button py={{ base: 6, md: 0 }} variant="solid" colorScheme="teal" borderRadius="lg">
+            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
               Arenas com vagas
             </Button>
-            <Button py={{ base: 6, md: 0 }} variant="solid" colorScheme="teal" borderRadius="lg">
+            <Button _hover={{ bgColor: '#adca08' }} py={{ base: 6, md: 0 }} variant="solid" color="#05344a" bgColor={'#c8eb07'} borderRadius="lg">
               Arenas mais procuradas
             </Button>
           </Stack>

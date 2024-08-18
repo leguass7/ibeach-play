@@ -19,7 +19,9 @@ export const LayoutContainer: React.FC<Props> = ({ children }) => (
     backgroundPosition="center left"
     backgroundRepeat="no-repeat"
   >
-    <Header />
+    <Box zIndex={1000} width={'100%'} position={'absolute'} top={0}>
+      <Header />
+    </Box>
     <Container maxW="container.xl">
       <MainContainer>{children}</MainContainer>
     </Container>
