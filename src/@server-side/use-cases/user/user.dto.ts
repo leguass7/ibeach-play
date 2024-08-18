@@ -1,7 +1,31 @@
-import type { User } from '@prisma/client'
-import { IsNotEmpty, IsEmail, IsOptional } from 'class-validator'
+import type { ShirtSize, UserGender } from '@prisma/client'
+import { Exclude } from 'class-transformer'
+import { IsNotEmpty, IsEmail, IsOptional, IsDate } from 'class-validator'
 
-export type UserDTO = Partial<User>
+export class UserDTO {
+  id: number
+  email: string
+  @Exclude()
+  password: string | null
+  nick: string | null
+  name: string | null
+  cpf: string | null
+  birday: Date | null
+  gender: UserGender | null
+  phone: string | null
+  image: string | null
+  cityId: number | null
+  @IsDate()
+  emailVerified: Date | null
+  shirtSize: ShirtSize | null
+
+  @IsDate()
+  createdAt: Date
+  @IsDate()
+  updatedAt: Date | null
+  @IsDate()
+  lastAccess: Date | null
+}
 
 export class CreateUserDTO {
   @IsEmail()
@@ -9,6 +33,9 @@ export class CreateUserDTO {
 
   @IsNotEmpty()
   name!: string
+
+  @Exclude()
+  password: string
 }
 
 export class UpdateUserDTO {

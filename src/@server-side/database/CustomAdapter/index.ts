@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import type { Prisma } from '@prisma/client'
 import type { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters'
 

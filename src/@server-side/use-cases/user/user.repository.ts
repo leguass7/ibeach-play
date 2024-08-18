@@ -1,7 +1,8 @@
 import type { Prisma, PrismaClient } from '@prisma/client'
+import { plainToInstance } from 'class-transformer'
 import type { AdapterUser } from 'next-auth/adapters'
 
-import type { CreateUserDTO } from './user.dto'
+import { CreateUserDTO, UserDTO } from './user.dto'
 import { userToAdapterUser } from './user.helper'
 
 export class UserRepository {
@@ -22,7 +23,7 @@ export class UserRepository {
     return userToAdapterUser(user) as AdapterUser
   }
 
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: Prisma.UserCreateInput): Promise<UserDTO> {
     console.log('UserRepository create', { data })
 
     const user = await this.prisma.user.create({ data })
@@ -34,6 +35,19 @@ export class UserRepository {
     if (!userId) return null
     const user = await this.prisma.user.findUnique({ where: { id: userId }, include: { accessGroups: true } })
     return user
+  }
+
+  /** @deprecated somente testes */
+  async listAll() {
+    const user = await this.prisma.user.findMany({ orderBy: { id: 'asc' }, include: { accessGroups: true } })
+    return user?.map(u => plainToInstance(UserDTO, u))
+  }
+
+  async getOne(id: number | string) {
+    const userId = typeof id === 'string' ? +id || null : id
+    if (!userId) return null
+    const user = await this.prisma.user.findUnique({ where: { id: userId }, include: { accessGroups: true } })
+    return plainToInstance(UserDTO, user)
   }
 
   async findUserByEmail(email: string) {

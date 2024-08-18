@@ -3,9 +3,7 @@ import { SimpleSlider } from '@/components/SimpleSlider'
 import { Box, Container } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
 
-type Props = {}
-
-const ClientDashPage: NextPage<Props> = ({}) => {
+const ClientDashPage: NextPage = () => {
   return (
     <Container maxW={'container.xl'}>
       <Box mt={40}>

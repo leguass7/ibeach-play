@@ -45,6 +45,6 @@ export function centsToFloat(value?: number | string): number {
   return round(num / 100, 2)
 }
 
-export function tryNumber(value?: number | string, def: number | null = null): number | null {
-  return value ? +value || def : def
+export function tryNumber<R = null>(value?: number | string, def?: R): number | R {
+  return value ? +value || (def as R) : (def as R)
 }

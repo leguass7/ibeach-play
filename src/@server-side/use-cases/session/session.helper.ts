@@ -1,5 +1,5 @@
 import { tryDate } from '@/helpers/date'
-import type { Session, User } from '@prisma/client'
+import type { Session } from '@prisma/client'
 import type { AdapterSession } from 'next-auth/adapters'
 
 import type { SessionDTO } from './session.dto'
