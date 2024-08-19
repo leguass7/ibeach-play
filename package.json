@@ -10,7 +10,8 @@
     "lint:eslint": "eslint ./src --ext js --ext ts --ext tsx --fix",
     "seed": "tsx prisma/seed.ts",
     "migrate": "prisma migrate dev",
-    "db:init": "yarn migrate && yarn seed"
+    "db:init": "yarn migrate && yarn seed",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
