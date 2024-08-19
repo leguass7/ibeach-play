@@ -8,6 +8,7 @@ import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { PersistGate } from 'redux-persist/integration/react'
 import { SWRConfig } from 'swr'
+import theme from '@/styles/theme'
 
 type AppPropsWithSession = AppProps & { session?: Session }
 
@@ -16,7 +17,7 @@ const App: React.FC<AppPropsWithSession> = ({ Component, pageProps, session }) =
     <ReduxProvider store={store}>
       <PersistGate persistor={persistor}>
         <SWRConfig value={{ fetcher: (resource, init) => fetch(resource, init).then(res => res.json()) }}>
-          <ChakraProvider>
+          <ChakraProvider theme={theme}>
             <SessionProvider session={session}>
               <Component {...pageProps} />
             </SessionProvider>

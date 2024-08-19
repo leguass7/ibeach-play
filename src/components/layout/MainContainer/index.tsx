@@ -8,7 +8,7 @@ type Props = {
 
 export const MainContainer: React.FC<Props> = ({ children }) => {
   return (
-    <Box as="main" p={4} flex={'1'}>
+    <Box as="main" flex={'1'} marginBottom={'16px'}>
       {children}
     </Box>
   )

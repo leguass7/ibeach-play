@@ -35,9 +35,14 @@ const SocialButton: React.FC<SocialButtonProps> = ({ children, label, href }) =>
   )
 }
 
-type FooterProps = {}
+type FooterProps = {
+  socialLinks?: {
+    label: string
+    href: string
+  }[]
+}
 
-export const Footer: React.FC<FooterProps> = ({}) => {
+export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
   return (
     <Box bg={useColorModeValue('gray.50', 'gray.900')} color={useColorModeValue('gray.700', 'gray.200')}>
       <Container
@@ -51,6 +56,11 @@ export const Footer: React.FC<FooterProps> = ({}) => {
       >
         <Text>© 2024 IBeachPlay</Text>
         <Stack direction={'row'} spacing={6}>
+          {socialLinks?.map(link => (
+            <SocialButton key={link.label} label={link.label} href={link.href}>
+              {link.label === 'Twitter' ? <FaTwitter /> : link.label === 'YouTube' ? <FaYoutube /> : <FaInstagram />}
+            </SocialButton>
+          ))}
           <SocialButton label={'Twitter'} href={'#'}>
             <FaTwitter />
           </SocialButton>

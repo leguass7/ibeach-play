@@ -2,9 +2,10 @@
 
 import React from 'react'
 
+import iconLogo from '@/assets/logo/iconLogo.png'
 import { UserProfile } from '@/components/UserProfile'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
-import { Box, Flex, HStack, Icon, IconButton, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react'
+import { Box, Flex, HStack, Icon, IconButton, Stack, Text, useColorModeValue, useDisclosure, Image } from '@chakra-ui/react'
 
 import type { IRoutes } from '../layout.type'
 
@@ -45,7 +46,7 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')}>
+      <Stack paddingX={4} justify="space-between" bg={useColorModeValue('transparent', 'gray.900')}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
@@ -54,8 +55,10 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'} px={4}>
-            <Box>Logo</Box>
+          <HStack spacing={8} alignItems={'center'}>
+            <Box>
+              <Image width={10} src={iconLogo.src} alt="Logo" />
+            </Box>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {routes?.map(route => (
                 <>
@@ -64,7 +67,7 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'} px={4}>
+          <Flex alignItems={'center'}>
             <UserProfile />
           </Flex>
         </Flex>
@@ -80,7 +83,7 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
             </Stack>
           </Box>
         ) : null}
-      </Box>
+      </Stack>
     </>
   )
 }
