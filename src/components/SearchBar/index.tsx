@@ -1,11 +1,13 @@
 import React from 'react'
 
-import { Box, Menu, MenuItem, MenuList } from '@chakra-ui/react'
+import { searchArena, type Arena } from '@/services/api/arena/arena.api'
+import { Box, Link, Popover, PopoverAnchor, PopoverBody, PopoverContent } from '@chakra-ui/react'
 
 import { InputSearch, type TextChangeHandler } from './InputSearch'
 
 export const SearchBar: React.FC = () => {
   const [search, setSearch] = React.useState<string>('')
+  const [data, setData] = React.useState<Arena[]>([])
 
   const handleChange: TextChangeHandler = React.useCallback(text => {
     setSearch(text || '')
@@ -14,19 +16,43 @@ export const SearchBar: React.FC = () => {
 
   const handleClear = () => {
     setSearch('')
+    setData([])
   }
 
+  const fetchSearch = React.useCallback(async (text?: string | null) => {
+    if (text) {
+      const response = await searchArena(text)
+      setData(response?.data || [])
+    }
+  }, [])
+
+  React.useEffect(() => {
+    fetchSearch(search)
+  }, [search, fetchSearch])
+
   return (
-    <Menu>
-      <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" padding={1} rounded="full" position="relative">
+    <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" padding={1} rounded="full" position="relative">
+      <Popover isOpen={!!data?.length} placement="bottom-start" matchWidth>
         <InputSearch onChangeText={handleChange} onClear={search ? handleClear : undefined} />
-      </Box>
-      <MenuList>
-        {/* MenuItems are not rendered unless Menu is open */}
-        <MenuItem>{search}</MenuItem>
-        <MenuItem>Open Closed Tab</MenuItem>
-        <MenuItem>Open File</MenuItem>
-      </MenuList>
-    </Menu>
+        <PopoverAnchor>
+          <div style={{ position: 'relative', maxWidth: '100%' }} />
+        </PopoverAnchor>
+        <PopoverContent style={{ position: 'relative', width: '100%' }}>
+          <PopoverBody width={{ base: '100%' }}>
+            <div>
+              {data?.length ? (
+                <>
+                  {data.map((item, index) => (
+                    <div key={index}>
+                      <Link>{item?.name}</Link>
+                    </div>
+                  ))}
+                </>
+              ) : null}
+            </div>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    </Box>
   )
 }
