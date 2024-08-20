@@ -3,9 +3,12 @@
 
 import React from 'react'
 
+import type { UserDTO } from '@/@server-side/use-cases/user'
 import { useAdminUser } from '@/services/api/user/useUser'
-import { CircularProgress } from '@chakra-ui/react'
+import { CircularProgress, Tab } from '@chakra-ui/react'
 import Link from 'next/link'
+
+import { TableUsers } from './TableUsers'
 
 export const AdminUsers: React.FC = () => {
   const { data, isLoading } = useAdminUser()
@@ -13,8 +16,12 @@ export const AdminUsers: React.FC = () => {
   return (
     <div>
       <h1>Users</h1>
+      {
+        // @ts-ignore
+        <TableUsers users={data?.data as UserDTO[]} />
+      }
 
-      {// @ts-ignore
+      {/* {// @ts-ignore
       data?.data?.map?.(user => {
         return (
           <div key={user.id}>
@@ -23,7 +30,7 @@ export const AdminUsers: React.FC = () => {
             </Link>
           </div>
         )
-      })}
+      })} */}
       {isLoading && <CircularProgress />}
     </div>
   )
