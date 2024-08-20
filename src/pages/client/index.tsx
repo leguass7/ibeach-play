@@ -1,26 +1,14 @@
-import { useState } from 'react'
-import { FaTimesCircle } from 'react-icons/fa'
-
 import logoDefault from '@/assets/logo/ibeachplay-logo.png'
 import { CardArena } from '@/components/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
-import { SearchIcon } from '@chakra-ui/icons'
-import { Box, Button, Grid, IconButton, Input, InputGroup, InputLeftElement, Stack, Image, VStack, Flex, HStack } from '@chakra-ui/react'
-import type { NextPage } from 'next/types'
+import { SearchBar } from '@/components/SearchBar'
 import { SimpleSlider } from '@/components/SimpleSlider'
 import useMobile from '@/hooks/useMobile'
+import { Box, Button, Flex, HStack, Image, Stack, VStack } from '@chakra-ui/react'
+import type { NextPage } from 'next/types'
 
 const ClientDashPage: NextPage = () => {
-  const [inputValue, setInputValue] = useState('')
   const { isMobile } = useMobile()
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
-
-  const handleClear = () => {
-    setInputValue('')
-  }
 
   return (
     <LayoutContainer>
@@ -29,52 +17,7 @@ const ClientDashPage: NextPage = () => {
           <Flex justifyContent="center" alignItems="center" width={'100%'}>
             <Image src={logoDefault.src} alt="Logo" width={{ base: 300, md: 460 }} height="auto" objectFit="contain" />
           </Flex>
-          <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" padding={1} rounded="full" position="relative">
-            <InputGroup borderRadius="full">
-              <InputLeftElement top={1} left={2} pointerEvents="none">
-                <SearchIcon color="gray.300" />
-              </InputLeftElement>
-              <Input
-                value={inputValue}
-                onChange={handleChange}
-                paddingLeft="3rem"
-                height={12}
-                placeholder="Digite o nome de uma arena..."
-                borderRadius="full"
-                fontWeight="bold"
-                fontSize="xl"
-                color="#08567a"
-                _placeholder={{
-                  color: 'gray.300',
-                  fontWeight: 'bold',
-                  fontSize: 'lg'
-                }}
-              />
-              {inputValue && (
-                <IconButton
-                  zIndex={1000}
-                  aria-label="Clear input"
-                  icon={<FaTimesCircle />}
-                  onClick={handleClear}
-                  position="absolute"
-                  right="4"
-                  top="50%"
-                  transform="translateY(-50%)"
-                  variant="outline"
-                  border="none"
-                  padding="0"
-                  minWidth="auto"
-                  borderRadius="full"
-                  background="transparent"
-                  color="gray.400"
-                  fontSize="xl"
-                  _hover={{
-                    color: 'gray.600'
-                  }}
-                />
-              )}
-            </InputGroup>
-          </Box>
+          <SearchBar />
           {isMobile ? (
             <Stack width={{ base: '100%', md: 'auto' }} direction={'row'} align={'center'} spacing={4} wrap="wrap" justify="center" mt={2}>
               <SimpleSlider variableWidth={true} isMobile={isMobile}>
