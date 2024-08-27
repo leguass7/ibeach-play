@@ -1,3 +1,6 @@
+import React from 'react'
+import { FaEye, FaEyeSlash, FaLock, FaUserAlt } from 'react-icons/fa'
+
 import bgDefault from '@/assets/login-bg-default.png'
 import {
   Box,
@@ -18,8 +21,6 @@ import {
   useBreakpointValue
 } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import React from 'react'
-import { FaEye, FaEyeSlash, FaLock, FaUserAlt } from 'react-icons/fa'
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)

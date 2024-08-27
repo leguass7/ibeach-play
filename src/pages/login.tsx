@@ -1,7 +1,7 @@
-import bgDefault from '@/assets/login-bg-default.png'
 import React from 'react'
 import { FaEye, FaEyeSlash, FaFacebook, FaGoogle, FaLock, FaUserAlt } from 'react-icons/fa'
 
+import bgDefault from '@/assets/login-bg-default.png'
 import {
   Box,
   Button,
@@ -25,6 +25,7 @@ import {
 } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
@@ -36,6 +37,7 @@ type Props = {
 const LoginPage: NextPage<Props> = () => {
   const [showPassword, setShowPassword] = React.useState(false)
   const { data } = useSession()
+  const navigation = useRouter()
 
   const handleShowClick = () => setShowPassword(!showPassword)
 
@@ -48,6 +50,8 @@ const LoginPage: NextPage<Props> = () => {
   }
 
   const isImageVisible = useBreakpointValue({ base: false, md: true })
+
+  if (data?.user?.id) navigation.push('/')
 
   return (
     <Flex width="100vw" height="100vh">
