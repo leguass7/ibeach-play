@@ -1,4 +1,5 @@
 import logoDefault from '@/assets/logo/ibeachplay-logo.png'
+import { PrimaryButton } from '@/components/Buttons/PrimaryButton'
 import { CardArena } from '@/components/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { SearchBar } from '@/components/SearchBar'
@@ -22,97 +23,25 @@ const ClientDashPage: NextPage = () => {
             <Stack width={{ base: '100%', md: 'auto' }} direction={'row'} align={'center'} spacing={4} wrap="wrap" justify="center" mt={2}>
               <SimpleSlider variableWidth={true} isMobile={isMobile}>
                 <Box width={'100%'} paddingX={1}>
-                  <Button
-                    _hover={{ bgColor: 'primary.50' }}
-                    py={{ base: 6, md: 0 }}
-                    variant="solid"
-                    color="#05344a"
-                    bgColor={'primary.100'}
-                    borderRadius="xl"
-                  >
-                    Melhores avaliadas
-                  </Button>
+                  <PrimaryButton borderRadius="xl">Melhores avaliadas</PrimaryButton>
                 </Box>
                 <Box width={'100%'} paddingX={1}>
-                  <Button
-                    _hover={{ bgColor: 'primary.50' }}
-                    py={{ base: 6, md: 0 }}
-                    variant="solid"
-                    color="#05344a"
-                    bgColor={'primary.100'}
-                    borderRadius="xl"
-                  >
-                    Novas arenas
-                  </Button>
+                  <PrimaryButton borderRadius="xl">Novas arenas</PrimaryButton>
                 </Box>
                 <Box width={'100%'} paddingX={1}>
-                  <Button
-                    _hover={{ bgColor: 'primary.50' }}
-                    py={{ base: 6, md: 0 }}
-                    variant="solid"
-                    color="#05344a"
-                    bgColor={'primary.100'}
-                    borderRadius="xl"
-                  >
-                    Arenas com vagas
-                  </Button>
+                  <PrimaryButton borderRadius="xl">Arenas com vagas</PrimaryButton>
                 </Box>
                 <Box width={'100%'} paddingX={1}>
-                  <Button
-                    _hover={{ bgColor: 'primary.50' }}
-                    py={{ base: 6, md: 0 }}
-                    variant="solid"
-                    color="#05344a"
-                    bgColor={'primary.100'}
-                    borderRadius="xl"
-                  >
-                    Mais procuradas
-                  </Button>
+                  <PrimaryButton borderRadius="xl">Mais procuradas</PrimaryButton>
                 </Box>
               </SimpleSlider>
             </Stack>
           ) : (
             <HStack width={{ base: '100%', md: 'auto' }} align={'center'} spacing={4} wrap="wrap" justify="center" mt={2}>
-              <Button
-                _hover={{ bgColor: 'primary.50' }}
-                py={{ base: 6, md: 0 }}
-                variant="solid"
-                color="#05344a"
-                bgColor={'primary.100'}
-                borderRadius="xl"
-              >
-                Melhores avaliadas
-              </Button>
-              <Button
-                _hover={{ bgColor: 'primary.50' }}
-                py={{ base: 6, md: 0 }}
-                variant="solid"
-                color="#05344a"
-                bgColor={'primary.100'}
-                borderRadius="xl"
-              >
-                Novas arenas
-              </Button>
-              <Button
-                _hover={{ bgColor: 'primary.50' }}
-                py={{ base: 6, md: 0 }}
-                variant="solid"
-                color="#05344a"
-                bgColor={'primary.100'}
-                borderRadius="xl"
-              >
-                Arenas com vagas
-              </Button>
-              <Button
-                _hover={{ bgColor: 'primary.50' }}
-                py={{ base: 6, md: 0 }}
-                variant="solid"
-                color="#05344a"
-                bgColor={'primary.100'}
-                borderRadius="xl"
-              >
-                Mais procuradas
-              </Button>
+              <PrimaryButton borderRadius="xl">Melhores avaliadas</PrimaryButton>
+              <PrimaryButton borderRadius="xl">Novas arenas</PrimaryButton>
+              <PrimaryButton borderRadius="xl">Arenas com vagas</PrimaryButton>
+              <PrimaryButton borderRadius="xl">Mais procuradas</PrimaryButton>
             </HStack>
           )}
         </VStack>
