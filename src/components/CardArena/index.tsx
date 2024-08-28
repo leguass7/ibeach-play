@@ -5,7 +5,7 @@ import { IoTennisball } from 'react-icons/io5'
 import { MdArrowOutward, MdEventBusy } from 'react-icons/md'
 
 import thumbArena from '@/assets/speed-img.png'
-import { CommonButton } from '@/components/Form/CommonButton'
+import { PrimaryButton } from '@/components/Buttons/PrimaryButton'
 import { Badge, Box, Card, CardFooter, CardHeader, Flex, Heading, HStack, IconButton, Image, Link, Stack, Text } from '@chakra-ui/react'
 
 interface Props {
@@ -107,13 +107,10 @@ export const CardArena: React.FC<Props> = ({ imageAlt, rating = 4, available = 3
               </>
             )}
           </Flex>
-          <CommonButton
-            _hover={{ bgColor: 'primary.50' }}
-            color={'#05344a'}
+          <PrimaryButton
             isDisabled={busy}
             icon={<MdArrowOutward />}
             width={{ base: 'full', md: 130 }}
-            bgColor={'primary.100'}
             variant="solid"
             height={{ base: 12, md: 9 }}
             textButton="Reservar"
