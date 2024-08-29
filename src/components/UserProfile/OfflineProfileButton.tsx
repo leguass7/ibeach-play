@@ -1,7 +1,9 @@
 import React from 'react'
+import { FaArrowCircleRight } from 'react-icons/fa'
 
-import { Button } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
+
+import { PrimaryButton } from '../Buttons/PrimaryButton'
 
 export const OfflineProfileButton: React.FC = () => {
   const navigation = useRouter()
@@ -9,5 +11,15 @@ export const OfflineProfileButton: React.FC = () => {
   const handleLogin = () => {
     navigation.push('/login')
   }
-  return <Button onClick={handleLogin}>LOGIN</Button>
+  return (
+    <PrimaryButton
+      width={120}
+      height={9}
+      leftIcon={<FaArrowCircleRight />}
+      variant="solid"
+      rounded={'full'}
+      textButton={'Login'}
+      onClick={handleLogin}
+    />
+  )
 }

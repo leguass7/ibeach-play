@@ -12,7 +12,7 @@ interface ButtonProps extends ButtonPropsChakra {
   icon?: React.ReactNode
 }
 
-export const CommonButton: React.FC<ButtonProps> = ({
+export const PrimaryButton: React.FC<ButtonProps> = ({
   children,
   onClick,
   colorScheme = 'gray',
@@ -23,8 +23,15 @@ export const CommonButton: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   const hasChild = children ? true : false
+  const isOutline = variant === 'outline'
   return (
     <Button
+      _hover={{ bgColor: 'primary.200' }}
+      py={{ base: 6, md: 0 }}
+      borderColor={isOutline ? 'primary.100' : 'transparent'}
+      borderWidth={isOutline ? 2 : 0}
+      color="secondary.50"
+      bgColor={isOutline ? 'transparent' : 'primary.100'}
       rightIcon={React.isValidElement(icon) ? icon : undefined}
       onClick={onClick}
       colorScheme={colorScheme}
