@@ -1,10 +1,11 @@
 import { isObject, isObjectEmpty } from '@/helpers/validation'
-import type { Prisma, PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import type { AdapterAccount } from 'next-auth/adapters'
 import type { ProviderType } from 'next-auth/providers/index'
 
+import type { PrismaClientSingleton } from '~/database'
 export class AccountRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaClientSingleton) {}
 
   async adapterCreate(data: AdapterAccount) {
     const d: Prisma.AccountUncheckedCreateInput = {

@@ -1,5 +1,7 @@
 import { isObject, isObjectEmpty } from '@/helpers/validation'
-import type { Prisma, PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
+
+import type { PrismaClientSingleton } from '~/database'
 
 type UniqueId = {
   identifier: string
@@ -7,7 +9,7 @@ type UniqueId = {
 }
 
 export class VerificationTokenRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaClientSingleton) {}
 
   async getOne({ identifier, token }: UniqueId) {
     const user = await this.prisma.verificationToken.findFirst({ where: { identifier, token } })

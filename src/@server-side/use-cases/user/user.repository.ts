@@ -1,12 +1,14 @@
-import type { Prisma, PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import { plainToInstance } from 'class-transformer'
 import type { AdapterUser } from 'next-auth/adapters'
+
+import type { PrismaClientSingleton } from '~/database'
 
 import { CreateUserDTO, UserDTO } from './user.dto'
 import { userToAdapterUser } from './user.helper'
 
 export class UserRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaClientSingleton) {}
 
   async createAdapterUser({ id: _, ...data }: AdapterUser) {
     const email = data?.email as string

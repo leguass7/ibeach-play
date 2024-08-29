@@ -5,11 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["tracing", "fullTextSearch"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
   // url      = env("DATABASE_URL") // uses connection pooling
   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
@@ -37,7 +38,10 @@ model User {
   createdAccessGroups UserAccessGroup[]       @relation("Created_UserAccessGroup")
   accounts            Account[]
   sessions            Session[]
-  // Authenticator      Authenticator[]
+
+  arenas        Arena[] @relation("User_Arena")
+  createdArenas Arena[] @relation("Created_Arena")
+  updatedArenas Arena[] @relation("Updated_Arena")
 
   @@map("users")
 }
@@ -50,21 +54,6 @@ model VerificationToken {
   @@id([identifier, token])
   @@map("verificationtokens")
 }
-
-// model Authenticator {
-//   credentialID         String  @unique
-//   userId               Int
-//   providerAccountId    String
-//   credentialPublicKey  String
-//   counter              Int
-//   credentialDeviceType String
-//   credentialBackedUp   Boolean
-//   transports           String?
-
-//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-//   @@id([userId, credentialID])
-// }
 
 model UserBeachTennisProfile {
   id        Int      @id @default(autoincrement())
@@ -140,16 +129,41 @@ model Session {
 
 // @see https://www.ibge.gov.br/explica/codigos-dos-municipios.php
 model City {
-  id   Int    @id // utilizar códigos do IGBE
-  name String
-  ufId Int
-  uf   Uf     @relation(fields: [ufId], references: [id])
+  id    Int     @id // utilizar códigos do IGBE
+  name  String
+  ufId  Int
+  uf    Uf      @relation(fields: [ufId], references: [id])
+  Arena Arena[]
+
+  @@map("cities")
 }
 
 model Uf {
   id     Int    @id // utilizar códigos do IGBE
   name   String
   cities City[]
+
+  @@map("uf")
+}
+
+model Arena {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?   @db.Text()
+  userId      Int
+  cityId      Int
+  createdBy   Int
+  createdAt   DateTime  @default(now())
+  updatedBy   Int?
+  updatedAt   DateTime? @updatedAt
+
+  city        City  @relation(fields: [cityId], references: [id])
+  user        User  @relation(fields: [userId], references: [id], name: "User_Arena")
+  createdUser User  @relation(fields: [createdBy], references: [id], name: "Created_Arena")
+  updatedUser User? @relation(fields: [updatedBy], references: [id], name: "Updated_Arena")
+
+  // @@fulltext([name, description])
+  @@map("arenas")
 }
 
 enum BeachTennisCategory {
