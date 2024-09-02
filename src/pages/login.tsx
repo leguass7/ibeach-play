@@ -4,7 +4,7 @@ import bgDefault from '@/assets/login-bg-default.png'
 import { LoginForm } from '@/components/Forms/LoginForm'
 import { Box, Flex, HStack, Image, Link, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import { signIn, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 type Props = {
@@ -12,25 +12,10 @@ type Props = {
 }
 
 const LoginPage: NextPage<Props> = () => {
-  const [showPassword, setShowPassword] = React.useState(false)
   const { data } = useSession()
   const navigation = useRouter()
 
-  const handleShowClick = () => setShowPassword(!showPassword)
-
-  const handleGoogleClick = async () => {
-    await signIn('google')
-  }
-
-  const handleFacebookClick = async () => {
-    await signIn('facebook')
-  }
-
   const isImageVisible = useBreakpointValue({ base: false, md: true })
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-  }
 
   if (data?.user?.id) navigation.push('/')
 
@@ -44,13 +29,7 @@ const LoginPage: NextPage<Props> = () => {
       <Flex flex="1" flexDirection="column" justifyContent="center" alignItems="center" bg="secondary.50">
         <Stack width={'full'} flexDir="column" mb="2" justifyContent="center" alignItems="center">
           <Box minW={{ base: '90%', md: '450px' }}>
-            <LoginForm
-              showPassword={showPassword}
-              handleShowClick={handleShowClick}
-              handleGoogleClick={handleGoogleClick}
-              handleFacebookClick={handleFacebookClick}
-              onSubmit={handleSubmit}
-            />
+            <LoginForm />
           </Box>
         </Stack>
         <HStack justify={'center'} align={'center'} width={'100%'}>

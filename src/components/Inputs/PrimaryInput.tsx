@@ -6,17 +6,18 @@ interface CommonInputProps extends ChakraInputProps {
   icon?: React.ReactElement
 }
 
-export const PrimaryInput: React.FC<CommonInputProps> = ({
-  icon,
-  borderColor = 'primary.100',
-  focusBorderColor = 'primary.100',
-  rounded = '2xl',
-  height = 12,
-  color = 'gray.50',
-  fontWeight = 600,
-  pl = icon ? 10 : 4,
-  ...props
-}) => {
+export const PrimaryInput: React.FC<CommonInputProps> = React.forwardRef((prop, ref) => {
+  const {
+    icon,
+    borderColor = 'primary.100',
+    focusBorderColor = 'primary.100',
+    rounded = '2xl',
+    height = 12,
+    color = 'gray.50',
+    fontWeight = 600,
+    pl = icon ? 10 : 4,
+    ...props
+  } = prop
   return (
     <InputGroup>
       {icon && (
@@ -32,8 +33,11 @@ export const PrimaryInput: React.FC<CommonInputProps> = ({
         color={color}
         fontWeight={fontWeight}
         pl={pl}
+        ref={ref}
         {...props}
       />
     </InputGroup>
   )
-}
+})
+
+PrimaryInput.displayName = 'PrimaryInput'

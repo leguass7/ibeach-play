@@ -54,8 +54,7 @@ export const authOptions: AuthOptions = {
       authorization: { params: { prompt: 'consent', access_type: 'offline', response_type: 'code' } }
     }),
     CredentialsProvider({
-      id: 'custom',
-      name: 'custom',
+      name: 'Credentials',
       credentials: { email: { type: 'email', label: 'e-mail' }, password: { type: 'password', label: 'senha' } },
       async authorize(credentials, _req) {
         const { email, password } = credentials as Credentials

@@ -1,4 +1,6 @@
+'use client'
 import React from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { FaEye, FaEyeSlash, FaLock, FaUserAlt, FaGoogle, FaFacebook } from 'react-icons/fa'
 
 import { PrimaryButton } from '@/components/Buttons/PrimaryButton'
@@ -18,28 +20,63 @@ import {
   Link,
   Flex
 } from '@chakra-ui/react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { signIn } from 'next-auth/react'
 
-type LoginFormProps = {
-  showPassword: boolean
-  handleShowClick: () => void
-  handleGoogleClick: () => Promise<void>
-  handleFacebookClick: () => Promise<void>
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+import { FormSiginSchema, type FormSiginData } from './login.validation'
+
+export type { FormSiginData }
+export { FormSiginSchema }
+
+const defaultValues: FormSiginData = { email: '', password: '' }
+
+export type LoginFormProps = {
+  onSuccess?: () => void
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ showPassword, handleShowClick, handleGoogleClick, handleFacebookClick, onSubmit }) => {
+export const LoginForm: React.FC<LoginFormProps> = () => {
+  const [showPassword, setShowPassword] = React.useState(false)
+
+  const handleShowClick = () => setShowPassword(!showPassword)
+
+  const handleGoogleClick = async () => {
+    await signIn('google')
+  }
+  const handleFacebookClick = async () => {
+    await signIn('facebook')
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<FormSiginData>({ defaultValues, resolver: zodResolver(FormSiginSchema) })
+
+  const onSubmit: SubmitHandler<FormSiginData> = async data => {
+    const response = await signIn('credentials', { redirect: false, ...data })
+    console.log('response', response)
+    return false
+  }
+
+  console.log('errors', errors)
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Stack justify={'center'} align={'center'} spacing={8} padding={{ base: 1, md: 6 }}>
         <Heading mb={6} color="gray.50">
           Bem-Vindo
         </Heading>
         <FormControl>
-          <PrimaryInput type="email" placeholder="Digite seu email" icon={<FaUserAlt color="#ffff" />} />
+          <PrimaryInput id={'email'} type="email" placeholder="Digite seu email" icon={<FaUserAlt color="#ffff" />} {...register('email')} />
         </FormControl>
         <FormControl>
           <InputGroup>
-            <PrimaryInput type={showPassword ? 'text' : 'password'} placeholder="Digite sua senha" icon={<FaLock color="#ffff" />} />
+            <PrimaryInput
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Digite sua senha"
+              icon={<FaLock color="#ffff" />}
+              {...register('password')}
+            />
             <InputRightElement height="100%" display="flex" alignItems="center">
               <Box onClick={handleShowClick} cursor="pointer">
                 {showPassword ? <FaEyeSlash color="#ffff" fontSize="18px" /> : <FaEye color="#ffff" fontSize="18px" />}
@@ -50,7 +87,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ showPassword, handleShowCl
             <Link color={'gray.300'}>Esqueceu a senha?</Link>
           </FormHelperText>
         </FormControl>
-        <PrimaryButton fontWeight={700} rounded="full" height={12} fontSize={16} type="submit" width="full">
+        <PrimaryButton fontWeight={700} rounded="full" height={12} fontSize={16} type="submit" width="full" disabled={!!isSubmitting}>
           Entrar
         </PrimaryButton>
 
