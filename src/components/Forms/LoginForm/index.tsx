@@ -37,7 +37,7 @@ export type LoginFormProps = {
 export const LoginForm: React.FC<LoginFormProps> = () => {
   const [showPassword, setShowPassword] = React.useState(false)
 
-  const handleShowClick = () => setShowPassword(!showPassword)
+  const handleShowClick = () => setShowPassword(old => !old)
 
   const handleGoogleClick = async () => {
     await signIn('google')
