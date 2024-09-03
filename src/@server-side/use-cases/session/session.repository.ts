@@ -1,10 +1,12 @@
-import type { Prisma, PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import type { AdapterSession } from 'next-auth/adapters'
+
+import type { PrismaClientSingleton } from '~/database'
 
 import type { SessionAndUserDTO } from './session.dto'
 
 export class SessionRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaClientSingleton) {}
 
   async getOneAndUser(sessionToken: string): Promise<SessionAndUserDTO | null> {
     const result = await this.prisma.session.findFirst({ where: { sessionToken }, include: { user: true } })
