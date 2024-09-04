@@ -7,6 +7,7 @@ export interface CommonInputProps extends InputProps {
   start?: React.ReactNode
   end?: React.ReactNode
   errorMessage?: string
+  children?: React.ReactNode
 }
 
 export const PrimaryInput: React.FC<CommonInputProps> = React.forwardRef((prop, ref) => {
@@ -23,9 +24,10 @@ export const PrimaryInput: React.FC<CommonInputProps> = React.forwardRef((prop, 
     pl = start ? 10 : 4,
     isInvalid,
     errorMessage,
+    children,
     ...props
   } = prop
-  console.log('errorMessage', errorMessage)
+
   return (
     <FormControl isInvalid={!!isInvalid || !!errorMessage}>
       <InputGroup>
@@ -57,6 +59,7 @@ export const PrimaryInput: React.FC<CommonInputProps> = React.forwardRef((prop, 
           {errorMessage}
         </FormErrorMessage>
       ) : null}
+      {children}
     </FormControl>
   )
 })
