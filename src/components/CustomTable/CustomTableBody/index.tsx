@@ -14,7 +14,7 @@ export const CustomTableBody = <T,>({ data, columns }: TableBodyProps<T>) => (
     {data.map((item, index) => (
       <Tr key={`${index}`}>
         {columns?.map(column => {
-          const cellValue = column.Cell ? column.Cell(item[column.name]) : item[column.name]
+          const cellValue = column?.Cell ? column?.Cell(item[column?.name]) : item[column?.name]
           return <Td key={String(column.name)}>{cellValue as ReactNode}</Td>
         })}
       </Tr>

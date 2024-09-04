@@ -5,7 +5,7 @@ import React from 'react'
 
 import type { UserDTO } from '@/@server-side/use-cases/user'
 import { useAdminUser } from '@/services/api/user/useUser'
-import { CircularProgress, Tab } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, CircularProgress, Text } from '@chakra-ui/react'
 import { ShirtSize, UserGender } from '@prisma/client'
 import Link from 'next/link'
 
@@ -47,6 +47,168 @@ const mockUsers: UserDTO[] = [
     createdAt: new Date('2022-02-02T00:00:00Z'),
     updatedAt: new Date('2022-07-02T00:00:00Z'),
     lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
+  },
+  {
+    id: 2,
+    email: 'jane.doe@example.com',
+    password: null,
+    nick: 'janedoe',
+    name: 'Jane Doe',
+    cpf: '987.654.321-00',
+    birday: new Date('1992-02-02'),
+    gender: UserGender.F,
+    phone: '0987654321',
+    image: 'https://example.com/images/jane.jpg',
+    cityId: 2,
+    emailVerified: new Date('2022-02-02T00:00:00Z'),
+    shirtSize: ShirtSize.P,
+    createdAt: new Date('2022-02-02T00:00:00Z'),
+    updatedAt: new Date('2022-07-02T00:00:00Z'),
+    lastAccess: new Date('2023-08-19T00:00:00Z')
   }
 ]
 
@@ -54,10 +216,19 @@ export const AdminUsers: React.FC = () => {
   const { data, isLoading } = useAdminUser()
   console.log('data', isLoading, data)
   return (
-    <div>
-      <h1>Users</h1>
-      <TableUsers users={mockUsers} />
+    <>
+      <Card margin={1} maxW={'100%'} background={'rgba(223, 223, 223, 0.377)'}>
+        <CardHeader>
+          <Link href="/admin/user/create" passHref>
+            <Text>Adicionar usuário</Text>
+          </Link>
+        </CardHeader>
 
+        <CardBody>
+          <TableUsers users={mockUsers} />
+        </CardBody>
+      </Card>
+      {isLoading && <CircularProgress />}
       {/* {// @ts-ignore
       data?.data?.map?.(user => {
         return (
@@ -68,7 +239,6 @@ export const AdminUsers: React.FC = () => {
           </div>
         )
       })} */}
-      {isLoading && <CircularProgress />}
-    </div>
+    </>
   )
 }

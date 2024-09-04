@@ -33,7 +33,7 @@ export const CustomTable = <T,>({ data, columns, size = ITEMS_PER_PAGE }: IPagin
       </TableContainer>
       <CustomTablePaginate
         currentPage={currentPage}
-        totalPages={Math.ceil(data.length / size)}
+        totalPages={Math?.ceil(data?.length / size)}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
       />
