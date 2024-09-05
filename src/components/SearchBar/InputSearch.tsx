@@ -53,16 +53,17 @@ export const InputSearch: React.FC<InputSearchProps> = ({ debounce = 500, onChan
 
   return (
     <InputGroup borderRadius="full">
-      <InputLeftElement top={1} left={2} pointerEvents="none">
+      <InputLeftElement top={2} left={2} pointerEvents="none">
         <SearchIcon color="gray.500" />
       </InputLeftElement>
       <Input
         ref={inputRef || null}
         onChange={debounceEvent(handleChange, debounce)}
         paddingLeft="3rem"
-        height={12}
+        height={14}
         placeholder="Digite o nome de uma arena..."
         borderRadius="full"
+        borderWidth={4}
         fontWeight="bold"
         fontSize="xl"
         color="secondary.300"
@@ -70,6 +71,9 @@ export const InputSearch: React.FC<InputSearchProps> = ({ debounce = 500, onChan
           color: 'gray.400',
           fontWeight: 'bold',
           fontSize: 'lg'
+        }}
+        _focus={{
+          borderColor: 'primary.100'
         }}
       />
       {onClear ? (

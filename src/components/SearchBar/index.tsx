@@ -31,7 +31,7 @@ export const SearchBar: React.FC = () => {
   }, [search, fetchSearch])
 
   return (
-    <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" padding={1} rounded="full" position="relative">
+    <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" rounded="full" position="relative">
       <Popover isOpen={!!data?.length} placement="bottom-start" matchWidth>
         <InputSearch onChangeText={handleChange} onClear={search ? handleClear : undefined} />
         <PopoverAnchor>
