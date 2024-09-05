@@ -31,10 +31,10 @@ const customTheme = extendTheme({
       300: '#f1f72a'
     },
     secondary: {
-      50: '#05344a',
-      100: '#1f6f8b',
-      200: '#3b9ac2',
-      300: '#6fc7e2'
+      50: '#6fc7e2',
+      100: '#3b9ac2',
+      200: '#1f6f8b',
+      300: '#05344a'
     }
   }
 })

@@ -54,7 +54,7 @@ export const InputSearch: React.FC<InputSearchProps> = ({ debounce = 500, onChan
   return (
     <InputGroup borderRadius="full">
       <InputLeftElement top={1} left={2} pointerEvents="none">
-        <SearchIcon color="gray.300" />
+        <SearchIcon color="gray.500" />
       </InputLeftElement>
       <Input
         ref={inputRef || null}
@@ -65,9 +65,9 @@ export const InputSearch: React.FC<InputSearchProps> = ({ debounce = 500, onChan
         borderRadius="full"
         fontWeight="bold"
         fontSize="xl"
-        color="#08567a"
+        color="secondary.300"
         _placeholder={{
-          color: 'gray.300',
+          color: 'gray.400',
           fontWeight: 'bold',
           fontSize: 'lg'
         }}

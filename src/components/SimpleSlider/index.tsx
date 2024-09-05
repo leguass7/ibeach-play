@@ -76,7 +76,7 @@ export const SimpleSlider: React.FC<Props> = ({
             zIndex="1"
             rounded="full"
             onClick={handlePrev}
-            colorScheme="teal"
+            backgroundColor={'primary.100'}
             size="sm"
           />
           <IconButton
@@ -88,8 +88,8 @@ export const SimpleSlider: React.FC<Props> = ({
             transform="translateY(-50%)"
             zIndex="1"
             rounded="full"
+            backgroundColor={'primary.100'}
             onClick={handleNext}
-            colorScheme="teal"
             size="sm"
           />
         </>

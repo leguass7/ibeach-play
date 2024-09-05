@@ -3,7 +3,7 @@
 import { ReactNode } from 'react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 
-import { Box, Button, Container, Stack, Text, useColorModeValue, VisuallyHidden } from '@chakra-ui/react'
+import { Box, Button, Container, Stack, Text, VisuallyHidden, VStack } from '@chakra-ui/react'
 
 type SocialButtonProps = {
   children: ReactNode
@@ -14,19 +14,15 @@ type SocialButtonProps = {
 const SocialButton: React.FC<SocialButtonProps> = ({ children, label, href }) => {
   return (
     <Button
-      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+      bg={'primary.200'}
       rounded={'full'}
-      w={8}
-      h={8}
       cursor={'pointer'}
       as={'a'}
       href={href}
-      display={'inline-flex'}
-      alignItems={'center'}
-      justifyContent={'center'}
+      height={'50px'}
       transition={'background 0.3s ease'}
       _hover={{
-        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200')
+        bg: 'primary.100'
       }}
     >
       <VisuallyHidden>{label}</VisuallyHidden>
@@ -44,17 +40,17 @@ type FooterProps = {
 
 export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
   return (
-    <Box bg={useColorModeValue('gray.50', 'gray.900')} color={useColorModeValue('gray.700', 'gray.200')}>
+    <VStack bg={'gray.900'}>
       <Container
         as={Stack}
-        maxW={'6xl'}
+        maxW={'container.2xl'}
         py={4}
         direction={{ base: 'column', md: 'row' }}
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}
       >
-        <Text>© 2024 IBeachPlay</Text>
+        <Text color={'primary.200'}>© 2024 IBeachPlay</Text>
         <Stack direction={'row'} spacing={6}>
           {socialLinks?.map(link => (
             <SocialButton key={link.label} label={link.label} href={link.href}>
@@ -62,16 +58,16 @@ export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
             </SocialButton>
           ))}
           <SocialButton label={'Twitter'} href={'#'}>
-            <FaTwitter />
+            <FaTwitter size={'20px'} />
           </SocialButton>
           <SocialButton label={'YouTube'} href={'#'}>
-            <FaYoutube />
+            <FaYoutube size={'20px'} />
           </SocialButton>
           <SocialButton label={'Instagram'} href={'#'}>
-            <FaInstagram />
+            <FaInstagram size={'20px'} />
           </SocialButton>
         </Stack>
       </Container>
-    </Box>
+    </VStack>
   )
 }

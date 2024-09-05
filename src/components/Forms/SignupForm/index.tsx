@@ -21,16 +21,16 @@ export const SignupForm: React.FC<SignupFormProps> = ({ showPassword, handleShow
         </Heading>
 
         <FormControl>
-          <PrimaryInput type="text" placeholder="Nome" icon={<FaUserAlt color="#ffff" />} />
+          <PrimaryInput type="text" placeholder="Nome" start={<FaUserAlt color="#ffff" />} />
         </FormControl>
 
         <FormControl>
-          <PrimaryInput type="email" placeholder="Email" icon={<MdAlternateEmail color="#ffff" />} />
+          <PrimaryInput type="email" placeholder="Email" start={<MdAlternateEmail color="#ffff" />} />
         </FormControl>
 
         <FormControl>
           <InputGroup>
-            <PrimaryInput type={showPassword ? 'text' : 'password'} placeholder="Crie uma senha" icon={<FaLock color="#ffff" />} />
+            <PrimaryInput type={showPassword ? 'text' : 'password'} placeholder="Crie uma senha" start={<FaLock color="#ffff" />} />
             <InputRightElement height="100%" display="flex" alignItems="center">
               <Box onClick={handleShowClick} cursor="pointer">
                 {showPassword ? <FaEyeSlash color="#ffff" fontSize="18px" /> : <FaEye color="#ffff" fontSize="18px" />}

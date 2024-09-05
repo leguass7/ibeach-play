@@ -5,7 +5,7 @@ import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { SearchBar } from '@/components/SearchBar'
 import { SimpleSlider } from '@/components/SimpleSlider'
 import useMobile from '@/hooks/useMobile'
-import { Box, Button, Flex, HStack, Image, Stack, VStack } from '@chakra-ui/react'
+import { Box, Flex, HStack, Image, Stack, VStack } from '@chakra-ui/react'
 import type { NextPage } from 'next/types'
 
 const ClientDashPage: NextPage = () => {
@@ -16,7 +16,7 @@ const ClientDashPage: NextPage = () => {
       <Stack>
         <VStack minHeight="100vh" justify="center" align="center" px={{ base: 0, md: '100px' }} spacing={6}>
           <Flex justifyContent="center" alignItems="center" width={'100%'}>
-            <Image src={logoDefault.src} alt="Logo" width={{ base: 300, md: 460 }} height="auto" objectFit="contain" />
+            <Image src={logoDefault.src} alt="Logo" width={{ base: 300, md: 500 }} height="auto" objectFit="contain" />
           </Flex>
           <SearchBar />
           {isMobile ? (

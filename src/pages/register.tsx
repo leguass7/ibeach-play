@@ -14,7 +14,6 @@ const SignupPage: NextPage = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    // Add form submission logic here
   }
 
   return (
@@ -24,7 +23,7 @@ const SignupPage: NextPage = () => {
           <Image src={bgDefault.src} alt="Imagem" objectFit="cover" width="100%" height="100%" />
         </Box>
       )}
-      <Flex flex="1" flexDirection="column" justifyContent="center" alignItems="center" bg="secondary.50">
+      <Flex flex="1" flexDirection="column" justifyContent="center" alignItems="center" bg="secondary.300">
         <Stack width={'full'} flexDir="column" mb="2" justifyContent="center" alignItems="center">
           <Box minW={{ base: '100%', md: '450px' }}>
             <SignupForm showPassword={showPassword} handleShowClick={handleShowClick} onSubmit={handleSubmit} />

@@ -46,6 +46,14 @@ export const PrimaryInput: React.FC<CommonInputProps> = React.forwardRef((prop, 
           pl={pl}
           ref={inputRef || ref}
           isInvalid={!!isInvalid || !!errorMessage}
+          sx={{
+            ':-webkit-autofill': {
+              boxShadow: `0 0 0px 1000px ${color} inset`,
+              WebkitTextFillColor: 'white',
+              borderColor: borderColor,
+              transition: 'background-color 5000s ease-in-out 0s'
+            }
+          }}
           {...props}
         />
         {end ? (

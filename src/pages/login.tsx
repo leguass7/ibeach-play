@@ -26,7 +26,7 @@ const LoginPage: NextPage<Props> = () => {
           <Image src={bgDefault.src} alt="Imagem" objectFit="cover" width="100%" height="100%" />
         </Box>
       )}
-      <Flex flex="1" flexDirection="column" justifyContent="center" alignItems="center" bg="secondary.50">
+      <Flex flex="1" flexDirection="column" justifyContent="center" alignItems="center" bg="secondary.300">
         <Stack width={'full'} flexDir="column" mb="2" justifyContent="center" alignItems="center">
           <Box minW={{ base: '90%', md: '450px' }}>
             <LoginForm />
