@@ -1,17 +1,25 @@
+import React from 'react'
+
 import bgDefault from '@/assets/bg-app.jpg'
 import useMobile from '@/hooks/useMobile'
 import { Box, Container } from '@chakra-ui/react'
 
-import { Footer } from '../Footer'
-import { Header } from '../Header'
-import { MainContainer } from '../MainContainer'
+import { Footer, type FooterResizeHandler } from './Footer'
+import { Header } from './Header'
+import { MainContainer } from './MainContainer'
 
 type Props = {
   children: React.ReactNode
 }
 
 export const LayoutContainer: React.FC<Props> = ({ children }) => {
+  const [footerHeight, setFooterHeight] = React.useState<number>(32)
   const { isMobile } = useMobile()
+
+  const handleResizeFooter = React.useCallback<FooterResizeHandler>(({ height }) => {
+    setFooterHeight(height || 0)
+  }, [])
+
   return (
     <Box
       display="flex"
@@ -22,13 +30,11 @@ export const LayoutContainer: React.FC<Props> = ({ children }) => {
       backgroundPosition={isMobile ? 'center' : 'center left'}
       backgroundRepeat="no-repeat"
     >
-      <Box zIndex={1000} width={'100%'} position={'absolute'} top={0}>
-        <Header />
-      </Box>
-      <Container maxW="container.xl">
+      <Header />
+      <Container maxW="container.xl" minH={`calc(100vh - ${footerHeight}px)`} style={{ animation: 'all ease-in-out 0.2s' }}>
         <MainContainer>{children}</MainContainer>
       </Container>
-      <Footer />
+      <Footer onResize={handleResizeFooter} />
     </Box>
   )
 }

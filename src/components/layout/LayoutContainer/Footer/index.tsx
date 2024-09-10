@@ -1,46 +1,26 @@
 'use client'
 
-import { ReactNode } from 'react'
+import React from 'react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { useResizeDetector, type OnResizeCallback } from 'react-resize-detector'
 
-import { Box, Button, Container, Stack, Text, VisuallyHidden, VStack } from '@chakra-ui/react'
+import { Container, Stack, Text, VStack } from '@chakra-ui/react'
 
-type SocialButtonProps = {
-  children: ReactNode
-  label: string
-  href: string
-}
+import { SocialButton } from './SocialButton'
 
-const SocialButton: React.FC<SocialButtonProps> = ({ children, label, href }) => {
-  return (
-    <Button
-      bg={'primary.200'}
-      rounded={'full'}
-      cursor={'pointer'}
-      as={'a'}
-      href={href}
-      height={'50px'}
-      transition={'background 0.3s ease'}
-      _hover={{
-        bg: 'primary.100'
-      }}
-    >
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </Button>
-  )
-}
-
-type FooterProps = {
+export type FooterResizeHandler = OnResizeCallback
+export type FooterProps = {
+  onResize?: OnResizeCallback
   socialLinks?: {
     label: string
     href: string
   }[]
 }
 
-export const Footer: React.FC<FooterProps> = ({ socialLinks }) => {
+export const Footer: React.FC<FooterProps> = ({ socialLinks, onResize }) => {
+  const { ref } = useResizeDetector({ refreshMode: 'debounce', refreshRate: 300, onResize })
   return (
-    <VStack bg={'gray.900'}>
+    <VStack bg={'gray.900'} ref={ref}>
       <Container
         as={Stack}
         maxW={'container.2xl'}

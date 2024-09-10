@@ -1,3 +1,4 @@
+import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import type { NextPage } from 'next/types'
 
 type Props = {
@@ -6,10 +7,18 @@ type Props = {
 
 const AdminDashPage: NextPage<Props> = ({ children }) => {
   return (
-    <div>
+    <LayoutContainer>
+      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
       <h1>Admin Dashboard</h1>
       {children}
-    </div>
+    </LayoutContainer>
   )
 }
 
