@@ -1,13 +1,14 @@
 import React from 'react'
 
-import { searchArena, type Arena } from '@/services/api/arena/arena.api'
+import { searchArena, type SummaryArena } from '@/services/api/arena/arena.api'
 import { Box, Link, Popover, PopoverAnchor, PopoverBody, PopoverContent } from '@chakra-ui/react'
 
 import { InputSearch, type TextChangeHandler } from './InputSearch'
 
+/** @deprecated */
 export const SearchBar: React.FC = () => {
   const [search, setSearch] = React.useState<string>('')
-  const [data, setData] = React.useState<Arena[]>([])
+  const [data, setData] = React.useState<SummaryArena[]>([])
 
   const handleChange: TextChangeHandler = React.useCallback(text => {
     setSearch(text || '')
@@ -35,7 +36,7 @@ export const SearchBar: React.FC = () => {
       <Popover isOpen={!!data?.length} placement="bottom-start" matchWidth>
         <InputSearch onChangeText={handleChange} onClear={search ? handleClear : undefined} />
         <PopoverAnchor>
-          <div style={{ position: 'relative', maxWidth: '100%' }} />
+          <div className="relative max-w-full" />
         </PopoverAnchor>
         <PopoverContent style={{ position: 'relative', width: '100%' }}>
           <PopoverBody width={{ base: '100%' }}>

@@ -8,16 +8,18 @@ import { SearchIcon } from '@chakra-ui/icons'
 import { IconButton, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 
 export type TextChangeHandler = (text?: string) => void
+export type InputFocusHandler = React.FocusEventHandler<HTMLInputElement> | undefined
 
 export type InputSearchProps = {
   debounce?: number
   onChangeText?: TextChangeHandler
   onClear?: () => void
+  onFocus?: InputFocusHandler
   maxLength?: number
   defaultValue?: string
 }
 
-export const InputSearch: React.FC<InputSearchProps> = ({ debounce = 500, onChangeText, onClear, maxLength = 120, defaultValue }) => {
+export const InputSearch: React.FC<InputSearchProps> = ({ debounce = 500, onChangeText, onClear, maxLength = 120, defaultValue, onFocus }) => {
   const inputRef = React.useRef<HTMLInputElement | null>(null)
   const [, setError] = React.useState('')
 
@@ -59,6 +61,7 @@ export const InputSearch: React.FC<InputSearchProps> = ({ debounce = 500, onChan
       <Input
         ref={inputRef || null}
         onChange={debounceEvent(handleChange, debounce)}
+        onFocus={onFocus}
         paddingLeft="3rem"
         height={14}
         placeholder="Digite o nome de uma arena..."

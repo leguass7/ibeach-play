@@ -1,7 +1,7 @@
 import logoDefault from '@/assets/logo/ibeachplay-logo.png'
+import { SearchArena } from '@/components/@features/arena/SearchArena'
 import { CardArena } from '@/components/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
-import { SearchBar } from '@/components/SearchBar'
 import { SimpleSlider } from '@/components/SimpleSlider'
 import useMobile from '@/hooks/useMobile'
 import { Box, Button, Flex, HStack, Image, Stack, VStack } from '@chakra-ui/react'
@@ -17,7 +17,7 @@ const ClientDashPage: NextPage = () => {
           <Flex justifyContent="center" alignItems="center" width={'100%'}>
             <Image src={logoDefault.src} alt="Logo" width={{ base: 300, md: 460 }} height="auto" objectFit="contain" />
           </Flex>
-          <SearchBar />
+          <SearchArena />
           {isMobile ? (
             <Stack width={{ base: '100%', md: 'auto' }} direction={'row'} align={'center'} spacing={4} wrap="wrap" justify="center" mt={2}>
               <SimpleSlider variableWidth={true} isMobile={isMobile}>

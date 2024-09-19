@@ -5,13 +5,13 @@ export interface IAppState {
   readonly version: string
 }
 
-type IAppStateKey = keyof IAppState
+export type IAppStateKey = keyof IAppState
 
 const initialState: IAppState = {
   version: '0.0.0'
 }
 
-export const slice = createSlice({
+const slice = createSlice({
   initialState,
   name: '@app',
   reducers: {

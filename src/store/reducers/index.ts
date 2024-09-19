@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux'
 
-import app from './app'
+import app, { type IAppState, type SetAppAction, IAppStateKey } from './app'
+import recent, { type IAppRecentState, type SetAppRecentAction } from './recent'
 
-export const rootReducer = combineReducers({
-  app
+const rootReducer = combineReducers({
+  app,
+  recent
   // theme,
   // user
 })
 
-export * from './app'
+export { rootReducer }
+
+export type { IAppRecentState as IAppDataState, IAppState, IAppStateKey, SetAppAction, SetAppRecentAction as SetAppDataAction }

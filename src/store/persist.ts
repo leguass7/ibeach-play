@@ -27,5 +27,5 @@ export const persistConfig = {
   // blacklist: ['credit'],
   key: `store-${appName}`,
   storage: createStorage(),
-  whitelist: ['theme', 'user', 'auth', 'app']
+  whitelist: ['theme', 'user', 'auth', 'app', 'recent']
 }
