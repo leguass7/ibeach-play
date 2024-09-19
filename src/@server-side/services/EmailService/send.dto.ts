@@ -13,8 +13,9 @@ export interface SendPayloadDto extends Omit<SenderPayload, 'from'> {
   from?: string
 }
 
-export interface EmailServiceResponse extends AnyObject {
+export type EmailServiceResponse = Record<string, unknown> & {
   method: 'smtp'
   accepted: string[]
 }
+
 export type EmailServiceSender = (payload: SenderPayload, attachments?: Attachment[]) => Promise<EmailServiceResponse | null>

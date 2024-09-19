@@ -11,7 +11,7 @@ const data: Arena[] = [
 
 export type Arena = { id: number; name: string }
 
-export async function searchArena(text?: string | null) {
+export async function searchArena(_text?: string | null) {
   await wait(800)
   return { data }
 }

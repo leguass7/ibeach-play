@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ButtonProps as ButtonPropsChakra } from '@chakra-ui/react'
 
-type AnyObject = Record<string, any>
+export type AnyObject = Record<string, any>
 
 declare module '@chakra-ui/react' {
   export interface ButtonProps extends ButtonPropsChakra {

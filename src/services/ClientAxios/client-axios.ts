@@ -1,3 +1,4 @@
+import type { AnyObject } from '@/@types/custom'
 import axios, { AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios'
 import type { Fetcher } from 'swr'
 

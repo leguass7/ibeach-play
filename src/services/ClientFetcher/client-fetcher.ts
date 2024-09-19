@@ -1,13 +1,15 @@
+import type { AnyObject } from '@/@types/custom'
 import type { Fetcher } from 'swr'
 
-import type { ResponseApi } from '../ClientAxios'
+import type { ResponseApi } from '@services/ClientAxios'
+
 import { normalizeUrl } from './client-fetcher.helper'
 import type { ClientFetcherOptions, METHOD, RequestParams } from './client.fetcher.dto'
 
 export class ClientFetcher {
   constructor(private readonly options: ClientFetcherOptions) {}
 
-  async fetcher<R = ResponseApi>(method: METHOD, url: string, data?: AnyObject) {
+  async fetcher<R = ResponseApi>(method: METHOD, url: string, data?: AnyObject): Promise<R> {
     try {
       const response = await fetch(`${this.options.baseURL}${url}`, {
         body: data ? JSON.stringify(data) : undefined,

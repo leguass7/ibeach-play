@@ -17,6 +17,7 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@services*": ["./src/services/*"],
       "@ui/*": ["./src/components/ui/*"],
       "@chakra/*": ["./src/components/ui/chakra-ui/*"],
       "~/*": ["./src/@server-side/*"]

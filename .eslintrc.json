@@ -16,15 +16,7 @@
       {
         "newlinesBetween": "always",
         "alphabetize": { "order": "asc", "ignoreCase": true },
-        "groups": [
-          "/^react/",
-          "module",
-          "/^@mui/",
-          ["/^@layouts/", "/^@admin/", "/^@company/", "/^@partner/"],
-          ["/^~/helpers/", "/^~/services/", "/~/hooks/"],
-          "/^~/",
-          ["parent", "sibling", "index"]
-        ]
+        "groups": ["/^react/", "module", "/^~/", "/^@mui/", ["/^@layouts/", "/^@services/", "/^@components/"], ["parent", "sibling", "index"]]
       }
     ]
   }
