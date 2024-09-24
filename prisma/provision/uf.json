@@ -1,0 +1,19 @@
+[
+  {
+    "type": "header",
+    "version": "5.2.1",
+    "comment": "Export to JSON plugin for PHPMyAdmin"
+  },
+  { "type": "database", "name": "cea" },
+  {
+    "type": "table",
+    "name": "uf",
+    "database": "cea",
+    "data": [
+      {
+        "id": 23,
+        "name": "Ceará"
+      }
+    ]
+  }
+]

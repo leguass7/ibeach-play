@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:eslint": "eslint ./src --ext js --ext ts --ext tsx --fix",
-    "seed": "tsx prisma/seed.ts",
+    "seed": "tsx prisma/seed",
     "migrate": "prisma migrate dev",
     "db:init": "yarn migrate && yarn seed",
     "postinstall": "prisma generate"

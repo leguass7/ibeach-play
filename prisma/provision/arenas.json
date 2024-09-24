@@ -1,0 +1,795 @@
+[
+  {
+    "type": "header",
+    "version": "5.2.1",
+    "comment": "Export to JSON plugin for PHPMyAdmin"
+  },
+  { "type": "database", "name": "cea" },
+  {
+    "type": "table",
+    "name": "arenas",
+    "database": "cea",
+    "data": [
+      {
+        "name": "Arena Summer",
+        "description": "Parquelândia Aberto ⋅ Fecha às 23:00 · (85) 99777-6060",
+        "phone": "(85) 99777-6060",
+        "rating": 4.5,
+        "reviews": 32,
+        "address": "R. Cruz Saldanha, 194",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Original CE",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99174-2084",
+        "phone": "(85) 99174-2084",
+        "rating": 4.5,
+        "reviews": 39,
+        "address": "R. Azevedo Bolão, 803",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Complexo Beach Food",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 99149-1005",
+        "phone": "(85) 99149-1005",
+        "rating": 3.5,
+        "reviews": 85,
+        "address": "Av. Bezerra de Menezes, 525",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Estaleiro Beach Tennis e Vela",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99944-3005",
+        "phone": "(85) 99944-3005",
+        "rating": 0.0,
+        "reviews": 0,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Montese Beach Sports",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 99640-8820",
+        "phone": "(85) 99640-8820",
+        "rating": 4.5,
+        "reviews": 69,
+        "address": "R. Eusébio de Queirós, 1231",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "SPEED Complexo Esportivo",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 2134-4094",
+        "phone": "(85) 2134-4094",
+        "rating": 4.7,
+        "reviews": 53,
+        "address": "R. Barão de Aratanha, 1055",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena 2020 Beach Tennis",
+        "description": "",
+        "phone": "",
+        "rating": 5.0,
+        "reviews": 1,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena 2you Aldeota",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99194-8393",
+        "phone": "(85) 99194-8393",
+        "rating": 4.9,
+        "reviews": 19,
+        "address": "Rua Coronel Alves Teixeira, 929",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Original 2",
+        "description": "Aberto ⋅ Fecha às 23:00",
+        "phone": "",
+        "rating": 4.4,
+        "reviews": 19,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena SS - Campo Society e Beach Tennis",
+        "description": "(85) 98899-7758",
+        "phone": "(85) 98899-7758",
+        "rating": 4.7,
+        "reviews": 45,
+        "address": "R. Cariri, 813",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Sul - Beach Tennis",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99104-7612",
+        "phone": "(85) 99104-7612",
+        "rating": 4.7,
+        "reviews": 20,
+        "address": "Av. Desembargador Gonzaga, 970",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Jocross Beach Tennis",
+        "description": "(85) 99776-6432",
+        "phone": "(85) 99776-6432",
+        "rating": 5.0,
+        "reviews": 1,
+        "address": "Av. Beira Mar, 2120",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Terraço beach",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 99854-2483",
+        "phone": "(85) 99854-2483",
+        "rating": 4.5,
+        "reviews": 2,
+        "address": "R. João Cordeiro, 2710",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Beach Fortaleza",
+        "description": "(85) 99166-4415",
+        "phone": "(85) 99166-4415",
+        "rating": 5.0,
+        "reviews": 1,
+        "address": "Av. Comodoro Estácio Brigido, 2363",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena MM Beach tennis",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99962-7015",
+        "phone": "(85) 99962-7015",
+        "rating": 4.8,
+        "reviews": 33,
+        "address": "R. Nestor Fontenele Vasconcelos, 353",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena 085 Beach Tennis",
+        "description": "Aberto agora · (85) 98205-0550",
+        "phone": "(85) 98205-0550",
+        "rating": 4.8,
+        "reviews": 27,
+        "address": "R. Máximo Linhares, 871",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Estação Beach Tennis",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98776-0391",
+        "phone": "(85) 98776-0391",
+        "rating": 4.8,
+        "reviews": 18,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Bravo Arena",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99197-6658 Beach Tennis, vôlei de praia, aluguel quadras de areia",
+        "phone": "(85) 99197-6658",
+        "rating": 4.9,
+        "reviews": 49,
+        "address": "R. Gastão Justa, 360",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Complexo Arena Beer BT",
+        "description": "(85) 98147-1776",
+        "phone": "(85) 98147-1776",
+        "rating": 5.0,
+        "reviews": 23,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Moove Beach",
+        "description": "",
+        "phone": "",
+        "rating": 4.7,
+        "reviews": 47,
+        "address": "R. Moreira Gomes, 286",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Match Beach Tennis",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99135-8444",
+        "phone": "(85) 99135-8444",
+        "rating": 4.7,
+        "reviews": 36,
+        "address": "R. Prof. Dias da Rocha, 920",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "ARENA COCÓ BEACH",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99169-3914",
+        "phone": "(85) 99169-3914",
+        "rating": 4.7,
+        "reviews": 14,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Villa Beach Tennis",
+        "description": "Aberto ⋅ Fecha ter. às 05:55 · (85) 98206-5432",
+        "phone": "(85) 98206-5432",
+        "rating": 4.8,
+        "reviews": 51,
+        "address": "Rua Jornalista César Magalhães, 707",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Meireles",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99797-2608",
+        "phone": "(85) 99797-2608",
+        "rating": 4.2,
+        "reviews": 27,
+        "address": "R. Maria Tomásia, 37",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Central Sports - Beach Tennis",
+        "description": "Fecha em breve ⋅ 21:00 ⋅ Abre ter. às 08:00 · (85) 99135-8444",
+        "phone": "(85) 99135-8444",
+        "rating": 4.5,
+        "reviews": 11,
+        "address": "Rua - R. Des. Leite Albuquerque, 1083",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Fortalplay Beach Tennis",
+        "description": "Aberto ⋅ Fecha às 22:30 · (85) 98748-2246",
+        "phone": "(85) 98748-2246",
+        "rating": 4.3,
+        "reviews": 11,
+        "address": "R. Plínio Salgado, 100",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "URB Beach Sports",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 98198-0687",
+        "phone": "(85) 98198-0687",
+        "rating": 4.8,
+        "reviews": 32,
+        "address": "R. Ricardo Castro Macedo, 1660",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Quadras Beach Tenis",
+        "description": "Aberto 24 horas · (85) 99600-5938",
+        "phone": "(85) 99600-5938",
+        "rating": 4.5,
+        "reviews": 2,
+        "address": "Av. Beira Mar, 3301-3399",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Academia",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99905-1869",
+        "phone": "(85) 99905-1869",
+        "rating": 1.8,
+        "reviews": 9,
+        "address": "Av. Monsenhor Tabosa, 342",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Moove Beach Montese",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99687-0770",
+        "phone": "(85) 99687-0770",
+        "rating": 4.8,
+        "reviews": 14,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "DIAS DE BEACH ARENA",
+        "description": "(85) 99687-8343",
+        "phone": "(85) 99687-8343",
+        "rating": 4.9,
+        "reviews": 15,
+        "address": "R. Dr. Ernesto Monteiro, 1279",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena BT 500",
+        "description": "Aberto ⋅ Fecha às 22:30 · (85) 98203-0055",
+        "phone": "(85) 98203-0055",
+        "rating": 3.5,
+        "reviews": 19,
+        "address": "Rua Frei Mansueto, 500",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Salinas",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98585-0102",
+        "phone": "(85) 98585-0102",
+        "rating": 4.8,
+        "reviews": 8,
+        "address": "Av. Washington Soares, 909 - Loja 71C",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "North Park Complexo Esportivo",
+        "description": "Aberto agora · (85) 98115-0101",
+        "phone": "(85) 98115-0101",
+        "rating": 4.1,
+        "reviews": 12,
+        "address": "R. Olavo Bilac, 1149",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Family",
+        "description": "(85) 99867-2020",
+        "phone": "(85) 99867-2020",
+        "rating": 5.0,
+        "reviews": 29,
+        "address": "R. Carlos Juaçaba, 904",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "ARENA 12",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98656-2563",
+        "phone": "(85) 98656-2563",
+        "rating": 4.5,
+        "reviews": 52,
+        "address": "Rua Coronel Francisco Flávio Carneiro, 150",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Sand Beach Tennis",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98198-1112",
+        "phone": "(85) 98198-1112",
+        "rating": 4.9,
+        "reviews": 72,
+        "address": "Av. Cel. José Philomeno Gomes, 1112",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "PVBT ESCOLA DE BEACH TENNIS",
+        "description": "(85) 98787-1076",
+        "phone": "(85) 98787-1076",
+        "rating": 5.0,
+        "reviews": 8,
+        "address": "Av. Historiador Raimundo Girão, 960",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "D3 JOGOS DE PRAIA",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99627-4519",
+        "phone": "(85) 99627-4519",
+        "rating": 4.3,
+        "reviews": 16,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Colosso Sul Beach Tennis",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 99817-5869",
+        "phone": "(85) 99817-5869",
+        "rating": 4.8,
+        "reviews": 8,
+        "address": "Rua Cônego Braveza, 2012",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Jóquei",
+        "description": "",
+        "phone": "",
+        "rating": 5.0,
+        "reviews": 1,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena 2 You",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99904-5586",
+        "phone": "(85) 99904-5586",
+        "rating": 4.7,
+        "reviews": 163,
+        "address": "R. das Carnaúbas, 401",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena do NENEKA",
+        "description": "Aberto ⋅ Fecha às 22:00",
+        "phone": "",
+        "rating": 4.9,
+        "reviews": 9,
+        "address": "Av. Zezé Diogo, 3751",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Rafinha Beach Sports",
+        "description": "",
+        "phone": "",
+        "rating": 5.0,
+        "reviews": 1,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "AYO Arena",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98459-2542",
+        "phone": "(85) 98459-2542",
+        "rating": 4.0,
+        "reviews": 4,
+        "address": "Av. Chanceler Edson Queiroz, 100",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "CT RICHELMY MARTINS",
+        "description": "Fecha em breve ⋅ 21:00 ⋅ Abre ter. às 06:00 · (85) 99146-2756",
+        "phone": "(85) 99146-2756",
+        "rating": 4.9,
+        "reviews": 37,
+        "address": "R. Cajazeiras, 450",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Moove Beach - Maraponga",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 99999-5242",
+        "phone": "(85) 99999-5242",
+        "rating": 4.4,
+        "reviews": 74,
+        "address": "R. Benjamim Brasil, 2365",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Escola Robson Barata",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98747-7790",
+        "phone": "(85) 98747-7790",
+        "rating": 4.9,
+        "reviews": 27,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Spine Beach Tennis",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99645-1000",
+        "phone": "(85) 99645-1000",
+        "rating": null,
+        "reviews": null,
+        "address": "Estacionamento Coberto - Av. Washington Soares, 85 - Piso L6",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena do Tigrão",
+        "description": "Fechado ⋅ Abre ter. às 06:00 · (85) 99900-6367",
+        "phone": "(85) 99900-6367",
+        "rating": 4.8,
+        "reviews": 31,
+        "address": "Av. Zezé Diogo, 3003",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "BTA Fatima",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99905-1869",
+        "phone": "(85) 99905-1869",
+        "rating": 5.0,
+        "reviews": 1,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Beach Tennis - Arena 4 Estações",
+        "description": "",
+        "phone": "",
+        "rating": 5.0,
+        "reviews": 4,
+        "address": "R. Carmelita Rebouças, 848",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "ArenaGreen",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99962-6817",
+        "phone": "(85) 99962-6817",
+        "rating": 5.0,
+        "reviews": 4,
+        "address": "Rua G, 206 A",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "4Play Arena",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98417-8752",
+        "phone": "(85) 98417-8752",
+        "rating": 4.2,
+        "reviews": 5,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Pali Sport Beach",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98427-2169",
+        "phone": "(85) 98427-2169",
+        "rating": 4.3,
+        "reviews": 44,
+        "address": "Av. Gen. Osório de Paiva, 1516",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "WBSBRAZIL SPORTS",
+        "description": "(85) 98776-0551",
+        "phone": "(85) 98776-0551",
+        "rating": null,
+        "reviews": null,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Complexo Arena Dunas",
+        "description": "Aberto ⋅ Fecha às 21:30 · (85) 99781-9633",
+        "phone": "(85) 99781-9633",
+        "rating": 5.0,
+        "reviews": 2,
+        "address": "R. Bento Albuquerque, 3591",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena da Serra Beach Tennis MPE",
+        "description": "Aberto agora · (85) 98953-8951",
+        "phone": "(85) 98953-8951",
+        "rating": 4.7,
+        "reviews": 23,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Cidade",
+        "description": "Aberto ⋅ Fecha à 00:00 · (85) 98414-0644",
+        "phone": "(85) 98414-0644",
+        "rating": 4.8,
+        "reviews": 33,
+        "address": "Av. Desembargador Gonzaga, 866",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "RAPHA BEACH TENNIS",
+        "description": "(85) 99985-0809",
+        "phone": "(85) 99985-0809",
+        "rating": 0,
+        "reviews": 0,
+        "address": "Rua Evaristo da Veiga, 200 - Parque Del Sol",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "CTE - Centro de Treinamento Esportivo",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98409-0607",
+        "phone": "(85) 98409-0607",
+        "rating": 5.0,
+        "reviews": 7,
+        "address": "Rua Coronel Francisco Flávio Carneiro, 170",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Quadra de Futevôlei de Areia",
+        "description": "",
+        "phone": "",
+        "rating": 5.0,
+        "reviews": 2,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "4 Estações Arena",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99933-5335",
+        "phone": "(85) 99933-5335",
+        "rating": 4.7,
+        "reviews": 23,
+        "address": "R. Rafael Carlos Medeiros, 100",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Eusébio Beach Tennis",
+        "description": "",
+        "phone": "",
+        "rating": 0.0,
+        "reviews": 0,
+        "address": "",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Complexo Vibe Beach",
+        "description": "Aberto ⋅ Fecha à 00:00 · (85) 99642-8995",
+        "phone": "(85) 99642-8995",
+        "rating": 4.4,
+        "reviews": 65,
+        "address": "Rua São Francisco, 55",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "ARENA DC PLAY CAUCAIA",
+        "description": "Aberto agora · (85) 98528-7113",
+        "phone": "(85) 98528-7113",
+        "rating": 4.0,
+        "reviews": 7,
+        "address": "R. Tab. José Matias de Brito, 320",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Play",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 99450-3255",
+        "phone": "(85) 99450-3255",
+        "rating": 4.8,
+        "reviews": 21,
+        "address": "Av. Chácara Édson Queirós, 102",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Carmel(foods and sports)",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98229-1393",
+        "phone": "(85) 98229-1393",
+        "rating": 4.6,
+        "reviews": 174,
+        "address": "R. Farias Lemos, 801",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Futevolei do Rafinha",
+        "description": "Aberto ⋅ Fecha às 23:00",
+        "phone": "",
+        "rating": 5.0,
+        "reviews": 25,
+        "address": "Rua Libanês José Lopes, 195",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Raufes",
+        "description": "(85) 98200-2421",
+        "phone": "(85) 98200-2421",
+        "rating": 4.7,
+        "reviews": 30,
+        "address": "Av. Padre José Holanda do Vale, 865",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Na Praia Sports Bar",
+        "description": "(85) 99278-3961",
+        "phone": "(85) 99278-3961",
+        "rating": 4.7,
+        "reviews": 37,
+        "address": "R. da Assunção, 1255",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "La Praia Arena",
+        "description": "Aberto ⋅ Fecha às 23:00 · (85) 99694-3330",
+        "phone": "(85) 99694-3330",
+        "rating": 4.8,
+        "reviews": 54,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Beach Sports",
+        "description": "Aberto agora · (85) 99118-7088",
+        "phone": "(85) 99118-7088",
+        "rating": 5.0,
+        "reviews": 5,
+        "address": "R. Miguel Pontes",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Espaço Tennis",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 99816-7897",
+        "phone": "(85) 99816-7897",
+        "rating": 4.7,
+        "reviews": 28,
+        "address": "R. Dr. Gilberto Studart, 1760",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Escola RW Beach Tennis",
+        "description": "Temporariamente fechado · (85) 99924-1500",
+        "phone": "(85) 99924-1500",
+        "rating": 0.0,
+        "reviews": 0,
+        "address": " ",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena Skina",
+        "description": "",
+        "phone": "",
+        "rating": 5.0,
+        "reviews": 6,
+        "address": "R. Luís Tibúrcio, 224",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "SEEDS BEACH TENNIS",
+        "description": "Aberto ⋅ Fecha às 22:00 · (85) 98128-1234",
+        "phone": "(85) 98128-1234",
+        "rating": 4.6,
+        "reviews": 41,
+        "address": "R. Zildenia, 1308",
+        "userId": 1,
+        "cityId": 2304400
+      },
+      {
+        "name": "Arena G´Beach",
+        "description": "Aberto ⋅ Fecha às 23:00",
+        "phone": "",
+        "rating": 4.7,
+        "reviews": 28,
+        "address": "R. Dragão do Mar, 1086",
+        "userId": 1,
+        "cityId": 2304400
+      }
+    ]
+  }
+]
