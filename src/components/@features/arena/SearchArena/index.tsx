@@ -43,10 +43,11 @@ export const SearchArena: React.FC = () => {
 
   return (
     <Box marginTop={8} width={{ base: '100%', md: '100%' }} bgColor="gray.50" rounded="full" position="relative">
-      <Popover isOpen={!!data?.length} placement="bottom-start" matchWidth>
-        <InputSearch onFocus={onFocus} onChangeText={handleChange} onClear={search ? handleClear : undefined} />
+      <Popover isOpen={!!data?.length} placement="bottom-end" matchWidth>
         <PopoverAnchor>
-          <div className="relative max-w-full" />
+          <div>
+            <InputSearch onFocus={onFocus} onChangeText={handleChange} onClear={search ? handleClear : undefined} />
+          </div>
         </PopoverAnchor>
         <PopoverContent backgroundColor="rgba(255,255,255,0.2)" borderColor={'rgba(255,255,255,0.4)'} style={{ position: 'relative', width: '100%' }}>
           <PopoverBody width={{ base: '100%' }}>
