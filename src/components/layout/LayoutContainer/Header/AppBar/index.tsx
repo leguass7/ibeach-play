@@ -43,6 +43,11 @@ type AppBarProps = {
 export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const toggleMenu = () => {
+    if (isOpen) onClose()
+    else onOpen()
+  }
+
   return (
     <>
       <Stack paddingX={4} justify="space-between" bg={useColorModeValue('transparent', 'gray.900')}>
@@ -52,7 +57,7 @@ export const AppBar: React.FC<AppBarProps> = ({ routes }) => {
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
+            onClick={toggleMenu}
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box>
