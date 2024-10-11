@@ -47,6 +47,7 @@ export const authOptions: AuthOptions = {
   session: { strategy: 'jwt', maxAge },
   jwt: { secret, maxAge },
   pages: { signIn: '/login' },
+  adapter: CustomAdapter(userRepository, accountRepository, sessionRepository, verificationTokenRepository),
   providers: [
     AzureAd(azureSecrets),
     GoogleProvider({
@@ -80,8 +81,8 @@ export const authOptions: AuthOptions = {
   debug: true
 }
 
-export async function createOAuthOptions(): Promise<[AuthOptions]> {
-  const opt = { ...authOptions } as AuthOptions
-  opt.adapter = CustomAdapter(userRepository, accountRepository, sessionRepository, verificationTokenRepository)
-  return [opt]
-}
+// export async function createOAuthOptions(): Promise<[AuthOptions]> {
+//   const opt = { ...authOptions } as AuthOptions
+//   opt.adapter = CustomAdapter(userRepository, accountRepository, sessionRepository, verificationTokenRepository)
+//   return [opt]
+// }

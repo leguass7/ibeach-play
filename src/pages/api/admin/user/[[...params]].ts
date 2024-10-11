@@ -6,6 +6,7 @@ import { Body, createHandler, Get, HttpCode, HttpException, Patch, Post, Query, 
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
 import { userRepository, type CreateUserDTO } from '~/use-cases/user'
 
+@AuthJwtGuard()
 class UserHandler {
   @Post()
   @HttpCode(201)
@@ -16,8 +17,7 @@ class UserHandler {
   }
 
   @Get()
-  @AuthJwtGuard()
-  async paginateUser(@Query() query: Record<string, unknown>, @Req() req: AuthorizedApiRequest) {
+  async paginate(@Query() query: Record<string, unknown>, @Req() req: AuthorizedApiRequest) {
     console.log('req', req?.auth)
     const data = await userRepository.listAll()
     return { success: true, query, data }

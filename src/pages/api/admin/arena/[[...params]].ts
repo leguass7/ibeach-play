@@ -1,14 +1,15 @@
-import { arenaRepository, type CreateArenaDTO } from '@/@server-side/use-cases/arena'
-import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.dto'
 import { tryNumber } from '@/helpers/number'
-import { Body, createHandler, HttpCode, Post, Req, ValidationPipe } from 'next-api-decorators'
+import { Body, createHandler, Get, HttpCode, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
 
+import { arenaRepository, type CreateArenaDTO } from '~/use-cases/arena'
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
+import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.dto'
+import { userRepository } from '~/use-cases/user'
 
+@AuthJwtGuard()
 class ArenaHandler {
   @Post()
   @HttpCode(201)
-  @AuthJwtGuard()
   async create(@Body(ValidationPipe) body: CreateArenaDTO, @Req() req: AuthorizedApiRequest) {
     const createdBy = tryNumber(req?.auth?.userId, 0)
     const data = { ...body, createdBy, createdAt: new Date() }
@@ -16,13 +17,11 @@ class ArenaHandler {
     return { success: true, arenaId: arena?.id }
   }
 
-  // @Get()
-  // @AuthJwtGuard()
-  // async paginate(@Query() query: Record<string, unknown>, @Req() req: AuthorizedApiRequest) {
-  //   console.log('req', req?.auth)
-  //   const data = await userRepository.listAll()
-  //   return { success: true, query, data }
-  // }
+  @Get()
+  async paginate(@Query() query: Record<string, string>) {
+    const data = await userRepository.listAll()
+    return { success: true, data, query }
+  }
 
   // @Get('/:arenaId')
   // @AuthJwtGuard()

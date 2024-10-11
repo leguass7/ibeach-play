@@ -1,8 +1,11 @@
-import { authOptions } from '@/@server-side/use-cases/auth/auth.options'
-import { AdminUsers } from '@/components/admin/user/AdminUsers'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getServerSession } from 'next-auth'
+import dynamic from 'next/dynamic'
+
+import { authOptions } from '~/use-cases/auth/auth.options'
+
+const AdminUsers = dynamic(() => import('@/components/admin/user/AdminUsers').then(ctx => ctx.AdminUsers), { ssr: false })
 
 type Props = {
   [x: string]: unknown
