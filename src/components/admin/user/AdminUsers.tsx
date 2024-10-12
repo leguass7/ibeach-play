@@ -1,21 +1,26 @@
 import React from 'react'
 
+import { ChakraTable } from '@/components/table'
+import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
-import { useAdminUser } from '@/services/api/user/useUser'
+import { paginateUsers } from '@/services/api/user'
+import { GridItem, SimpleGrid } from '@chakra-ui/react'
 
 export const AdminUsers: React.FC = () => {
-  const { loading, paginate } = useAdminUser()
-  // const { data, isLoading } = useAdminUser()
-  // console.log('data', isLoading, data)
-  const data = []
+  const [paginate, loading, data] = useFetcher(paginateUsers)
 
-  useOnceCall(paginate)
+  useOnceCall(() => paginate({ test: true }))
+
+  console.log('data', data)
 
   return (
-    <div>
-      <h1>Users</h1>
-
-      {/* {isLoading && <CircularProgress />} */}
-    </div>
+    <SimpleGrid>
+      <GridItem>
+        <h1>Users</h1>
+      </GridItem>
+      <GridItem>
+        <ChakraTable loading={!!loading} records={data?.users || []} />
+      </GridItem>
+    </SimpleGrid>
   )
 }

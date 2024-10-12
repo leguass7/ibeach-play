@@ -5,6 +5,7 @@ import type { IUserResponse, UserPaginateParams } from './user.interface'
 
 export type PaginateUserHandler = (params?: UserPaginateParams | null) => Promise<IUserResponse | null>
 
+/** @deprecated */
 export function useAdminUser() {
   const [loading, setLoading] = React.useState(false)
 

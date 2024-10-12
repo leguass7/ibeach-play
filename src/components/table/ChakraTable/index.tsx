@@ -1,9 +1,17 @@
 import React from 'react'
 
-import type { TableProps, TableRecord } from '../core/interface'
+import { CircularProgress, Table, TableCaption, TableContainer } from '@chakra-ui/react'
 
-type ChakraTableComponentType<C = TableRecord> = React.FC<TableProps<C>>
+import type { TableProps } from '../core/interface'
 
-export const ChakraTable: ChakraTableComponentType = () => {
-  return <div />
+type ChakraTableComponentType<C = unknown> = React.FC<TableProps<C> & { loading?: boolean }>
+
+export const ChakraTable: ChakraTableComponentType = ({ loading }) => {
+  return (
+    <TableContainer>
+      <Table>
+        <TableCaption>{loading ? <CircularProgress isIndeterminate /> : 'Nenum registro'}</TableCaption>
+      </Table>
+    </TableContainer>
+  )
 }
