@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { limitString } from '@/helpers/string'
-import { Text, TextProps } from '@chakra-ui/react'
+import { Text, type TextProps } from '@chakra-ui/react'
 
 export type TextLimitedProps = TextProps & {
   children?: React.ReactNode

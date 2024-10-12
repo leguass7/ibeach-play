@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, ButtonProps as ButtonPropsChakra } from '@chakra-ui/react'
+import { Button, type ButtonProps as ButtonPropsChakra } from '@chakra-ui/react'
 
 interface ButtonProps extends ButtonPropsChakra {
   colorScheme?: 'whiteAlpha' | 'blackAlpha' | 'gray' | 'red' | 'orange' | 'yellow' | 'green' | 'teal' | 'blue' | 'cyan' | 'purple' | 'pink'

@@ -4,7 +4,7 @@ import type { AdapterUser } from 'next-auth/adapters'
 
 import type { PrismaClientSingleton } from '~/database'
 
-import { CreateUserDTO, UserDTO } from './user.dto'
+import { type CreateUserDTO, UserDTO } from './user.dto'
 import { userToAdapterUser } from './user.helper'
 
 export class UserRepository {

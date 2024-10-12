@@ -1,9 +1,9 @@
-// import { apiService } from '@/services/api/api.service'
-// import useSWR from 'swr'
-
 import React from 'react'
 
 import { paginateUsers } from './admin-user.api'
+import type { IUserResponse, UserPaginateParams } from './user.interface'
+
+export type PaginateUserHandler = (params?: UserPaginateParams | null) => Promise<IUserResponse | null>
 
 export function useAdminUser() {
   const [loading, setLoading] = React.useState(false)

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import * as z from 'zod'
+import type * as z from 'zod'
 
 /**
  * ZodType is a very complex interface describing not just public properties but private ones as well

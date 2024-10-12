@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ButtonProps as ButtonPropsChakra } from '@chakra-ui/react'
+import { type ButtonProps as ButtonPropsChakra } from '@chakra-ui/react'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyObject = Record<string, any>
 
 declare module '@chakra-ui/react' {

@@ -1,11 +1,11 @@
 import type { AnyObject } from '@/@types/custom'
-import axios, { AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios'
+import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios'
 import type { Fetcher } from 'swr'
 
-import { Authorization, ClientOptions, ResponseApi } from './client-axios.dto'
+import type { Authorization, ClientOptions, ResponseApi } from './client-axios.dto'
 import { normalizeToken } from './client-axios.helper'
 import { MemoryStore } from './store/memory.store'
-import { SetStoreParams, StoreInterface } from './store/store.interface'
+import type { SetStoreParams, StoreInterface } from './store/store.interface'
 
 export class ClientAxios {
   public axios: AxiosInstance

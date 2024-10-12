@@ -25,6 +25,6 @@
       "~/*": ["./src/@server-side/*"]
     }
   },
-  "include": ["src/@types/**/*.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["src/@types/*/*.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", "src/@types/custom.d.ts"],
   "exclude": ["node_modules"]
 }

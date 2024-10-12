@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { InputSearch, type TextChangeHandler } from '@/components/SearchBar/InputSearch'
-import { useAppRecentArena, RecentItemArena } from '@/hooks/store/useAppRecent'
+import { useAppRecentArena, type RecentItemArena } from '@/hooks/store/useAppRecent'
 import { searchArena } from '@/services/api/arena/arena.api'
 import { Box, Popover, PopoverAnchor, PopoverBody, PopoverContent } from '@chakra-ui/react'
 

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { Prisma } from '@prisma/client'
-import type { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters'
+import type { Adapter, AdapterSession, AdapterUser, AdapterAccount } from 'next-auth/adapters'
 
 import { accountToAdapterAccount, type AccountRepository } from '~/use-cases/account'
 import { sessionToAdapterSession, type SessionRepository } from '~/use-cases/session'
 import { userToAdapterUser, type UserRepository } from '~/use-cases/user'
-import { VerificationTokenRepository } from '~/use-cases/verification-token'
+import type { VerificationTokenRepository } from '~/use-cases/verification-token'
 
 export type CreateAdapter = (
   userRepository: UserRepository,
@@ -16,7 +16,7 @@ export type CreateAdapter = (
 
 export const CustomAdapter: CreateAdapter = (userRepository, accountRepository, sessionRepository, verificationTokenRepository) => {
   return {
-    async createUser(user): Promise<AdapterUser> {
+    async createUser(user: AdapterUser): Promise<AdapterUser> {
       const userData = { ...user } as AdapterUser
       const result = await userRepository.createAdapterUser(userData)
       return result
@@ -50,12 +50,12 @@ export const CustomAdapter: CreateAdapter = (userRepository, accountRepository, 
       await userRepository.remove(userId)
     },
 
-    async linkAccount(account) {
+    async linkAccount(account: AdapterAccount) {
       const result = await accountRepository.adapterCreate(account)
       return accountToAdapterAccount(result)
     },
 
-    async unlinkAccount({ providerAccountId, provider }) {
+    async unlinkAccount({ providerAccountId, provider }: Prisma.AccountWhereUniqueInput) {
       const filter = { providerAccountId, provider } as Prisma.AccountWhereUniqueInput
       await accountRepository.remove(filter)
     },

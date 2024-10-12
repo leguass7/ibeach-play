@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import app, { type IAppState, type SetAppAction, IAppStateKey } from './app'
+import app, { type IAppState, type SetAppAction, type IAppStateKey } from './app'
 import recent, { type IAppRecentState, type SetAppRecentAction } from './recent'
 
 const rootReducer = combineReducers({

@@ -1,5 +1,5 @@
 import { ZodValidationPipe } from '@/lib/zod-validation-pipe'
-import { ChangePassDto } from '@/services/api/me'
+import type { ChangePassDto } from '@/services/api/me'
 import { Body, createHandler, HttpCode, Post, Req } from 'next-api-decorators'
 
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'

@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { FaFacebook, FaGoogle, FaUserAlt } from 'react-icons/fa'
 
 import { PrimaryButton } from '@/components/Buttons/PrimaryButton'

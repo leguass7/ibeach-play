@@ -1,6 +1,8 @@
 import { apiService } from '@/services/api/api.service'
 
-export function paginateUsers() {
+import type { IUserResponse } from './user.interface'
+
+export function paginateUsers(): Promise<IUserResponse | null> {
   return apiService.get('/admin/user')
 }
 

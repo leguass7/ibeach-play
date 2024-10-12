@@ -6,11 +6,20 @@
     "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-empty-object-type": "warn",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": true,
+        "fixStyle": "inline-type-imports"
+      }
+    ],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".tsx"] }],
     "import/no-unresolved": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
+    "@next/next/no-img-element": "off",
     "import-helpers/order-imports": [
       "warn",
       {

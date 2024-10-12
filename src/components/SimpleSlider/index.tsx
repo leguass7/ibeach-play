@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { type ReactNode } from 'react'
 import Slider from 'react-slick'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'

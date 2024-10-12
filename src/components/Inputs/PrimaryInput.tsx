@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Input, InputGroup, InputLeftElement, InputProps, FormErrorMessage, FormControl, InputRightElement } from '@chakra-ui/react'
+import { Input, InputGroup, InputLeftElement, type InputProps, FormErrorMessage, FormControl, InputRightElement } from '@chakra-ui/react'
 
 export interface CommonInputProps extends InputProps {
   inputRef?: React.LegacyRef<HTMLInputElement> | React.ForwardedRef<HTMLInputElement>

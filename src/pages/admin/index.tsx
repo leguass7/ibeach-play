@@ -25,7 +25,7 @@ const AdminDashPage: NextPage<Props> = ({ children }) => {
           <AdminCardArena />
         </GridItem>
         <GridItem>
-          <CardStatButton title="Usuários cadastrados" onClick={handleClick('/admin/users')} />
+          <CardStatButton title="Usuários cadastrados" onClick={handleClick('/admin/user')} />
         </GridItem>
         <GridItem h="10" bg="blue.500" />
         <GridItem h="10" bg="blue.500" />

@@ -1,4 +1,4 @@
-import { Authorization } from '../client-axios.dto'
+import { type Authorization } from '../client-axios.dto'
 
 export type TransformAuthorization = (authorization?: Authorization | null) => Authorization
 export type SetStoreParams = Authorization | TransformAuthorization

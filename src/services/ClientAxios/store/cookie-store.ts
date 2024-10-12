@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 
-import { Authorization } from '../client-axios.dto'
-import { SetStoreParams, StoreInterface } from './store.interface'
+import type { Authorization } from '../client-axios.dto'
+import type { SetStoreParams, StoreInterface } from './store.interface'
 
 export class CookieStore implements StoreInterface {
   private attributes: Cookies.CookieAttributes = {}
