@@ -39,11 +39,31 @@ export type SetFilter<F = Record<string, unknown>> = {
 
 export type TableFetcher<R = Record<string, unknown>, Q = Record<string, unknown>> = (params: PaginationParams<Q>) => Promise<PaginationResult<R>>
 
+// COLUMNS
+export interface ICellProps<Rec = Record<string, unknown>> {
+  record: Rec
+  columnName: keyof Rec
+}
+export interface ITableColumn<T = Record<string, unknown>> {
+  name?: keyof T
+  label?: string
+  width?: string | number
+  align?: 'center' | 'left' | 'right'
+  unsortable?: boolean
+  Cell?: React.FC<ICellProps<T>>
+  CellProps?: Record<string, unknown>
+  size?: 'small' | 'medium'
+  className?: string
+  isCurrency?: boolean
+  sortName?: string
+  vAlign?: 'baseline' | 'sub' | 'super' | 'text-top' | 'text-bottom' | 'middle' | 'top' | 'bottom' | 'inherit'
+}
+
 // PROPS
 export type TableProps<Rec = TableRecord> = {
   isNotFirstFetcher?: boolean
   children?: React.ReactNode
-  // columns: ITableForNextColumn<Rec>[]
+  columns?: ITableColumn<Rec>[]
   records: Rec[]
   orderby?: string | keyof Rec
   order?: OrderType
@@ -57,12 +77,12 @@ export type TableProps<Rec = TableRecord> = {
   // setRecords?: ITableForNextContext['setRecords']
 }
 
-export interface ITableContext {
+export interface ITableContext<Rec = unknown> {
   emitFetch: EmitFetchHandler
   // emitEvent: TableEventHandler
   // theme?: ITableForNextTheme
-  records: TableRecord[]
-  // columns: ITableForNextColumn<GenericProps>[]
+  records: Rec[]
+  columns?: ITableColumn<Rec>[]
   setOrder: SetOrder
   setPage: SetPage
   setSize: SetSize

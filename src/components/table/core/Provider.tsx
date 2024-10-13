@@ -2,10 +2,11 @@ import React from 'react'
 
 import { createContext } from 'use-context-selector'
 
-import { extractPaginateProps, onlyDefined } from './helper'
+import { automaticColumns, extractPaginateProps, onlyDefined } from './helper'
 import type {
   EmitFetchHandler,
   FilterDispatcher,
+  ITableColumn,
   ITableContext,
   OrderType,
   SetFilter,
@@ -29,10 +30,11 @@ type TableProviderProps<Rec = TableRecord> = {
   order?: OrderType
   orderby?: string | keyof Rec
   total?: number
+  columns?: ITableColumn<Rec>[]
 }
-type ChakraTableProviderComponentType<C = TableRecord> = React.FC<TableProviderProps<C>>
+type ChakraTableProviderComponentType<C = unknown> = React.FC<TableProviderProps<C>>
 
-export const TableProvider: ChakraTableProviderComponentType = ({ children, records, fetcher, size, page, order, orderby, total }) => {
+export const TableProvider: ChakraTableProviderComponentType = ({ children, records, fetcher, size, page, order, orderby, total, columns }) => {
   const refCount = React.useRef(0)
 
   const [pagination, updatePagination, setPagination] = useInternalPagination<TableRecord>(size, page, order, orderby)
@@ -82,8 +84,12 @@ export const TableProvider: ChakraTableProviderComponentType = ({ children, reco
     refCount.current += 1
   }, [emitFetch])
 
+  const preparedColumns = React.useMemo(() => {
+    return columns?.length ? columns : automaticColumns(records)
+  }, [records, columns])
+
   return (
-    <TableForNextContext.Provider value={{ emitFetch, records, setOrder, setPage, setSize, setFilter, total }}>
+    <TableForNextContext.Provider value={{ emitFetch, records, setOrder, setPage, setSize, setFilter, total, columns: preparedColumns }}>
       {children}
     </TableForNextContext.Provider>
   )

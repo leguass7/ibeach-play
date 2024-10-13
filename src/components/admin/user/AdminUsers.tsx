@@ -11,7 +11,7 @@ export const AdminUsers: React.FC = () => {
 
   useOnceCall(() => paginate({ test: true }))
 
-  console.log('data', data)
+  console.log('data?.users', data?.users)
 
   return (
     <SimpleGrid>

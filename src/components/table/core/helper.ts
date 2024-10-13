@@ -1,6 +1,8 @@
+import { tryJson } from '@/helpers/object'
+import { capitalize } from '@/helpers/string'
 import { isDefined, isObject } from '@/helpers/validation'
 
-import type { PaginationParams, TableRecord } from './interface'
+import type { ITableColumn, PaginationParams, TableRecord } from './interface'
 
 const paginationProps = ['page', 'size', 'order', 'orderby']
 
@@ -32,4 +34,29 @@ export function onlyDefined(obj: TableRecord = {}) {
     }, {} as TableRecord)
   }
   return {} as TableRecord
+}
+
+export function automaticColumns<R = TableRecord>(records: R[] = []) {
+  const columns: Array<Partial<ITableColumn<R>>> = []
+  const hasColumn = (key: string) => columns.some(column => column.name === key)
+
+  records.forEach(record => {
+    Object.keys(record || {}).forEach(key => {
+      if (!hasColumn(key)) {
+        const k = key as keyof R
+        columns.push({ name: k, label: capitalize(key) })
+      }
+    })
+  })
+
+  console.log('columns', columns)
+  return columns
+}
+
+export function protectedCellContent(content?: unknown) {
+  if (!content) return ''
+  if (['string', 'number'].includes(typeof content)) return content
+  if (content instanceof Date) return content.toLocaleString()
+  if (Array.isArray(content)) return JSON.stringify(content)
+  return tryJson(content)
 }
