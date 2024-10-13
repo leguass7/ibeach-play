@@ -36,7 +36,7 @@ export const LayoutContainer: React.FC<Props> = ({ children }) => {
       backgroundRepeat="no-repeat"
     >
       <Header onResize={handleResizeHeader} />
-      <Container maxW="container.xl" minH={`calc(100vh - ${footerHeight}px)`} style={{ animation: 'all ease-in-out 0.2s' }}>
+      <Container maxW="container.xl" minH={`calc(100vh - ${footerHeight}px)`} style={{ animation: 'all ease-in-out 0.2s' }} overflowX={'hidden'}>
         <MainContainer marginTop={headerHeight}>{children}</MainContainer>
       </Container>
       <Footer onResize={handleResizeFooter} />

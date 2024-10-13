@@ -1,4 +1,5 @@
 import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.dto'
+import { wait } from '@/helpers/debounce'
 import { tryNumber } from '@/helpers/number'
 import { instanceToPlain } from 'class-transformer'
 import { Body, createHandler, Get, HttpCode, HttpException, Patch, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
@@ -19,8 +20,9 @@ class UserHandler {
   @Get()
   async paginate(@Query() query: Record<string, unknown>, @Req() req: AuthorizedApiRequest) {
     console.log('req', req?.auth)
-    const data = await userRepository.listAll()
-    return { success: true, query, data }
+    const users = await userRepository.listAll()
+    await wait(2000)
+    return { success: true, query, users }
   }
 
   @Get('/:userId')

@@ -1,21 +1,33 @@
 import React from 'react'
 
+import { ChakraTable } from '@/components/table'
+import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
-import { useAdminUser } from '@/services/api/user/useUser'
+import { paginateUsers } from '@/services/api/user'
+import { Card, CardBody, CardHeader, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
+
+import { AdminBreadcrumb } from '../AdminBreadcrumb'
 
 export const AdminUsers: React.FC = () => {
-  const { loading, paginate } = useAdminUser()
-  // const { data, isLoading } = useAdminUser()
-  // console.log('data', isLoading, data)
-  const data = []
+  const [paginate, loading, data] = useFetcher(paginateUsers)
 
-  useOnceCall(paginate)
+  useOnceCall(() => paginate({ test: true }))
 
   return (
-    <div>
-      <h1>Users</h1>
-
-      {/* {isLoading && <CircularProgress />} */}
-    </div>
+    <SimpleGrid gap={2}>
+      <GridItem>
+        <AdminBreadcrumb paths={[{ label: 'Usuários' }]} />
+      </GridItem>
+      <GridItem overflowX={'hidden'}>
+        <Card>
+          <CardHeader>
+            <Heading size="md">Usuários</Heading>
+          </CardHeader>
+          <CardBody>
+            <ChakraTable loading={!!loading} records={data?.users || []} tableProps={{ size: 'sm' }} />
+          </CardBody>
+        </Card>
+      </GridItem>
+    </SimpleGrid>
   )
 }
