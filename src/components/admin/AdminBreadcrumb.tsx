@@ -3,8 +3,6 @@ import React from 'react'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react'
 import Link from 'next/link'
 
-// import { Container } from './styles';
-
 type LinkType = {
   href?: string
   label: string
