@@ -29,6 +29,16 @@
         "id": 4,
         "name": "Atleta",
         "createdAt": "2022-11-26 18:55:46"
+      },
+      {
+        "id": 5,
+        "name": "Professor",
+        "createdAt": "2022-11-26 18:55:46"
+      },
+      {
+        "id": 6,
+        "name": "Aluno",
+        "createdAt": "2022-11-26 18:55:46"
       }
     ]
   }
