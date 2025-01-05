@@ -4,8 +4,8 @@ import { ClassroomRepository } from './classroom.repository'
 import { ClassroomService } from './classroom.service'
 export * from './classroom.dto'
 
-const arenaRepository = new ClassroomRepository(prisma)
-const arenaService = new ClassroomService(arenaRepository)
+const classroomRepository = new ClassroomRepository(prisma)
+const classroomService = new ClassroomService(classroomRepository)
 
-export { arenaRepository, arenaService }
+export { classroomService, classroomRepository }
 export type { ClassroomRepository, ClassroomService }
