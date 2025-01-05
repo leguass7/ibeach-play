@@ -1,5 +1,6 @@
 import React from 'react'
 import { CgLogOff, CgProfile, CgCrown } from 'react-icons/cg'
+import { PiChalkboardTeacher } from 'react-icons/pi'
 
 import { clickWhithStop } from '@/helpers/dom'
 import { Icon } from '@chakra-ui/icons'
@@ -11,7 +12,8 @@ import { OfflineProfileButton } from './OfflineProfileButton'
 
 const accessModules = [
   { id: 'me', path: '/me', label: 'Minhas informações', icon: CgProfile, groupIds: null },
-  { id: 'admin', path: '/admin', label: 'Administrador', icon: CgCrown, groupIds: [1] }
+  { id: 'admin', path: '/admin', label: 'Administrador', icon: CgCrown, groupIds: [1] },
+  { id: 'coach', path: '/coach', label: 'Treinador', icon: PiChalkboardTeacher, groupIds: [1, 5] }
   //
 ]
 

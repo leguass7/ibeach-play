@@ -39,9 +39,11 @@ model User {
   accounts            Account[]
   sessions            Session[]
 
-  arenas        Arena[] @relation("User_Arena")
-  createdArenas Arena[] @relation("Created_Arena")
-  updatedArenas Arena[] @relation("Updated_Arena")
+  arenas        Arena[]     @relation("User_Arena")
+  createdArenas Arena[]     @relation("Created_Arena")
+  updatedArenas Arena[]     @relation("Updated_Arena")
+  classrooms    Classroom[] @relation("Coach_Classroom")
+  students      Student[]   @relation("User_Student")
 
   @@map("users")
 }
@@ -166,8 +168,53 @@ model Arena {
   createdUser User  @relation(fields: [createdBy], references: [id], name: "Created_Arena")
   updatedUser User? @relation(fields: [updatedBy], references: [id], name: "Updated_Arena")
 
+  classrooms Classroom[] @relation("Arena_Classroom")
+
   // @@fulltext([name, description])
   @@map("arenas")
+}
+
+model Classroom {
+  id      Int     @id @default(autoincrement())
+  arenaId Int
+  coachId Int
+  label   String? @db.VarChar(254)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  arena Arena @relation(fields: [arenaId], references: [id], name: "Arena_Classroom")
+  coach User  @relation(fields: [coachId], references: [id], name: "Coach_Classroom")
+
+  students Student[]        @relation("Classroom_Student")
+  hours    ClassroomHours[] @relation("Classroom_ClassroomHours")
+
+  @@map("arenas_classrooms")
+}
+
+model ClassroomHours {
+  id          String   @id @default(cuid())
+  classroomId Int
+  weekDay     Int
+  startHour   DateTime @db.Time()
+
+  classroom Classroom @relation(fields: [classroomId], references: [id], name: "Classroom_ClassroomHours")
+
+  @@unique([classroomId, weekDay, startHour])
+  @@map("arenas_classrooms_hours")
+}
+
+model Student {
+  id          String   @id @default(cuid())
+  classroomId Int
+  studentId   Int
+  createdAt   DateTime @default(now())
+
+  classroom Classroom @relation(fields: [classroomId], references: [id], name: "Classroom_Student")
+  student   User      @relation(fields: [studentId], references: [id], name: "User_Student")
+
+  @@unique([classroomId, studentId])
+  @@map("arenas_classrooms_students")
 }
 
 enum BeachTennisCategory {
