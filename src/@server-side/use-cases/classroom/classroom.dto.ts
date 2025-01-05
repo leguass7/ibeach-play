@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, Length, IsArray, IsNumber, Min, Max } from 'class-validator'
+import { IsArray, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
 
 export class ClassroomDTO {
   id: number
@@ -8,6 +8,8 @@ export class ClassroomDTO {
 
   createdAt?: Date
   updatedAt?: Date
+  //
+  hours?: ClassroomHourDTO[]
 }
 
 export class ClassroomHourDTO {
@@ -16,8 +18,8 @@ export class ClassroomHourDTO {
   @Max(6)
   weekDay: number
 
-  @IsNumber()
-  startHour: Date
+  @IsString()
+  startHour: string
 }
 
 export class CreateClassroomDTO {

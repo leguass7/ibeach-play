@@ -9,10 +9,7 @@ export class ClassroomRepository {
     const { hours, ...classroomData } = data
 
     return this.prisma.classroom.create({
-      data: {
-        ...classroomData,
-        hours: { create: hours }
-      },
+      data: { ...classroomData, hours: { create: hours } },
       include: { hours: true }
     })
   }
@@ -26,10 +23,7 @@ export class ClassroomRepository {
 
     return this.prisma.classroom.update({
       where: { id },
-      data: {
-        ...classroomData,
-        ...(hours && { hours: { create: hours } })
-      },
+      data: { ...classroomData, ...(hours && { hours: { create: hours } }) },
       include: { hours: true }
     })
   }
@@ -41,11 +35,7 @@ export class ClassroomRepository {
         hours: true,
         arena: { select: { name: true, address: true } },
         students: {
-          include: {
-            student: {
-              select: { name: true, email: true, phone: true }
-            }
-          }
+          include: { student: { select: { name: true, email: true, phone: true } } }
         }
       },
       orderBy: { createdAt: 'desc' }
