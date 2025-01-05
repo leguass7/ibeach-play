@@ -182,3 +182,8 @@ export function formatPhoneNumber(value = '') {
 
   return formattedNumber
 }
+
+export function capitalize(str: string = '', lowerRest = false): string {
+  const s = String(str)
+  return s.slice(0, 1).toUpperCase() + (lowerRest ? s.slice(1).toLowerCase() : s.slice(1))
+}
