@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { AuthJwtGuard } from '@/@server-side/use-cases/auth/auth-jwt.guard'
 import { classroomService } from '@/@server-side/use-cases/classroom'
-import type { CreateClassroomDTO, UpdateClassroomDTO } from '@/@server-side/use-cases/classroom'
-import { Body, createHandler, Get, HttpCode, Post, Put, Param, Req, ValidationPipe } from 'next-api-decorators'
+import { CreateClassroomDTO, UpdateClassroomDTO } from '@/@server-side/use-cases/classroom'
+import { Body, createHandler, Get, HttpCode, Post, Param, Req, ValidationPipe, Patch } from 'next-api-decorators'
 
 import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.dto'
 
@@ -21,7 +22,11 @@ class CoachClassroomHandler {
 
   @HttpCode(201)
   @Post('/')
-  async create(@Body(ValidationPipe) body: CreateClassroomDTO, @Req() req: AuthorizedApiRequest) {
+  async create(
+    @Body(ValidationPipe({ transformOptions: { enableImplicitConversion: true } }))
+    body: CreateClassroomDTO,
+    @Req() req: AuthorizedApiRequest
+  ) {
     const coachId = req.auth?.userId
     if (!coachId) throw new Error('Unauthorized')
 
@@ -32,8 +37,8 @@ class CoachClassroomHandler {
   }
 
   @HttpCode(200)
-  @Put('/:id')
-  async update(@Param('id') id: string, @Body(ValidationPipe) body: UpdateClassroomDTO, @Req() req: AuthorizedApiRequest) {
+  @Patch('/:id')
+  async update(@Param('id') id: number, @Body(ValidationPipe) body: UpdateClassroomDTO, @Req() req: AuthorizedApiRequest) {
     const coachId = req.auth?.userId
     if (!coachId) throw new Error('Unauthorized')
 

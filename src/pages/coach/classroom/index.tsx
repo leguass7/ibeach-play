@@ -1,6 +1,6 @@
-import { FormClassroom } from '@/components/@features/classroom/FormClassroom'
+import { CarListClassroom } from '@/components/@features/classroom/CarListClassroom'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
-import { Card } from '@chakra-ui/react'
+import { GridItem, SimpleGrid } from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getServerSession } from 'next-auth'
 
@@ -13,9 +13,11 @@ type Props = {
 const PageCoachDash: NextPage<Props> = () => {
   return (
     <LayoutContainer>
-      <Card>
-        <FormClassroom />
-      </Card>
+      <SimpleGrid gap={5} columns={{ base: 1 }}>
+        <GridItem>
+          <CarListClassroom />
+        </GridItem>
+      </SimpleGrid>
     </LayoutContainer>
   )
 }

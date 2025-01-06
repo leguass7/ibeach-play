@@ -3,25 +3,35 @@ import React from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { FiPlus, FiTrash } from 'react-icons/fi'
 
+import { SelectArena } from '@/components/Inputs/SelectArena'
 import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
-import { coachGetClassroom, coachStoreClassroom, type StoreClassroomParams } from '@/services/api/coach'
-import { Button, FormControl, FormLabel, Input, VStack, SimpleGrid, FormErrorMessage, Select, IconButton, Flex, useToast } from '@chakra-ui/react'
+import type { FormClassroomData } from '@/services/api/classroom'
+import { coachGetClassroom, coachStoreClassroom } from '@/services/api/coach'
+import {
+  Button,
+  Divider,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  IconButton,
+  Input,
+  Select,
+  SimpleGrid,
+  useToast,
+  VStack
+} from '@chakra-ui/react'
 
-import { hoursToFormArray, weekDays, type FormArrayHours } from './helpers'
-
-type FormData = {
-  label: string
-  arenaId: number
-  hours: FormArrayHours
-}
+import { formClassroomOutDto, hoursToFormArray, weekDays } from './helpers'
 
 export type FormClassroomProps = {
   classroomId?: number
   onSuccess?: () => Promise<void>
+  onCancel?: () => void
 }
 
-export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuccess }) => {
+export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuccess, onCancel }) => {
   const [requestData, loadingInit, data] = useFetcher(coachGetClassroom)
   const [requestStore, loadingStore] = useFetcher(coachStoreClassroom)
   const toast = useToast()
@@ -35,7 +45,7 @@ export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuc
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm<FormData>({
+  } = useForm<FormClassroomData>({
     defaultValues: {
       label: data?.classroom?.label || '',
       arenaId: data?.classroom?.arenaId,
@@ -45,8 +55,8 @@ export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuc
 
   const { fields, append, remove } = useFieldArray({ control, name: 'hours' })
 
-  const handleFormSubmit = async (formData: FormData) => {
-    const payload: StoreClassroomParams = { ...formData, classroomId }
+  const handleFormSubmit = async (formData: FormClassroomData) => {
+    const payload = formClassroomOutDto(formData, classroomId)
 
     const response = await requestStore(payload)
     if (response?.success) {
@@ -80,6 +90,13 @@ export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuc
           <FormErrorMessage>{errors.label?.message}</FormErrorMessage>
         </FormControl>
 
+        <SelectArena
+          control={control}
+          isRequired
+          isDisabled={!!classroomId} // desabilita edição em modo de atualização
+        />
+        <Divider />
+
         <FormLabel>Horários</FormLabel>
         {fields.map((field, index) => (
           <Flex key={field.id} gap={2}>
@@ -109,7 +126,7 @@ export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuc
           <Button type="submit" colorScheme="blue" isLoading={isLoading}>
             {classroomId ? 'Atualizar' : 'Criar'} Turma
           </Button>
-          <Button variant="ghost">Cancelar</Button>
+          {onCancel ? <Button variant="ghost">Cancelar</Button> : null}
         </SimpleGrid>
       </VStack>
     </form>

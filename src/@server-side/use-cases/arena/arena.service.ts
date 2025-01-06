@@ -7,6 +7,10 @@ export class ArenaService {
     return this.arenaRepository
   }
 
+  async listOptions() {
+    return this.arenaRepository.findAllOptions()
+  }
+
   async search(text: string | null = '') {
     if (!text) return []
     //

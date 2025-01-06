@@ -1,4 +1,5 @@
-import { IsArray, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
+import { Transform, Type } from 'class-transformer'
+import { IsArray, IsDate, IsInt, IsOptional, Length, Max, Min } from 'class-validator'
 
 export class ClassroomDTO {
   id: number
@@ -14,12 +15,16 @@ export class ClassroomDTO {
 
 export class ClassroomHourDTO {
   @IsInt()
+  classroomId?: number
+
+  @IsInt()
   @Min(0)
   @Max(6)
+  @Transform(({ value }) => Number(value))
   weekDay: number
 
-  @IsString()
-  startHour: string
+  @IsDate()
+  startHour: string | Date
 }
 
 export class CreateClassroomDTO {
@@ -27,10 +32,19 @@ export class CreateClassroomDTO {
   @IsOptional()
   label?: string
 
+  @Transform(({ value, ...rest }) => {
+    console.log('Transforming coachId', value, rest)
+    return Number(value)
+  })
   @IsInt()
   arenaId: number
 
+  @Transform(({ value, ...rest }) => {
+    console.log('Transforming coachId', value, rest)
+    return Number(value)
+  })
   @IsInt()
+  @IsOptional()
   coachId: number
 
   @IsOptional()
@@ -40,10 +54,15 @@ export class CreateClassroomDTO {
   updatedAt?: Date
 
   @IsArray()
+  @Type(() => ClassroomHourDTO)
   hours: ClassroomHourDTO[]
 }
 
 export class UpdateClassroomDTO {
+  @IsInt()
+  @Transform(({ value }) => Number(value))
+  arenaId?: number
+
   @Length(0, 255)
   @IsOptional()
   label?: string

@@ -21,15 +21,15 @@ export const AuthJwtGuard = createMiddlewareDecorator(async (req: AuthorizedApiR
     const jwt = await getToken({ req, secret })
     const session = await getServerSession(req, res, authOptions)
 
-    console.log('jwt', jwt)
-    console.log('session', session)
+    // console.log('jwt', jwt)
+    // console.log('session', session)
     let auth: IAuthorizedUser | null = null
 
-    console.log('jwt', jwt)
+    // console.log('jwt', jwt)
     if (jwt) auth = tokenToAuthorizedDto(jwt)
     if (!auth && session) auth = sessionToAuthorizedDto(session)
 
-    console.log('auth', auth)
+    // console.log('auth', auth)
 
     req.ua = req?.headers['user-agent'] ? parse(req.headers['user-agent']) : null
     if (!auth?.userId) return unauthorize()

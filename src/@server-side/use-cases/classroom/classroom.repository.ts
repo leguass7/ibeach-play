@@ -1,6 +1,7 @@
 import type { PrismaClientSingleton } from '~/database'
 
 import type { CreateClassroomDTO, UpdateClassroomDTO } from './classroom.dto'
+import { hoursDto } from './classroom.helper'
 
 export class ClassroomRepository {
   constructor(private readonly prisma: PrismaClientSingleton) {}
@@ -9,7 +10,7 @@ export class ClassroomRepository {
     const { hours, ...classroomData } = data
 
     return this.prisma.classroom.create({
-      data: { ...classroomData, hours: { create: hours } },
+      data: { ...classroomData, hours: { create: hoursDto(hours) } },
       include: { hours: true }
     })
   }
