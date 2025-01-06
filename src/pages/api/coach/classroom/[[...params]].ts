@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import { AuthJwtGuard } from '@/@server-side/use-cases/auth/auth-jwt.guard'
+import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
 import { classroomService } from '@/@server-side/use-cases/classroom'
 import { CreateClassroomDTO, UpdateClassroomDTO } from '@/@server-side/use-cases/classroom'
 import { Body, createHandler, Get, HttpCode, Post, Param, Req, ValidationPipe, Patch } from 'next-api-decorators'
-
-import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.dto'
 
 @AuthJwtGuard()
 class CoachClassroomHandler {

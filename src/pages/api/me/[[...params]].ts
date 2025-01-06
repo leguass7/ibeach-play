@@ -3,7 +3,7 @@ import type { ChangePassDto } from '@/services/api/me'
 import { Body, createHandler, HttpCode, Post, Req } from 'next-api-decorators'
 
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
-import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.dto'
+import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
 import { userService } from '~/use-cases/user'
 
 class MeHandler {

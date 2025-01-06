@@ -2,7 +2,7 @@
 import type { Session } from 'next-auth'
 import type { JWT } from 'next-auth/jwt'
 
-import type { IAuthorizedUser } from './auth.dto'
+import type { IAuthorizedUser } from './auth.interface'
 
 export type JwtOrSession = (JWT | Session) & { level?: number }
 

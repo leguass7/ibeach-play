@@ -6,7 +6,7 @@ import { parse } from 'next-useragent'
 
 import { secret } from '~/config'
 
-import type { AuthorizedApiRequest, IAuthorizedUser } from './auth.dto'
+import type { AuthorizedApiRequest, IAuthorizedUser } from './auth.interface'
 import { sessionToAuthorizedDto, tokenToAuthorizedDto } from './auth.helper'
 import { authOptions } from './auth.options'
 

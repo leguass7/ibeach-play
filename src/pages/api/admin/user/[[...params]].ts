@@ -1,4 +1,4 @@
-import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.dto'
+import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
 import { tryNumber } from '@/helpers/number'
 import { instanceToPlain } from 'class-transformer'
 import { Body, createHandler, Get, HttpCode, HttpException, Patch, Post, Query, Req, ValidationPipe } from 'next-api-decorators'

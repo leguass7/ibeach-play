@@ -3,7 +3,7 @@ import { Body, createHandler, Get, HttpCode, Post, Query, Req, ValidationPipe } 
 
 import { arenaRepository, type CreateArenaDTO } from '~/use-cases/arena'
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
-import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.dto'
+import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
 import { userRepository } from '~/use-cases/user'
 
 @AuthJwtGuard()
