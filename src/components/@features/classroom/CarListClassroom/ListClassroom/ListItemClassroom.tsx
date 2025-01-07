@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { FiEdit2 } from 'react-icons/fi'
+import { FiTrash, FiEdit2 } from 'react-icons/fi'
 
 import type { ClassroomDTO } from '@/@server-side/use-cases/classroom'
 import { Avatar, Flex, IconButton, ListItem, Text } from '@chakra-ui/react'
@@ -31,12 +31,15 @@ export const ListItemClassroom: React.FC<Props> = ({ id, label, hours, onEdit })
     >
       <Avatar size="md" name={label} />
       <Flex direction={'column'} flex={1}>
-        <Text as={'span'} fontWeight="bold">
-          {label}
-        </Text>
+        <Flex gap={2}>
+          <Text as={'span'} fontWeight="bold" flex={1}>
+            {label}
+          </Text>
+          <IconButton aria-label="Editar turma" icon={<FiEdit2 />} size="sm" variant="outline" onClick={handleClickEdit} />
+          <IconButton aria-label="Remover turma" icon={<FiTrash />} size="sm" variant="outline" />
+        </Flex>
         <ItemHour hours={hours} />
       </Flex>
-      <IconButton aria-label="Editar turma" icon={<FiEdit2 />} size="sm" variant="ghost" onClick={handleClickEdit} />
     </ListItem>
   )
 }
