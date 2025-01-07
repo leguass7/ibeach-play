@@ -1,5 +1,5 @@
 import { Transform, Type } from 'class-transformer'
-import { IsArray, IsDate, IsInt, IsOptional, Length, Max, Min } from 'class-validator'
+import { IsArray, IsDate, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
 
 export class ClassroomDTO {
   id: number
@@ -14,6 +14,10 @@ export class ClassroomDTO {
 }
 
 export class ClassroomHourDTO {
+  @IsOptional()
+  @IsString()
+  id?: string
+
   @IsInt()
   classroomId?: number
 

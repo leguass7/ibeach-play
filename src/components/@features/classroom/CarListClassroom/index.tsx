@@ -1,11 +1,14 @@
 import React from 'react'
-import { FiPlus } from 'react-icons/fi'
+import { FiPlus, FiRefreshCcw } from 'react-icons/fi'
 
+import { useCoachClassroom } from '@/services/api/coach/useCoachClassroom'
 import { Box, Card, CardBody, CardHeader, Flex, Heading, IconButton } from '@chakra-ui/react'
 
 import { ModalClassroom } from '../ModalClassroom'
+import { ListClassroom, type ClickEditHandler } from './ListClassroom'
 
 export const CarListClassroom: React.FC = () => {
+  const { list } = useCoachClassroom()
   const [openForm, setOpenForm] = React.useState(0)
 
   const handleClickNew = () => {
@@ -16,9 +19,13 @@ export const CarListClassroom: React.FC = () => {
     setOpenForm(0)
   }
 
+  const handleClickEdit: ClickEditHandler = id => {
+    setOpenForm(+id)
+  }
+
   return (
     <>
-      <ModalClassroom isOpen={!!openForm} onClose={handleClickClose} />
+      <ModalClassroom isOpen={!!openForm} onClose={handleClickClose} classroomId={openForm} />
       <Card>
         <CardHeader>
           <Flex gap={4}>
@@ -27,10 +34,13 @@ export const CarListClassroom: React.FC = () => {
                 <Heading size="md">Turmas</Heading>
               </Box>
             </Flex>
-            <IconButton colorScheme="gray" aria-label="See menu" icon={<FiPlus />} onClick={handleClickNew} />
+            <IconButton colorScheme="gray" aria-label="Adicionar" icon={<FiPlus />} onClick={handleClickNew} />
+            <IconButton colorScheme="gray" aria-label="Atalizar" icon={<FiRefreshCcw />} onClick={list} />
           </Flex>
         </CardHeader>
-        <CardBody>{/** ClassroomList */}</CardBody>
+        <CardBody>
+          <ListClassroom onEdit={handleClickEdit} />
+        </CardBody>
       </Card>
     </>
   )

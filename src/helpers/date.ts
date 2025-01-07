@@ -1,4 +1,5 @@
-import { format, isValid, parse, parseISO, parseJSON } from 'date-fns'
+import { format, isValid, parse, parseISO, parseJSON, setDay } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 import { makeArray } from './array'
 
@@ -11,8 +12,8 @@ export function validDate(date?: Date | string) {
   return undefined
 }
 
-export function formatDate(date: Date | string, formatString: string) {
-  const valid = validDate(date)
+export function formatDate(date: Date | string | null, formatString: string) {
+  const valid = validDate(date || '')
   if (valid) return format(valid, formatString)
   return ''
 }
@@ -48,4 +49,14 @@ export function tryDate(str?: Date | string | null | number, formats: string | s
 
   if (typeof str === 'number') return new Date(str)
   return typeof str === 'string' ? trying(str) || null : str || null
+}
+
+export function formatHour(date?: Date | string | null) {
+  return formatDate(tryDate(date), 'HH:mm')
+}
+
+export function formatWeekDay(weekDay: number) {
+  // Ajuste para considerar segunda-feira como dia 1
+  const date = setDay(new Date(), weekDay === 7 ? 0 : weekDay, { weekStartsOn: 1 })
+  return format(date, 'EEEEEE', { locale: ptBR }).toUpperCase()
 }

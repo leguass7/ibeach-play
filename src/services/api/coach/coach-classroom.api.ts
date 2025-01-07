@@ -2,6 +2,10 @@ import { apiService } from '@/services/api/api.service'
 
 import type { FormClassroomData, IResponseClassroom } from '../classroom'
 
+export function coachGetClassroomList(): Promise<IResponseClassroom | null> {
+  return apiService.get(`/coach/classroom`)
+}
+
 export function coachGetClassroom(classroomId: number): Promise<IResponseClassroom | null> {
   return apiService.get(`/coach/classroom/${classroomId}`)
 }

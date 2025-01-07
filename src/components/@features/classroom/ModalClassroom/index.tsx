@@ -3,7 +3,7 @@ import React from 'react'
 import { ModalBody, ModalCloseButton, ModalHeader, type ModalProps } from '@chakra-ui/react'
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 
-import { FormClassroom } from '../FormClassroom'
+import { FormCoachClassroom } from '../FormCoachClassroom'
 
 type ModalClassroomProps = Omit<ModalProps, 'children'> & {
   classroomId?: number
@@ -18,7 +18,7 @@ export const ModalClassroom: React.FC<ModalClassroomProps> = ({ classroomId, ...
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <FormClassroom />
+          <FormCoachClassroom classroomId={classroomId} />
         </ModalBody>
       </ModalContent>
     </Modal>

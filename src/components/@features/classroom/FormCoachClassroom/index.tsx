@@ -7,7 +7,8 @@ import { SelectArena } from '@/components/Inputs/SelectArena'
 import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
 import type { FormClassroomData } from '@/services/api/classroom'
-import { coachGetClassroom, coachStoreClassroom } from '@/services/api/coach'
+import { coachGetClassroom } from '@/services/api/coach'
+import { useCoachClassroom } from '@/services/api/coach/useCoachClassroom'
 import {
   Button,
   Divider,
@@ -31,9 +32,9 @@ export type FormClassroomProps = {
   onCancel?: () => void
 }
 
-export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuccess, onCancel }) => {
+export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuccess, onCancel }) => {
+  const { store, loading } = useCoachClassroom()
   const [requestData, loadingInit, data] = useFetcher(coachGetClassroom)
-  const [requestStore, loadingStore] = useFetcher(coachStoreClassroom)
   const toast = useToast()
 
   const fetchInitialData = React.useCallback(async () => {
@@ -58,7 +59,7 @@ export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuc
   const handleFormSubmit = async (formData: FormClassroomData) => {
     const payload = formClassroomOutDto(formData, classroomId)
 
-    const response = await requestStore(payload)
+    const response = await store(payload)
     if (response?.success) {
       await onSuccess?.()
     } else {
@@ -72,9 +73,14 @@ export const FormClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuc
     }
   }
 
-  useOnceCall(fetchInitialData)
+  // React.useEffect(() => {
+  //   fetchInitialData()
+  // }, [fetchInitialData])
 
-  const isLoading = loadingInit || loadingStore
+  useOnceCall(fetchInitialData)
+  console.log('data', data)
+
+  const isLoading = loadingInit || loading
 
   return (
     <form key={`${classroomId}`} onSubmit={handleSubmit(handleFormSubmit)}>
