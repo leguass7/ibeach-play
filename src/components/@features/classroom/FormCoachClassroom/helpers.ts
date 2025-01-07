@@ -1,4 +1,5 @@
 import type { ClassroomDTO, ClassroomHourDTO } from '@/@server-side/use-cases/classroom'
+import { formatHour } from '@/helpers/date'
 import type { FormClassroomData } from '@/services/api/classroom'
 import type { StoreClassroomParams } from '@/services/api/coach'
 
@@ -16,16 +17,22 @@ export type FormArrayHours = { weekDay: number; startHour: string | Date; classr
 
 type Params = FormClassroomData['hours'] | ClassroomHourDTO[]
 export function hoursToFormArray(hours: Params = []): FormClassroomData['hours'] {
-  if (!hours.length) {
+  if (!hours?.length) {
     const id = `${Math.random().toString(36).substring(7)}`
-    return [{ weekDay: 1, startHour: '08:00', id }] as FormClassroomData['hours']
+    return [{ weekDay: 1, startHour: '08:00', id }]
   }
-  return hours.map(h => ({ weekDay: +h?.weekDay || 1, startHour: h.startHour, id: h?.id })) as FormClassroomData['hours']
+
+  return hours.map(hour => ({
+    id: hour?.id || `${Math.random().toString(36).substring(7)}`,
+    weekDay: hour.weekDay,
+    startHour: hour.startHour as string
+  }))
 }
 
-export function formClassroomOutDto(data: FormClassroomData, id?: number): StoreClassroomParams {
+export function formClassroomOutDto(data: FormClassroomData, classroomId?: number): StoreClassroomParams {
+  const id = classroomId && classroomId > 0 ? classroomId : data?.id
   return {
-    id: id || data?.id,
+    id,
     label: data.label,
     arenaId: Number(data?.arenaId || 0),
     hours: hoursToFormArray(data.hours)
@@ -34,11 +41,18 @@ export function formClassroomOutDto(data: FormClassroomData, id?: number): Store
 
 export function formClassroomInDto(data?: ClassroomDTO): FormClassroomData | undefined {
   if (!data) return undefined
-  const { id, label, arenaId, hours } = data
+  const { id, label, arenaId, hours = [] } = data
+
+  const hDto = () =>
+    hours.map(hour => {
+      const startHour = formatHour(hour?.startHour) || '08:00'
+      return { weekDay: hour.weekDay, startHour, id: hour.id }
+    })
+
   return {
     id,
-    label: label || '--',
-    arenaId,
-    hours: hours?.length ? hoursToFormArray(hours) : []
+    label: label || '',
+    arenaId: arenaId || 0,
+    hours: hDto()
   }
 }

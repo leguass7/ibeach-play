@@ -41,7 +41,8 @@ class CoachClassroomHandler {
     const coachId = req.auth?.userId
     if (!coachId) throw new Error('Unauthorized')
 
-    const classroom = await classroomRepository.getOne(coachId)
+    // Corrigido: estava passando coachId ao invés de id
+    const classroom = await classroomRepository.getOne(Number(id))
 
     return { success: !!classroom, classroom }
   }

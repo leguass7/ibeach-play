@@ -9,7 +9,25 @@ export class ClassroomRepository {
   async getOne(id: number) {
     return this.prisma.classroom.findUnique({
       where: { id },
-      include: { hours: true }
+      include: {
+        hours: {
+          orderBy: {
+            weekDay: 'asc'
+          },
+          select: {
+            id: true,
+            weekDay: true,
+            startHour: true,
+            classroomId: true
+          }
+        },
+        arena: {
+          select: {
+            id: true,
+            name: true
+          }
+        }
+      }
     })
   }
 

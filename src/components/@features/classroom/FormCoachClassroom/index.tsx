@@ -43,20 +43,27 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
     control,
     reset,
     formState: { errors }
-  } = useForm<FormClassroomData>()
-
-  // Fetch inicial dos dados
-  const fetchInitialData = React.useCallback(async () => {
-    if (classroomId) {
-      const response = await requestData(classroomId)
-      if (response?.classroom) {
-        const formData = formClassroomInDto(response.classroom)
-        reset(formData) // Reset do formulário com os dados
-      }
-    }
-  }, [classroomId, requestData, reset])
+  } = useForm<FormClassroomData>({
+    defaultValues: { label: '', arenaId: 0, hours: [{ weekDay: 1, startHour: '08:00' }] }
+  })
 
   const { fields, append, remove } = useFieldArray({ control, name: 'hours' })
+
+  // Fetch inicial dos dados
+  React.useEffect(() => {
+    if (classroomId && data?.classroom) {
+      const formData = formClassroomInDto(data.classroom)
+      if (formData) {
+        reset(formData)
+      }
+    }
+  }, [classroomId, data?.classroom, reset])
+
+  const fetchInitialData = React.useCallback(async () => {
+    if (classroomId) await requestData(classroomId)
+  }, [classroomId, requestData])
+
+  useOnceCall(fetchInitialData)
 
   const handleFormSubmit = async (formData: FormClassroomData) => {
     const payload = formClassroomOutDto(formData, classroomId)
@@ -75,10 +82,8 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
     }
   }
 
-  useOnceCall(fetchInitialData)
-  console.log('data', data)
-
   const isLoading = loadingInit || loading
+  const edit = !!classroomId && classroomId > 0
 
   return (
     <form key={`${data?.classroom?.id}`} onSubmit={handleSubmit(handleFormSubmit)}>
@@ -94,11 +99,7 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
           <FormErrorMessage>{errors.label?.message}</FormErrorMessage>
         </FormControl>
 
-        <SelectArena
-          control={control}
-          isRequired
-          isDisabled={!!classroomId} // desabilita edição em modo de atualização
-        />
+        <SelectArena control={control} isRequired isDisabled={!!edit} />
         <Divider />
 
         <FormLabel>Horários</FormLabel>
@@ -128,7 +129,7 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
 
         <SimpleGrid columns={2} spacing={4}>
           <Button type="submit" colorScheme="blue" isLoading={isLoading}>
-            {classroomId ? 'Atualizar' : 'Criar'} Turma
+            {edit ? 'Atualizar' : 'Criar'} Turma
           </Button>
           {onCancel ? <Button variant="ghost">Cancelar</Button> : null}
         </SimpleGrid>
