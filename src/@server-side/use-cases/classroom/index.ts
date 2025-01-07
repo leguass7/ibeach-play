@@ -5,6 +5,8 @@ import { ClassroomService } from './classroom.service'
 export * from './classroom.dto'
 
 const classroomRepository = new ClassroomRepository(prisma)
+
+/**  @deprecated */
 const classroomService = new ClassroomService(classroomRepository)
 
 export { classroomService, classroomRepository }

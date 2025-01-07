@@ -24,7 +24,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 
-import { formClassroomOutDto, hoursToFormArray, weekDays } from './helpers'
+import { formClassroomInDto, formClassroomOutDto, weekDays } from './helpers'
 
 export type FormClassroomProps = {
   classroomId?: number
@@ -37,22 +37,24 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
   const [requestData, loadingInit, data] = useFetcher(coachGetClassroom)
   const toast = useToast()
 
-  const fetchInitialData = React.useCallback(async () => {
-    if (classroomId) requestData(classroomId)
-  }, [classroomId, requestData])
-
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors }
-  } = useForm<FormClassroomData>({
-    defaultValues: {
-      label: data?.classroom?.label || '',
-      arenaId: data?.classroom?.arenaId,
-      hours: hoursToFormArray(data?.classroom?.hours) || [{ weekDay: 1, startHour: '08:00' }]
+  } = useForm<FormClassroomData>()
+
+  // Fetch inicial dos dados
+  const fetchInitialData = React.useCallback(async () => {
+    if (classroomId) {
+      const response = await requestData(classroomId)
+      if (response?.classroom) {
+        const formData = formClassroomInDto(response.classroom)
+        reset(formData) // Reset do formulário com os dados
+      }
     }
-  })
+  }, [classroomId, requestData, reset])
 
   const { fields, append, remove } = useFieldArray({ control, name: 'hours' })
 
@@ -73,17 +75,13 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
     }
   }
 
-  // React.useEffect(() => {
-  //   fetchInitialData()
-  // }, [fetchInitialData])
-
   useOnceCall(fetchInitialData)
   console.log('data', data)
 
   const isLoading = loadingInit || loading
 
   return (
-    <form key={`${classroomId}`} onSubmit={handleSubmit(handleFormSubmit)}>
+    <form key={`${data?.classroom?.id}`} onSubmit={handleSubmit(handleFormSubmit)}>
       <VStack spacing={4} align="stretch">
         <FormControl isInvalid={!!errors.label}>
           <FormLabel>Nome da Turma</FormLabel>

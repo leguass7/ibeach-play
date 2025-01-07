@@ -1,22 +1,27 @@
 import type { CreateClassroomDTO, UpdateClassroomDTO } from './classroom.dto'
 import type { ClassroomRepository } from './classroom.repository'
 
+/** @deprecated */
 export class ClassroomService {
   constructor(private readonly classroomRepository: ClassroomRepository) {}
 
-  async createClassroom(data: CreateClassroomDTO) {
+  getRepository() {
+    return this.classroomRepository
+  }
+
+  async getOne(id: number) {
+    return this.classroomRepository.getOne(id)
+  }
+
+  async create(data: CreateClassroomDTO) {
     return this.classroomRepository.create(data)
   }
 
-  async updateClassroom(id: number, data: UpdateClassroomDTO) {
+  async update(id: number, data: UpdateClassroomDTO) {
     return this.classroomRepository.update(id, data)
   }
 
-  async listClassrooms(coachId: number, arenaId?: number) {
+  async list(coachId: number, arenaId?: number) {
     return this.classroomRepository.findAll(coachId, arenaId)
-  }
-
-  getRepository() {
-    return this.classroomRepository
   }
 }

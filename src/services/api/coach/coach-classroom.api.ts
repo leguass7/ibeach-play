@@ -18,9 +18,9 @@ export function coachUpdateClassroom(classroomId: number, data: Partial<FormClas
   return apiService.patch(`/coach/classroom/${classroomId}`, data)
 }
 
-export type StoreClassroomParams = FormClassroomData & { classroomId?: number }
-export function coachStoreClassroom({ classroomId, ...data }: StoreClassroomParams): Promise<IResponseClassroom | null> {
-  if (classroomId) return coachUpdateClassroom(classroomId, data)
+export type StoreClassroomParams = FormClassroomData & { id?: number }
+export function coachStoreClassroom({ id, ...data }: StoreClassroomParams): Promise<IResponseClassroom | null> {
+  if (id) return coachUpdateClassroom(id, data)
   return coachCreateClassroom(data)
 }
 

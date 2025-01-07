@@ -6,6 +6,13 @@ import { hoursDto } from './classroom.helper'
 export class ClassroomRepository {
   constructor(private readonly prisma: PrismaClientSingleton) {}
 
+  async getOne(id: number) {
+    return this.prisma.classroom.findUnique({
+      where: { id },
+      include: { hours: true }
+    })
+  }
+
   async create(data: CreateClassroomDTO) {
     const { hours, ...classroomData } = data
 

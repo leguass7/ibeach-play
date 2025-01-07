@@ -1,4 +1,4 @@
-import type { ClassroomHourDTO } from '@/@server-side/use-cases/classroom'
+import type { ClassroomDTO, ClassroomHourDTO } from '@/@server-side/use-cases/classroom'
 import type { FormClassroomData } from '@/services/api/classroom'
 import type { StoreClassroomParams } from '@/services/api/coach'
 
@@ -16,15 +16,29 @@ export type FormArrayHours = { weekDay: number; startHour: string | Date; classr
 
 type Params = FormClassroomData['hours'] | ClassroomHourDTO[]
 export function hoursToFormArray(hours: Params = []): FormClassroomData['hours'] {
-  if (!hours.length) return [{ weekDay: 1, startHour: '08:00' }] as FormClassroomData['hours']
-  return hours.map(h => ({ weekDay: +h?.weekDay || 1, startHour: h.startHour })) as FormClassroomData['hours']
+  if (!hours.length) {
+    const id = `${Math.random().toString(36).substring(7)}`
+    return [{ weekDay: 1, startHour: '08:00', id }] as FormClassroomData['hours']
+  }
+  return hours.map(h => ({ weekDay: +h?.weekDay || 1, startHour: h.startHour, id: h?.id })) as FormClassroomData['hours']
 }
 
-export function formClassroomOutDto(data: FormClassroomData, classroomId?: number): StoreClassroomParams {
+export function formClassroomOutDto(data: FormClassroomData, id?: number): StoreClassroomParams {
   return {
-    classroomId,
+    id: id || data?.id,
     label: data.label,
     arenaId: Number(data?.arenaId || 0),
     hours: hoursToFormArray(data.hours)
+  }
+}
+
+export function formClassroomInDto(data?: ClassroomDTO): FormClassroomData | undefined {
+  if (!data) return undefined
+  const { id, label, arenaId, hours } = data
+  return {
+    id,
+    label: label || '--',
+    arenaId,
+    hours: hours?.length ? hoursToFormArray(hours) : []
   }
 }

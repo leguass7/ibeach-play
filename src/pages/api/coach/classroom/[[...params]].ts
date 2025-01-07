@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import { AuthJwtGuard } from '@/@server-side/use-cases/auth/auth-jwt.guard'
 import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
-import { classroomService } from '@/@server-side/use-cases/classroom'
+import { classroomRepository } from '@/@server-side/use-cases/classroom'
 import { CreateClassroomDTO, UpdateClassroomDTO } from '@/@server-side/use-cases/classroom'
 import { Body, createHandler, Get, HttpCode, Post, Param, Req, ValidationPipe, Patch } from 'next-api-decorators'
 
@@ -14,7 +14,7 @@ class CoachClassroomHandler {
     if (!coachId) throw new Error('Unauthorized')
 
     const arenaId = req.query.arenaId ? Number(req.query.arenaId) : undefined
-    const classrooms = await classroomService.listClassrooms(coachId, arenaId)
+    const classrooms = await classroomRepository.findAll(coachId, arenaId)
 
     return { success: true, classrooms }
   }
@@ -30,9 +30,20 @@ class CoachClassroomHandler {
     if (!coachId) throw new Error('Unauthorized')
 
     const data = { ...body, coachId }
-    const classroom = await classroomService.createClassroom(data)
+    const classroom = await classroomRepository.create(data)
 
     return { success: true, classroom }
+  }
+
+  @HttpCode(200)
+  @Get('/:id')
+  async one(@Param('id') id: number, @Req() req: AuthorizedApiRequest) {
+    const coachId = req.auth?.userId
+    if (!coachId) throw new Error('Unauthorized')
+
+    const classroom = await classroomRepository.getOne(coachId)
+
+    return { success: !!classroom, classroom }
   }
 
   @HttpCode(200)
@@ -41,7 +52,7 @@ class CoachClassroomHandler {
     const coachId = req.auth?.userId
     if (!coachId) throw new Error('Unauthorized')
 
-    const classroom = await classroomService.updateClassroom(Number(id), body)
+    const classroom = await classroomRepository.update(Number(id), body)
 
     return { success: true, classroom }
   }
