@@ -8,7 +8,8 @@ const predefinedPaths = [
   { label: 'Home', path: '/' },
   { label: 'Admin', path: 'admin' },
   { label: 'Turmas', path: 'classroom' },
-  { label: 'Treinador', path: 'coach' }
+  { label: 'Treinador', path: 'coach' },
+  { label: 'Alunos', path: 'student' }
 ]
 
 export type BreadcrumbNavigationProps = BreadcrumbProps

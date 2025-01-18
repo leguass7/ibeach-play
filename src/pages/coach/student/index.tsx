@@ -1,4 +1,3 @@
-import { CarListClassroom } from '@/components/@features/classroom/CarListClassroom'
 import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
@@ -11,20 +10,18 @@ type Props = {
   [x: string]: unknown
 }
 
-const PageCoachClassroom: NextPage<Props> = () => {
+const PageCoachStudent: NextPage<Props> = () => {
   return (
     <LayoutContainer>
       <BreadcrumbNavigation />
       <SimpleGrid gap={5} columns={{ base: 1 }}>
-        <GridItem>
-          <CarListClassroom />
-        </GridItem>
+        <GridItem>{''}</GridItem>
       </SimpleGrid>
     </LayoutContainer>
   )
 }
 
-export default PageCoachClassroom
+export default PageCoachStudent
 
 export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
