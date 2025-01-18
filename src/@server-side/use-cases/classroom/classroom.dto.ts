@@ -72,6 +72,7 @@ export class UpdateClassroomDTO {
   label?: string
 
   @IsArray()
+  @Type(() => ClassroomHourDTO)
   @IsOptional()
   hours?: ClassroomHourDTO[]
 }

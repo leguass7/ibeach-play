@@ -42,15 +42,18 @@ export class ClassroomRepository {
 
   async update(id: number, data: UpdateClassroomDTO) {
     const { hours, ...classroomData } = data
+    const hasHours = !!(hours && hours?.length > 0)
 
-    if (hours) {
+    if (hasHours) {
       await this.prisma.classroomHours.deleteMany({ where: { classroomId: id } })
     }
+    const newHours = hasHours ? hoursDto(hours) : []
+    const hoursData = hasHours ? { hours: { create: newHours } } : {}
 
     return this.prisma.classroom.update({
       where: { id },
-      data: { ...classroomData, ...(hours && { hours: { create: hours } }) },
-      include: { hours: true }
+      data: { ...classroomData, ...hoursData },
+      include: { hours: !!hasHours }
     })
   }
 

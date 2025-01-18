@@ -49,7 +49,11 @@ class CoachClassroomHandler {
 
   @HttpCode(200)
   @Patch('/:id')
-  async update(@Param('id') id: number, @Body(ValidationPipe) body: UpdateClassroomDTO, @Req() req: AuthorizedApiRequest) {
+  async update(
+    @Param('id') id: number,
+    @Body(ValidationPipe({ transformOptions: { enableImplicitConversion: true } })) body: UpdateClassroomDTO,
+    @Req() req: AuthorizedApiRequest
+  ) {
     const coachId = req.auth?.userId
     if (!coachId) throw new Error('Unauthorized')
 
