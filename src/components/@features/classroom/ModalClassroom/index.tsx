@@ -9,16 +9,20 @@ type ModalClassroomProps = Omit<ModalProps, 'children'> & {
   classroomId?: number
 }
 
-export const ModalClassroom: React.FC<ModalClassroomProps> = ({ classroomId, ...props }) => {
+export const ModalClassroom: React.FC<ModalClassroomProps> = ({ classroomId, onClose, ...props }) => {
   const title = classroomId && classroomId > 0 ? 'Editar turma' : 'Criar turma'
+
+  const handleClose = () => {
+    if (onClose) onClose?.()
+  }
   return (
-    <Modal closeOnOverlayClick={false} {...props}>
+    <Modal closeOnOverlayClick={false} {...props} onClose={handleClose}>
       <ModalOverlay />
       <ModalContent m={4}>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <FormCoachClassroom classroomId={classroomId} />
+          <FormCoachClassroom classroomId={classroomId} onCancel={onClose} />
         </ModalBody>
       </ModalContent>
     </Modal>

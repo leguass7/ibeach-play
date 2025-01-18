@@ -117,7 +117,7 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
         {fields.map((field, index) => (
           <Flex key={field.id} gap={2}>
             <FormControl isInvalid={!!errors.hours?.[index]?.weekDay}>
-              <Select {...register(`hours.${index}.weekDay`)}>
+              <Select {...register(`hours.${index}.weekDay`)} isDisabled={isLoading}>
                 {weekDays.map(day => (
                   <option key={day.value} value={day.value}>
                     {day.label}
@@ -127,14 +127,21 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
             </FormControl>
 
             <FormControl isInvalid={!!errors.hours?.[index]?.startHour}>
-              <Input type="time" {...register(`hours.${index}.startHour`)} />
+              <Input type="time" {...register(`hours.${index}.startHour`)} isDisabled={isLoading} />
             </FormControl>
 
-            <IconButton aria-label="Remover horário" icon={<FiTrash />} onClick={() => remove(index)} variant="ghost" colorScheme="red" />
+            <IconButton
+              aria-label="Remover horário"
+              icon={<FiTrash />}
+              onClick={() => remove(index)}
+              variant="ghost"
+              colorScheme="red"
+              isDisabled={isLoading}
+            />
           </Flex>
         ))}
 
-        <Button leftIcon={<FiPlus />} onClick={() => append({ weekDay: 1, startHour: '08:00' })} variant="ghost" size="sm">
+        <Button leftIcon={<FiPlus />} onClick={() => append({ weekDay: 1, startHour: '08:00' })} variant="ghost" size="sm" isDisabled={isLoading}>
           Adicionar horário
         </Button>
 
@@ -142,7 +149,11 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
           <Button type="submit" colorScheme="blue" isLoading={isLoading}>
             {edit ? 'Atualizar' : 'Criar'} Turma
           </Button>
-          {onCancel ? <Button variant="ghost">Cancelar</Button> : null}
+          {onCancel ? (
+            <Button variant="outline" onClick={onCancel}>
+              Fechar
+            </Button>
+          ) : null}
         </SimpleGrid>
       </VStack>
     </form>

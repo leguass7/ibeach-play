@@ -1,4 +1,5 @@
 import { CarListClassroom } from '@/components/@features/classroom/CarListClassroom'
+import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
@@ -13,6 +14,7 @@ type Props = {
 const PageCoachDash: NextPage<Props> = () => {
   return (
     <LayoutContainer>
+      <BreadcrumbNavigation />
       <SimpleGrid gap={5} columns={{ base: 1 }}>
         <GridItem>
           <CarListClassroom />

@@ -1,3 +1,4 @@
+import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getServerSession } from 'next-auth'
@@ -14,6 +15,7 @@ type Props = {
 const PageCoachDash: NextPage<Props> = () => {
   return (
     <LayoutContainer>
+      <BreadcrumbNavigation />
       <CoachDash />
     </LayoutContainer>
   )
