@@ -1,3 +1,3 @@
-import type { ResponseApi } from '@/services/ClientAxios'
+import type { IStudentResponse } from '@/services/api/student'
 
-export type IResponseCoachStudent = ResponseApi
+export type ICoachStudentResponse = IStudentResponse

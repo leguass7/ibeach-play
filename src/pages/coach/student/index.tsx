@@ -1,3 +1,4 @@
+import { CarListStudent } from '@/components/@features/student/CarListStudent'
 import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
@@ -15,7 +16,9 @@ const PageCoachStudent: NextPage<Props> = () => {
     <LayoutContainer>
       <BreadcrumbNavigation />
       <SimpleGrid gap={5} columns={{ base: 1 }}>
-        <GridItem>{''}</GridItem>
+        <GridItem>
+          <CarListStudent />
+        </GridItem>
       </SimpleGrid>
     </LayoutContainer>
   )

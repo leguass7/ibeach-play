@@ -8,7 +8,7 @@ import { ModalClassroom } from '../ModalClassroom'
 import { ListClassroom, type ClickEditHandler } from './ListClassroom'
 
 export const CarListClassroom: React.FC = () => {
-  const { list } = useCoachClassroom()
+  const { list, loading } = useCoachClassroom()
   const [openForm, setOpenForm] = React.useState(0)
 
   const handleClickNew = () => {
@@ -35,7 +35,7 @@ export const CarListClassroom: React.FC = () => {
               </Box>
             </Flex>
             <IconButton colorScheme="gray" aria-label="Adicionar" icon={<FiPlus />} onClick={handleClickNew} />
-            <IconButton colorScheme="gray" aria-label="Atalizar" icon={<FiRefreshCcw />} onClick={list} />
+            <IconButton colorScheme="gray" aria-label="Atalizar" icon={<FiRefreshCcw />} onClick={list} isDisabled={!!loading} />
           </Flex>
         </CardHeader>
         <CardBody>
