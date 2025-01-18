@@ -3,11 +3,12 @@ import React from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { FiPlus, FiTrash } from 'react-icons/fi'
 
-import { SelectArena } from '@/components/Inputs/SelectArena'
+import { SelectOptions } from '@/components/Inputs/selects/SelectOptions'
 import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
 import type { FormClassroomData } from '@/services/api/classroom'
 import { coachGetClassroom } from '@/services/api/coach'
+import { useCoachArenaOptions } from '@/services/api/coach/useCoachArenas'
 import { useCoachClassroom } from '@/services/api/coach/useCoachClassroom'
 import {
   Button,
@@ -35,6 +36,7 @@ export type FormClassroomProps = {
 export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, onSuccess, onCancel }) => {
   const { store, loading } = useCoachClassroom()
   const [requestData, loadingInit, data] = useFetcher(coachGetClassroom)
+  const [requestArenas, loadingArenas, arenaOptions] = useCoachArenaOptions()
   const toast = useToast()
 
   const {
@@ -60,8 +62,9 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
   }, [classroomId, data?.classroom, reset])
 
   const fetchInitialData = React.useCallback(async () => {
-    if (classroomId) await requestData(classroomId)
-  }, [classroomId, requestData])
+    await requestArenas()
+    if (classroomId && classroomId > 0) await requestData(classroomId)
+  }, [classroomId, requestData, requestArenas])
 
   useOnceCall(fetchInitialData)
 
@@ -82,12 +85,20 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
     }
   }
 
-  const isLoading = loadingInit || loading
+  const isLoading = loadingInit || loading || loadingArenas
   const edit = !!classroomId && classroomId > 0
 
   return (
     <form key={`${data?.classroom?.id}`} onSubmit={handleSubmit(handleFormSubmit)}>
       <VStack spacing={4} align="stretch">
+        <SelectOptions
+          name="arenaId"
+          control={control}
+          isRequired
+          isDisabled={edit || isLoading}
+          options={arenaOptions}
+          placeholder={loadingArenas ? 'carregando...' : 'Arenas'}
+        />
         <FormControl isInvalid={!!errors.label}>
           <FormLabel>Nome da Turma</FormLabel>
           <Input
@@ -95,11 +106,11 @@ export const FormCoachClassroom: React.FC<FormClassroomProps> = ({ classroomId, 
               required: 'Nome é obrigatório',
               maxLength: { value: 255, message: 'Máximo de 255 caracteres' }
             })}
+            isDisabled={isLoading}
           />
           <FormErrorMessage>{errors.label?.message}</FormErrorMessage>
         </FormControl>
 
-        <SelectArena control={control} isRequired isDisabled={!!edit} />
         <Divider />
 
         <FormLabel>Horários</FormLabel>
