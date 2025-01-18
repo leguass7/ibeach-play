@@ -1,8 +1,7 @@
 import { arenaService } from '@/@server-side/use-cases/arena'
 import { AuthJwtGuard } from '@/@server-side/use-cases/auth/auth-jwt.guard'
-import { createHandler, Get, HttpCode, Req } from 'next-api-decorators'
-
 import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
+import { createHandler, Get, HttpCode, Req } from 'next-api-decorators'
 
 @AuthJwtGuard()
 class CoachArenaHandler {

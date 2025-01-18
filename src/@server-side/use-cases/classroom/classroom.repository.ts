@@ -6,6 +6,10 @@ import { hoursDto } from './classroom.helper'
 export class ClassroomRepository {
   constructor(private readonly prisma: PrismaClientSingleton) {}
 
+  async count(coachId?: number) {
+    return this.prisma.classroom.count({ where: { coachId } })
+  }
+
   async getOne(id: number) {
     return this.prisma.classroom.findUnique({
       where: { id },
