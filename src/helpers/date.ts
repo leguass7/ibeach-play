@@ -55,7 +55,8 @@ export function formatHour(date?: Date | string | null) {
   return formatDate(tryDate(date), 'HH:mm')
 }
 
-export function formatWeekDay(weekDay: number) {
+export function formatWeekDay(weekDay?: number | null) {
+  if (!weekDay && weekDay !== 0) return ''
   // Ajuste para considerar segunda-feira como dia 1
   const date = setDay(new Date(), weekDay === 7 ? 0 : weekDay, { weekStartsOn: 1 })
   return format(date, 'EEEEEE', { locale: ptBR }).toUpperCase()

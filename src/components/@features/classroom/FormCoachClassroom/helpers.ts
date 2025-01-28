@@ -1,7 +1,8 @@
-import type { ClassroomDTO, ClassroomHourDTO } from '@/@server-side/use-cases/classroom'
 import { formatHour } from '@/helpers/date'
 import type { FormClassroomData } from '@/services/api/classroom'
 import type { StoreClassroomParams } from '@/services/api/coach'
+
+import type { ClassroomDTO } from '~/use-cases/classroom'
 
 export const weekDays = [
   { value: 0, label: 'Domingo' },
@@ -15,7 +16,7 @@ export const weekDays = [
 
 export type FormArrayHours = { weekDay: number; startHour: string | Date; classroomId?: number }[]
 
-type Params = FormClassroomData['hours'] | ClassroomHourDTO[]
+type Params = FormClassroomData['hours']
 export function hoursToFormArray(hours: Params = []): FormClassroomData['hours'] {
   if (!hours?.length) {
     const id = `${Math.random().toString(36).substring(7)}`
@@ -54,5 +55,5 @@ export function formClassroomInDto(data?: ClassroomDTO): FormClassroomData | und
     label: label || '',
     arenaId: arenaId || 0,
     hours: hDto()
-  }
+  } as FormClassroomData
 }

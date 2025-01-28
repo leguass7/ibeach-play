@@ -1,8 +1,10 @@
-import type { ShirtSize, UserGender } from '@prisma/client'
+import type { ShirtSize, UserGender, User } from '@prisma/client'
 import { Exclude } from 'class-transformer'
 import { IsNotEmpty, IsEmail, IsOptional, IsDate } from 'class-validator'
 
-export class UserDTO {
+export type UserDTO = Partial<User>
+
+export class UserResponseDTO {
   id: number
   email: string
   @Exclude()

@@ -7,7 +7,7 @@ import { useCoachDash } from '@/services/api/coach/userCoachDash'
 import { SimpleGrid, GridItem } from '@chakra-ui/react'
 
 export const CoachDash: React.FC = () => {
-  const { data } = useCoachDash()
+  const { data, isLoading } = useCoachDash()
 
   const classroomCount = data?.classroomCount || 0
   const studentCount = data?.studentCount || 0
@@ -15,10 +15,22 @@ export const CoachDash: React.FC = () => {
   return (
     <SimpleGrid gap={5} columns={{ lg: 4, xl: 4, md: 3, base: 1, sm: 2 }}>
       <GridItem>
-        <CardLinkIcon icon={SiGoogleclassroom} title="Turmas" description={`${classroomCount} turmas cadatradas`} link="/coach/classroom" />
+        <CardLinkIcon
+          icon={SiGoogleclassroom}
+          title="Turmas"
+          description={`${classroomCount} turmas cadatradas`}
+          link="/coach/classroom"
+          isLoading={isLoading}
+        />
       </GridItem>
       <GridItem>
-        <CardLinkIcon icon={PiStudentFill} title="Alunos" description={`${studentCount} alunos cadatrados`} link="/coach/student" />
+        <CardLinkIcon
+          icon={PiStudentFill}
+          title="Alunos"
+          description={`${studentCount} alunos cadatrados`}
+          link="/coach/student"
+          isLoading={isLoading}
+        />
       </GridItem>
     </SimpleGrid>
   )

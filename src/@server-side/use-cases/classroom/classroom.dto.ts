@@ -1,35 +1,10 @@
+import type { Classroom } from '@prisma/client'
 import { Transform, Type } from 'class-transformer'
-import { IsArray, IsDate, IsInt, IsOptional, IsString, Length, Max, Min } from 'class-validator'
+import { IsArray, IsInt, IsOptional, Length } from 'class-validator'
 
-export class ClassroomDTO {
-  id: number
-  label?: string
-  arenaId: number
-  coachId: number
+import { type ClassroomHoursDTO, CreateClassroomHourDTO } from '../classroom-hour/classroom-hour.dto'
 
-  createdAt?: Date
-  updatedAt?: Date
-  //
-  hours?: ClassroomHourDTO[]
-}
-
-export class ClassroomHourDTO {
-  @IsOptional()
-  @IsString()
-  id?: string
-
-  @IsInt()
-  classroomId?: number
-
-  @IsInt()
-  @Min(0)
-  @Max(6)
-  @Transform(({ value }) => Number(value))
-  weekDay: number
-
-  @IsDate()
-  startHour: string | Date
-}
+export type ClassroomDTO = Partial<Classroom> & { hours?: ClassroomHoursDTO[] }
 
 export class CreateClassroomDTO {
   @Length(0, 255)
@@ -58,8 +33,8 @@ export class CreateClassroomDTO {
   updatedAt?: Date
 
   @IsArray()
-  @Type(() => ClassroomHourDTO)
-  hours: ClassroomHourDTO[]
+  @Type(() => CreateClassroomHourDTO)
+  hours: ClassroomHoursDTO[]
 }
 
 export class UpdateClassroomDTO {
@@ -72,7 +47,7 @@ export class UpdateClassroomDTO {
   label?: string
 
   @IsArray()
-  @Type(() => ClassroomHourDTO)
+  @Type(() => CreateClassroomHourDTO)
   @IsOptional()
-  hours?: ClassroomHourDTO[]
+  hours?: ClassroomHoursDTO[]
 }

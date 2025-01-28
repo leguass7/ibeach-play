@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { LoadingProvider } from './LoadingProvider'
 import { SWRProvider } from './SWRProvider'
 
 type Props = {
@@ -7,5 +8,9 @@ type Props = {
 }
 
 export const AppProviders: React.FC<Props> = ({ children }) => {
-  return <SWRProvider>{children}</SWRProvider>
+  return (
+    <LoadingProvider>
+      <SWRProvider>{children}</SWRProvider>
+    </LoadingProvider>
+  )
 }

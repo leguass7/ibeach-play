@@ -16,15 +16,13 @@ const App: React.FC<AppPropsWithSession> = ({ Component, pageProps, session }) =
   return (
     <ReduxProvider store={store}>
       <PersistGate persistor={persistor}>
-        <AppProviders>
-          {/* <SWRConfig value={{ fetcher: (resource, init) => fetch(resource, init).then(res => res.json()) }}> */}
-          <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme}>
+          <AppProviders>
             <SessionProvider session={session}>
               <Component {...pageProps} />
             </SessionProvider>
-          </ChakraProvider>
-          {/* </SWRConfig> */}
-        </AppProviders>
+          </AppProviders>
+        </ChakraProvider>
       </PersistGate>
     </ReduxProvider>
   )

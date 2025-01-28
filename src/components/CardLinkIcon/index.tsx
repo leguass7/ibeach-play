@@ -2,7 +2,7 @@ import React from 'react'
 import type { IconType } from 'react-icons/lib'
 
 import { Icon } from '@chakra-ui/icons'
-import { Card, CardBody, Flex, Heading, Stack, Text } from '@chakra-ui/react'
+import { Card, CardBody, Flex, Heading, Skeleton, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 
 type CardLinkIconProps = {
@@ -11,9 +11,10 @@ type CardLinkIconProps = {
   description: string
   link: string
   color?: string
+  isLoading?: boolean
 }
 
-export const CardLinkIcon: React.FC<CardLinkIconProps> = ({ icon, title, description, link, color = 'blue.900' }) => {
+export const CardLinkIcon: React.FC<CardLinkIconProps> = ({ icon, title, description, link, isLoading, color = 'blue.900' }) => {
   const navigation = useRouter()
 
   const handleClick = () => {
@@ -33,7 +34,7 @@ export const CardLinkIcon: React.FC<CardLinkIconProps> = ({ icon, title, descrip
           <Heading size={'md'} py={0}>
             {title}
           </Heading>
-          <Text>{description}</Text>
+          {isLoading ? <Skeleton height={'16px'} width={'140px'} mt={1} /> : <Text>{description}</Text>}
         </CardBody>
       </Stack>
     </Card>

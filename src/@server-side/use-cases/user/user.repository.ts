@@ -4,7 +4,7 @@ import type { AdapterUser } from 'next-auth/adapters'
 
 import type { PrismaClientSingleton } from '~/database'
 
-import { type CreateUserDTO, UserDTO } from './user.dto'
+import { type CreateUserDTO, type UserDTO, UserResponseDTO } from './user.dto'
 import { userToAdapterUser } from './user.helper'
 
 export class UserRepository {
@@ -42,14 +42,14 @@ export class UserRepository {
   /** @deprecated somente testes */
   async listAll() {
     const user = await this.prisma.user.findMany({ orderBy: { id: 'asc' }, include: { accessGroups: true } })
-    return user?.map(u => plainToInstance(UserDTO, u))
+    return user?.map(u => plainToInstance(UserResponseDTO, u))
   }
 
   async getOne(id: number | string) {
     const userId = typeof id === 'string' ? +id || null : id
     if (!userId) return null
     const user = await this.prisma.user.findUnique({ where: { id: userId }, include: { accessGroups: true } })
-    return plainToInstance(UserDTO, user)
+    return plainToInstance(UserResponseDTO, user)
   }
 
   async findUserByEmail(email: string) {

@@ -29,7 +29,7 @@ export const ListItemClassroom: React.FC<Props> = ({ id, label, hours, onEdit })
       alignItems="center"
       _hover={{ bg: 'gray.50' }}
     >
-      <Avatar size="md" name={label} />
+      <Avatar size="md" name={label || '--'} />
       <Flex direction={'column'} flex={1}>
         <Flex gap={2}>
           <Text as={'span'} fontWeight="bold" flex={1}>
@@ -38,7 +38,7 @@ export const ListItemClassroom: React.FC<Props> = ({ id, label, hours, onEdit })
           <IconButton aria-label="Editar turma" icon={<FiEdit2 />} size="sm" variant="outline" onClick={handleClickEdit} />
           <IconButton aria-label="Remover turma" icon={<FiTrash />} size="sm" variant="outline" />
         </Flex>
-        <ItemHour hours={hours} />
+        <ItemHour hours={hours || []} />
       </Flex>
     </ListItem>
   )
