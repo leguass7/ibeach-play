@@ -4,13 +4,13 @@ import { Body, createHandler, Delete, Get, HttpCode, HttpException, Patch, Post,
 
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
 import { tournamentRepository } from '~/use-cases/tournament'
-import { CreateTournamentDTO, UpdateTournamentDTO } from '~/use-cases/tournament/tournament.dto'
+import { TournamentDTO } from '~/use-cases/tournament/tournament.dto'
 
 @AuthJwtGuard()
 class TournamentHandler {
   @Post()
   @HttpCode(201)
-  async createTournament(@Body(ValidationPipe) body: CreateTournamentDTO, @Req() req: AuthorizedApiRequest) {
+  async createTournament(@Body(ValidationPipe) body: TournamentDTO, @Req() req: AuthorizedApiRequest) {
     const tournament = await tournamentRepository.create({
       ...body,
       createdBy: req.auth.userId
@@ -37,7 +37,7 @@ class TournamentHandler {
   }
 
   @Patch('/:tournamentId')
-  async updateTournament(@Body(ValidationPipe) body: UpdateTournamentDTO, @Req() req: AuthorizedApiRequest) {
+  async updateTournament(@Body(ValidationPipe) body: TournamentDTO, @Req() req: AuthorizedApiRequest) {
     const { query } = req
     const tournamentId = query?.params?.[0] as string
     if (!tournamentId) throw new HttpException(400, 'Tournament ID is required')

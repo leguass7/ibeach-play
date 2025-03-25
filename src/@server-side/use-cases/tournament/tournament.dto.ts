@@ -10,7 +10,7 @@ export class TournamentDTO {
   createdBy: number
   createdAt: Date
   updatedBy?: number
-  updatedAt: Date
+  updatedAt?: Date
 }
 
 export class CreateTournamentDTO {
