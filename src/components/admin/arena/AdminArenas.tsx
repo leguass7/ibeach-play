@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CarListArena } from '@/components/@features/arena/CarListArena'
+import { CarListArena } from '@/components/admin/arena/CarListArena'
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
 
 export const AdminArenas: React.FC = () => {

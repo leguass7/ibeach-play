@@ -25,6 +25,6 @@ export function adminStoreArena({ id, ...data }: StoreArenaParams): Promise<IRes
   return adminCreateArena(data)
 }
 
-export function adminDeleteArena(classroomId: number): Promise<IResponseArena | null> {
-  return apiService.get(`/admin/arena/${classroomId}`)
+export function adminDeleteArena(id: number): Promise<IResponseArena | null> {
+  return apiService.delete(`/admin/arena/${id}`)
 }

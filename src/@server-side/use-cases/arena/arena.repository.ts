@@ -42,6 +42,10 @@ export class ArenaRepository {
     return plainToInstance(UpdateArenaDTO, arena)
   }
 
+  async remove(id: number): Promise<void> {
+    await this.prisma.arena.delete({ where: { id } })
+  }
+
   async findAllOptions(where: Prisma.ArenaWhereInput = {}) {
     return this.prisma.arena.findMany({ where, select: { id: true, name: true } })
   }

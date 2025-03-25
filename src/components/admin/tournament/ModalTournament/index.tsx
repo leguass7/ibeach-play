@@ -3,10 +3,11 @@ import React from 'react'
 import { ModalBody, ModalCloseButton, ModalHeader, type ModalProps } from '@chakra-ui/react'
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 
-import { FormAdminTournament } from '../../tournament/FormAdminTournament'
+import { FormAdminTournament, type FormAdminTournamentProps } from '../../tournament/FormAdminTournament'
 
 type ModalTournamentProps = Omit<ModalProps, 'children'> & {
   tournamentId?: number
+  onSuccess?: FormAdminTournamentProps['onSuccess']
 }
 
 export const ModalTournament: React.FC<ModalTournamentProps> = ({ tournamentId, onClose, ...props }) => {

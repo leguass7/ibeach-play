@@ -1,14 +1,15 @@
 'use client'
 import React from 'react'
 
-import type { ClassroomDTO } from '@/@server-side/use-cases/classroom'
 import useFetcher from '@/hooks/useFetcher'
 import type { IResponseArena } from '@/services/api/arena'
 import useSWR, { useSWRConfig } from 'swr'
 
-import { type StoreArenaParams, adminGetArenaList, adminStoreArena } from './admin-arena.api'
+import type { ArenaDTO } from '~/use-cases/arena'
 
-export function useAdminArenaList(): [ClassroomDTO[], boolean] {
+import { type StoreArenaParams, adminDeleteArena, adminGetArenaList, adminStoreArena } from './admin-arena.api'
+
+export function useAdminArenaList(): [ArenaDTO[], boolean] {
   const { data, isLoading } = useSWR<IResponseArena>(`/admin/arena`)
 
   return [data?.arenas || [], isLoading] as const
@@ -17,6 +18,7 @@ export function useAdminArenaList(): [ClassroomDTO[], boolean] {
 export function useAdminArena() {
   const [requestList, loadingList] = useFetcher(adminGetArenaList)
   const [requestStore, loadingStore] = useFetcher(adminStoreArena)
+  const [requestRemove, loadingRemove] = useFetcher(adminDeleteArena)
 
   const { mutate } = useSWRConfig()
 
@@ -34,9 +36,17 @@ export function useAdminArena() {
     [requestStore]
   )
 
-  const loading = React.useMemo(() => {
-    return loadingList || loadingStore
-  }, [loadingList, loadingStore])
+  const remove = React.useCallback(
+    async (id: number) => {
+      const response = await requestRemove(id)
+      return response
+    },
+    [requestRemove]
+  )
 
-  return { list, store, loading }
+  const loading = React.useMemo(() => {
+    return loadingList || loadingStore || loadingRemove
+  }, [loadingList, loadingStore, loadingRemove])
+
+  return { list, store, loading, remove }
 }

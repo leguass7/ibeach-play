@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import { Provider as ReduxProvider } from 'react-redux'
 
+import { AlertProvider } from '@/components/Alert'
 import { AppProviders } from '@/components/AppProviders'
 import { persistor, store } from '@/store'
 import theme from '@/styles/theme'
@@ -17,6 +18,7 @@ const App: React.FC<AppPropsWithSession> = ({ Component, pageProps, session }) =
     <ReduxProvider store={store}>
       <PersistGate persistor={persistor}>
         <ChakraProvider theme={theme}>
+          <AlertProvider />
           <AppProviders>
             <SessionProvider session={session}>
               <Component {...pageProps} />

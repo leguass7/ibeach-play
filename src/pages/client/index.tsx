@@ -1,6 +1,6 @@
 import logoDefault from '@/assets/logo/ibeachplay-logo.png'
 import { PrimaryButton } from '@/components/Buttons/PrimaryButton'
-import { CardArena } from '@/components/CardArena'
+import { CardArena } from '@/components/@features/arena/CardArena'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import { SearchBar } from '@/components/SearchBar'
 import { SimpleSlider } from '@/components/SimpleSlider'

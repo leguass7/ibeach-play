@@ -1,6 +1,6 @@
 import { tryNumber } from '@/helpers/number'
 import { instanceToPlain } from 'class-transformer'
-import { Body, createHandler, Get, HttpCode, HttpException, Patch, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
+import { Body, createHandler, Delete, Get, HttpCode, HttpException, Patch, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
 
 import { arenaRepository, CreateArenaDTO, type UpdateArenaDTO } from '~/use-cases/arena'
 import { AuthJwtGuardAdmin } from '~/use-cases/auth/auth-jwt.guard'
@@ -43,8 +43,20 @@ class ArenaHandler {
     const arenaId = Number(query?.params?.[0] || 0) as number
     if (!arenaId) throw new HttpException(400, 'id is required')
 
-    console.log('arenaId', arenaId, body)
     const arena = await arenaRepository.update(arenaId, { ...body, updatedBy })
+
+    return { success: true, arena: instanceToPlain(arena) }
+  }
+
+  @Delete('/:arenaId')
+  async removeArena(@Req() req: AuthorizedApiRequest) {
+    const { query } = req
+
+    const arenaId = Number(query?.params?.[0] || 0) as number
+    if (!arenaId) throw new HttpException(400, 'id is required')
+
+    console.log('arenaId', arenaId)
+    const arena = await arenaRepository.remove(arenaId)
 
     return { success: true, arena: instanceToPlain(arena) }
   }
