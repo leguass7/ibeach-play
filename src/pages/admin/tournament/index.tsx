@@ -1,27 +1,28 @@
-import { authOptions } from '@/@server-side/use-cases/auth/auth.options'
 import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
+import type { GetServerSideProps, NextPage } from 'next'
 import { getServerSession, type Session } from 'next-auth'
 import dynamic from 'next/dynamic'
-import type { GetServerSideProps, NextPage } from 'next/types'
 
-const AdminDash = dynamic(() => import('@/components/admin/AdminDash').then(ctx => ctx.AdminDash), { ssr: false })
+import { authOptions } from '~/use-cases/auth/auth.options'
+
+const AdminTournaments = dynamic(() => import('@/components/admin/tournament/AdminTournaments').then(ctx => ctx.AdminTournaments), { ssr: false })
 
 type Props = {
   [x: string]: unknown
   session: Session
 }
 
-const AdminDashPage: NextPage<Props> = () => {
+const PageAdminTournament: NextPage<Props> = () => {
   return (
     <LayoutContainer>
       <BreadcrumbNavigation />
-      <AdminDash />
+      <AdminTournaments />
     </LayoutContainer>
   )
 }
 
-export default AdminDashPage
+export default PageAdminTournament
 
 export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
