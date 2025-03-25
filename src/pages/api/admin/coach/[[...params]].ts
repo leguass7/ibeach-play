@@ -2,11 +2,11 @@ import { tryNumber } from '@/helpers/number'
 import { Body, createHandler, Get, HttpCode, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
 
 import { arenaRepository, type CreateArenaDTO } from '~/use-cases/arena'
-import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
+import { AuthJwtGuardAdmin } from '~/use-cases/auth/auth-jwt.guard'
 import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.interface'
 import { userRepository } from '~/use-cases/user'
 
-@AuthJwtGuard()
+@AuthJwtGuardAdmin()
 class AdminCoachHandler {
   @Post()
   @HttpCode(201)

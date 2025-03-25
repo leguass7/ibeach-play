@@ -1,12 +1,12 @@
 import { createHandler, Get, HttpCode, Req } from 'next-api-decorators'
 
 import { arenaRepository } from '~/use-cases/arena'
-import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
+import { AuthJwtGuardAdmin } from '~/use-cases/auth/auth-jwt.guard'
 import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.interface'
 import { tournamentRepository } from '~/use-cases/tournament'
 import { userRepository } from '~/use-cases/user'
 
-@AuthJwtGuard()
+@AuthJwtGuardAdmin()
 class AdminDashHandler {
   @HttpCode(200)
   @Get('/')

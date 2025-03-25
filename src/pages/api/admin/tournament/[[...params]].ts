@@ -1,12 +1,12 @@
 import { instanceToPlain } from 'class-transformer'
 import { Body, createHandler, Delete, Get, HttpCode, HttpException, Patch, Post, Req, ValidationPipe } from 'next-api-decorators'
 
-import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
+import { AuthJwtGuardAdmin } from '~/use-cases/auth/auth-jwt.guard'
 import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.interface'
 import { tournamentRepository } from '~/use-cases/tournament'
-import { UpdateTournamentDTO, CreateTournamentDTO } from '~/use-cases/tournament/tournament.dto'
+import { CreateTournamentDTO, UpdateTournamentDTO } from '~/use-cases/tournament/tournament.dto'
 
-@AuthJwtGuard()
+@AuthJwtGuardAdmin()
 class TournamentHandler {
   @Post()
   @HttpCode(201)

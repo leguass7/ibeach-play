@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { AlertProvider } from '@/components/Alert'
+
 import { LoadingProvider } from './LoadingProvider'
 import { SWRProvider } from './SWRProvider'
 
@@ -11,6 +13,7 @@ export const AppProviders: React.FC<Props> = ({ children }) => {
   return (
     <LoadingProvider>
       <SWRProvider>{children}</SWRProvider>
+      <AlertProvider />
     </LoadingProvider>
   )
 }

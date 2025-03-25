@@ -3,10 +3,10 @@ import { tryNumber } from '@/helpers/number'
 import { instanceToPlain } from 'class-transformer'
 import { Body, createHandler, Get, HttpCode, HttpException, Patch, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
 
-import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
+import { AuthJwtGuard, AuthJwtGuardAdmin } from '~/use-cases/auth/auth-jwt.guard'
 import { userRepository, type CreateUserDTO } from '~/use-cases/user'
 
-@AuthJwtGuard()
+@AuthJwtGuardAdmin()
 class UserHandler {
   @Post()
   @HttpCode(201)
