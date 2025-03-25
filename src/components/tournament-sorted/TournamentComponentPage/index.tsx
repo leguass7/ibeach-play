@@ -2,14 +2,20 @@
 
 import { useState } from 'react'
 
-import { Container, Box, Heading, Tabs, TabList, Tab, TabPanels, TabPanel, useToast } from '@chakra-ui/react'
+import { Box, Heading, Tabs, TabList, Tab, TabPanels, TabPanel, useToast, Card, CardHeader, Flex, CardBody } from '@chakra-ui/react'
 import Head from 'next/head'
 
 import PairGenerator from '../PairGenerator'
 import PeopleManager from '../PeopleManager'
 import TournamentBracket from '../TournamentBracket'
+import { TournamentStageProvider } from '../TournamentStageProvider'
 
-export default function TournamentComponentPage() {
+type TournamentComponentPageProps = {
+  tournamentId: number
+  stageId: number
+}
+
+export const TournamentComponentPage: React.FC<TournamentComponentPageProps> = ({ tournamentId, stageId }) => {
   const [tabIndex, setTabIndex] = useState(0)
   const toast = useToast()
 
@@ -30,40 +36,45 @@ export default function TournamentComponentPage() {
   return (
     <>
       <Head>
-        <title>Sorteio de Chaves para Torneio</title>
+        <title>Sorteio de Chaves</title>
         <meta name="description" content="Aplicação para sorteio de chaves para torneio" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-
-      <Container maxW="container.xl" py={4}>
-        <Heading as="h1" size="xl" textAlign="center" mb={6}>
-          Sorteio de Chaves para Torneio
-        </Heading>
-
-        <Box boxShadow="md" mt={4} borderRadius="md" borderWidth={1}>
+      <TournamentStageProvider>
+        <Card>
           <Tabs index={tabIndex} onChange={handleTabsChange} variant="enclosed" colorScheme="blue">
-            <TabList>
-              <Tab>Pessoas</Tab>
-              <Tab>Duplas</Tab>
-              <Tab>Chaves</Tab>
-            </TabList>
+            <CardHeader>
+              <Flex gap={4}>
+                <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+                  <Box>
+                    <Heading size="md">Sorteio de Chaves</Heading>
+                  </Box>
+                </Flex>
+                <TabList>
+                  <Tab>Pessoas</Tab>
+                  <Tab>Duplas</Tab>
+                  <Tab>Chaves</Tab>
+                </TabList>
+              </Flex>
+            </CardHeader>
+            <CardBody>
+              <TabPanels>
+                <TabPanel>
+                  <PeopleManager onSuccess={showSuccessToast} />
+                </TabPanel>
 
-            <TabPanels>
-              <TabPanel>
-                <PeopleManager onSuccess={showSuccessToast} />
-              </TabPanel>
+                <TabPanel>
+                  <PairGenerator onSuccess={showSuccessToast} />
+                </TabPanel>
 
-              <TabPanel>
-                <PairGenerator onSuccess={showSuccessToast} />
-              </TabPanel>
-
-              <TabPanel>
-                <TournamentBracket onSuccess={showSuccessToast} />
-              </TabPanel>
-            </TabPanels>
+                <TabPanel>
+                  <TournamentBracket onSuccess={showSuccessToast} />
+                </TabPanel>
+              </TabPanels>
+            </CardBody>
           </Tabs>
-        </Box>
-      </Container>
+        </Card>
+      </TournamentStageProvider>
     </>
   )
 }

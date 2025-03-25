@@ -7,7 +7,7 @@ import type { IPerson } from '@/services/api/tournament/person/person.interface'
 import { DownloadIcon, ArrowUpIcon } from '@chakra-ui/icons'
 import { Box, Button, Spinner, Stack, Heading } from '@chakra-ui/react'
 
-import { useTournament } from '../lib/tournament-provider'
+import { useTournamentStageProvider } from '../TournamentStageProvider'
 import ImportDialog from './ImportDialog'
 import PeopleTable from './PeopleTable'
 import PersonFormDialog from './PersonFormDialog'
@@ -17,7 +17,7 @@ interface PeopleManagerProps {
 }
 
 export default function PeopleManager({ onSuccess }: PeopleManagerProps) {
-  const { people, fetchPeople, addPerson, updatePerson, deletePerson, importPeople, loading } = useTournament()
+  const { people, fetchPeople, addPerson, updatePerson, deletePerson, importPeople, loading } = useTournamentStageProvider()
 
   const [formOpen, setFormOpen] = useState(false)
   const [importOpen, setImportOpen] = useState(false)
@@ -52,11 +52,25 @@ export default function PeopleManager({ onSuccess }: PeopleManagerProps) {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <Heading as="h2" size="lg">
-          Gerenciar Pessoas
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        alignItems={{ base: 'flex-start', md: 'center' }}
+        mb={4}
+        gap={4}
+        flexDirection={{ base: 'column', md: 'row' }}
+      >
+        <Heading as="h2" size="lg" textAlign={{ base: 'center', md: 'left' }} flex="1">
+          Gerenciar Inscritos
         </Heading>
-        <Stack direction="row" spacing={3}>
+        <Stack
+          direction={{ base: 'column', md: 'row' }}
+          spacing={3}
+          align={{ base: 'stretch', md: 'center' }}
+          flex="1"
+          justify={{ base: 'flex-start', md: 'flex-end' }}
+        >
           <Button leftIcon={<ArrowUpIcon />} onClick={openImportDialog} variant="outline">
             Importar
           </Button>
