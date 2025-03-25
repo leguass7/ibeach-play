@@ -45,6 +45,11 @@ model User {
   classrooms    Classroom[] @relation("Coach_Classroom")
   students      Student[]   @relation("User_Student")
 
+  createdTournaments Tournament[]    @relation("Created_Tournament")
+  updatedTournaments Tournament[]    @relation("Updated_Tournament")
+  enrollments        Enrollment[]
+  rankings           PlayerRanking[]
+
   @@map("users")
 }
 
@@ -131,11 +136,11 @@ model Session {
 
 // @see https://www.ibge.gov.br/explica/codigos-dos-municipios.php
 model City {
-  id    Int     @id // utilizar códigos do IGBE
-  name  String
-  ufId  Int
-  uf    Uf      @relation(fields: [ufId], references: [id])
-  Arena Arena[]
+  id     Int     @id // utilizar códigos do IGBE
+  name   String
+  ufId   Int
+  uf     Uf      @relation(fields: [ufId], references: [id])
+  arenas Arena[]
 
   @@map("cities")
 }
@@ -168,7 +173,8 @@ model Arena {
   createdUser User  @relation(fields: [createdBy], references: [id], name: "Created_Arena")
   updatedUser User? @relation(fields: [updatedBy], references: [id], name: "Updated_Arena")
 
-  classrooms Classroom[] @relation("Arena_Classroom")
+  classrooms       Classroom[]       @relation("Arena_Classroom")
+  tournamentStages TournamentStage[]
 
   // @@fulltext([name, description])
   @@map("arenas")
@@ -215,6 +221,130 @@ model Student {
 
   @@unique([classroomId, studentId])
   @@map("arenas_classrooms_students")
+}
+
+model Tournament {
+  id          String   @id @default(cuid())
+  name        String
+  description String?  @db.Text
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   Int
+  updatedBy   Int?
+
+  createdUser User  @relation(fields: [createdBy], references: [id], name: "Created_Tournament")
+  updatedUser User? @relation(fields: [updatedBy], references: [id], name: "Updated_Tournament")
+
+  stages TournamentStage[]
+
+  @@map("tournaments")
+}
+
+model TournamentStage {
+  id           String      @id @default(cuid())
+  tournamentId String
+  arenaId      Int
+  name         String
+  date         DateTime
+  status       StageStatus @default(PENDING)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  arena       Arena        @relation(fields: [arenaId], references: [id])
+  tournament  Tournament   @relation(fields: [tournamentId], references: [id])
+  enrollments Enrollment[]
+  groups      Group[]
+  matches     Match[]
+  teams       Team[]
+
+  @@map("tournament_stages")
+}
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  stageId   String
+  userId    Int?
+  name      String? // Para inscritos não cadastrados
+  weight    Float    @default(0)
+  createdAt DateTime @default(now())
+
+  stage  TournamentStage @relation(fields: [stageId], references: [id])
+  user   User?           @relation(fields: [userId], references: [id])
+  teamsA Team[]          @relation("TeamPlayerA")
+  teamsB Team[]          @relation("TeamPlayerB")
+
+  @@map("enrollments")
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  stageId   String
+  playerAId String
+  playerBId String
+  groupId   String?
+  createdAt DateTime @default(now())
+
+  stage    TournamentStage @relation(fields: [stageId], references: [id])
+  playerA  Enrollment      @relation("TeamPlayerA", fields: [playerAId], references: [id])
+  playerB  Enrollment      @relation("TeamPlayerB", fields: [playerBId], references: [id])
+  group    Group?          @relation(fields: [groupId], references: [id])
+  matchesA Match[]         @relation("TeamA")
+  matchesB Match[]         @relation("TeamB")
+
+  @@map("teams")
+}
+
+model Group {
+  id        String   @id @default(cuid())
+  stageId   String
+  name      String
+  createdAt DateTime @default(now())
+
+  stage TournamentStage @relation(fields: [stageId], references: [id])
+  teams Team[]
+
+  @@map("groups")
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  stageId   String
+  teamAId   String
+  teamBId   String
+  round     Int
+  scoreA    Int?
+  scoreB    Int?
+  winner    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stage TournamentStage @relation(fields: [stageId], references: [id])
+  teamA Team            @relation("TeamA", fields: [teamAId], references: [id])
+  teamB Team            @relation("TeamB", fields: [teamBId], references: [id])
+
+  @@map("matches")
+}
+
+model PlayerRanking {
+  id        String              @id @default(cuid())
+  userId    Int
+  points    Float
+  category  BeachTennisCategory
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("player_rankings")
+}
+
+enum StageStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 
 enum BeachTennisCategory {
