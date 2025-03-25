@@ -10,7 +10,7 @@ type ModalTournamentProps = Omit<ModalProps, 'children'> & {
   onSuccess?: FormAdminTournamentProps['onSuccess']
 }
 
-export const ModalTournament: React.FC<ModalTournamentProps> = ({ tournamentId, onClose, ...props }) => {
+export const ModalTournament: React.FC<ModalTournamentProps> = ({ tournamentId, onClose, onSuccess, ...props }) => {
   const title = tournamentId && tournamentId > 0 ? 'Editar torneio' : 'Criar torneio'
 
   const handleClose = () => {
@@ -23,7 +23,7 @@ export const ModalTournament: React.FC<ModalTournamentProps> = ({ tournamentId, 
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <FormAdminTournament tournamentId={tournamentId} onCancel={onClose} />
+          <FormAdminTournament tournamentId={tournamentId} onCancel={onClose} onSuccess={onSuccess} />
         </ModalBody>
       </ModalContent>
     </Modal>

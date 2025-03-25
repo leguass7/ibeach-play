@@ -8,7 +8,7 @@ import { Card, CardBody } from '@chakra-ui/react'
 import { ListTournament, type ClickEditHandler } from './ListTournament'
 
 export const CarListTournament: React.FC = () => {
-  const { list, loading } = useAdminTournament()
+  const { list, loading, remove } = useAdminTournament()
   const [openForm, setOpenForm] = React.useState(0)
 
   const handleClickNew = () => setOpenForm(-1)
@@ -20,13 +20,22 @@ export const CarListTournament: React.FC = () => {
     list()
   }
 
+  const handleConfirmDelete = React.useCallback<ClickEditHandler>(
+    async id => {
+      await remove(id as number)
+      setOpenForm(0)
+      list()
+    },
+    [list, remove]
+  )
+
   return (
     <>
       <ModalTournament isOpen={!!openForm} onClose={handleClickClose} tournamentId={openForm} onSuccess={handleSuccess} />
       <Card>
         <CardListHeader onClickNew={handleClickNew} onClickRefresh={list} loading={loading} title="Torneios" />
         <CardBody>
-          <ListTournament onEdit={handleClickEdit} />
+          <ListTournament onEdit={handleClickEdit} onConfirmDelete={handleConfirmDelete} />
         </CardBody>
       </Card>
     </>

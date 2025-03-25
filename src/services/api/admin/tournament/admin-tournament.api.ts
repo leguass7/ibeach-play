@@ -24,5 +24,5 @@ export function adminStoreTournament({ id, ...data }: StoreTournamentParams): Pr
 }
 
 export function adminDeleteTournament(id: number): Promise<IResponseTournament | null> {
-  return apiService.get(`/admin/tournament/${id}`)
+  return apiService.delete(`/admin/tournament/${id}`)
 }

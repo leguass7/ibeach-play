@@ -19,7 +19,6 @@ export const ListArena: React.FC<Props> = ({ onEdit, onConfirmDelete }) => {
 
   const handleDelete: ClickEditHandler = id => {
     const found = arenas.find(arena => arena.id === id)
-    console.log(id, found)
     createAlert({
       type: 'error',
       title: `Remover Arena`,

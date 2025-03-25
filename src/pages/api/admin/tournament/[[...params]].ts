@@ -48,11 +48,11 @@ class TournamentHandler {
   }
 
   @Delete('/:tournamentId')
-  @HttpCode(204)
+  @HttpCode(200)
   async deleteTournament(@Req() req: AuthorizedApiRequest) {
     const { query } = req
     const tournamentId = Number(query?.params?.[0] || 0) as number
-    if (!tournamentId) throw new HttpException(400, 'Tournament ID is required')
+    if (!tournamentId) throw new HttpException(400, 'id is required')
 
     await tournamentRepository.delete(tournamentId)
     return { success: true }

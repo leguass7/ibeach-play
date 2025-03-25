@@ -7,7 +7,7 @@ import useSWR, { useSWRConfig } from 'swr'
 
 import type { TournamentDTO } from '~/use-cases/tournament'
 
-import { type StoreTournamentParams, adminGetTournamentList, adminStoreTournament } from './admin-tournament.api'
+import { type StoreTournamentParams, adminDeleteTournament, adminGetTournamentList, adminStoreTournament } from './admin-tournament.api'
 
 export function useAdminTournamentList(): [TournamentDTO[], boolean] {
   const { data, isLoading } = useSWR<IResponseTournament>(`/admin/tournament`)
@@ -18,6 +18,7 @@ export function useAdminTournamentList(): [TournamentDTO[], boolean] {
 export function useAdminTournament() {
   const [requestList, loadingList] = useFetcher(adminGetTournamentList)
   const [requestStore, loadingStore] = useFetcher(adminStoreTournament)
+  const [requestRemove, loadingRemove] = useFetcher(adminDeleteTournament)
 
   const { mutate } = useSWRConfig()
 
@@ -35,9 +36,17 @@ export function useAdminTournament() {
     [requestStore]
   )
 
-  const loading = React.useMemo(() => {
-    return loadingList || loadingStore
-  }, [loadingList, loadingStore])
+  const remove = React.useCallback(
+    async (id: number) => {
+      const response = await requestRemove(id)
+      return response
+    },
+    [requestRemove]
+  )
 
-  return { list, store, loading }
+  const loading = React.useMemo(() => {
+    return loadingList || loadingStore || loadingRemove
+  }, [loadingList, loadingStore, loadingRemove])
+
+  return { list, store, remove, loading }
 }
