@@ -28,5 +28,13 @@
         "groups": ["/^react/", "module", "/^~/", "/^@mui/", ["/^@layouts/", "/^@services/", "/^@components/"], ["parent", "sibling", "index"]]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/pages/api/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "off"
+      }
+    }
+  ]
 }
