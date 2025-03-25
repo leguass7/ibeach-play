@@ -1,5 +1,4 @@
-import { Type } from 'class-transformer'
-import { IsDateString, IsInt, IsOptional, IsString, Length } from 'class-validator'
+import { IsInt, IsOptional, IsString, Length } from 'class-validator'
 
 export class TournamentDTO {
   id: number
