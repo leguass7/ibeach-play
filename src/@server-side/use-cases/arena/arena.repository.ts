@@ -3,7 +3,7 @@ import { plainToInstance } from 'class-transformer'
 
 import type { PrismaClientSingleton } from '~/database'
 
-import { ArenaDTO, type CreateArenaDTO } from './arena.dto'
+import { ArenaDTO, type CreateArenaDTO, UpdateArenaDTO } from './arena.dto'
 
 export class ArenaRepository {
   constructor(private readonly prisma: PrismaClientSingleton) {}
@@ -20,6 +20,26 @@ export class ArenaRepository {
 
   async create(data: CreateArenaDTO) {
     return this.prisma.arena.create({ data })
+  }
+
+  async getOne(id: number): Promise<ArenaDTO | null> {
+    const tournament = await this.prisma.arena.findUnique({
+      where: { id }
+    })
+
+    return tournament ? plainToInstance(ArenaDTO, tournament) : null
+  }
+
+  async update(id: number, data: UpdateArenaDTO): Promise<UpdateArenaDTO> {
+    const arena = await this.prisma.arena.update({
+      where: { id },
+      data: {
+        ...data,
+        updatedAt: new Date()
+      }
+    })
+
+    return plainToInstance(UpdateArenaDTO, arena)
   }
 
   async findAllOptions(where: Prisma.ArenaWhereInput = {}) {

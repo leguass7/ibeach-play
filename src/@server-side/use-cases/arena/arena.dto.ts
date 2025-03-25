@@ -1,13 +1,13 @@
-import { IsInt, IsOptional, Length } from 'class-validator'
+import { IsInt, IsOptional, IsString, Length } from 'class-validator'
 
 export class ArenaDTO {
   id: number
   name: string
   description?: string
-  userId: number
-  cityId: number
-  createdBy: number
-  createdAt: Date
+  userId?: number
+  cityId?: number
+  createdBy?: number
+  createdAt?: Date
   updatedBy?: number | null
   updatedAt?: Date | null
 }
@@ -31,4 +31,28 @@ export class CreateArenaDTO {
 
   @IsOptional()
   createdAt: Date
+}
+
+export class UpdateArenaDTO {
+  @IsOptional()
+  @IsString()
+  @Length(3, 255)
+  name?: string
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 1048)
+  description?: string
+
+  @IsOptional()
+  @IsInt()
+  userId?: number
+
+  @IsOptional()
+  @IsInt()
+  cityId?: number
+
+  @IsOptional()
+  @IsInt()
+  updatedBy: number
 }

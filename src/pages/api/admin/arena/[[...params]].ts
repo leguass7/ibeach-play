@@ -1,7 +1,8 @@
 import { tryNumber } from '@/helpers/number'
-import { Body, createHandler, Get, HttpCode, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
+import { instanceToPlain } from 'class-transformer'
+import { Body, createHandler, Get, HttpCode, HttpException, Patch, Post, Query, Req, ValidationPipe } from 'next-api-decorators'
 
-import { arenaRepository, type CreateArenaDTO } from '~/use-cases/arena'
+import { arenaRepository, CreateArenaDTO, ArenaDTO, type UpdateArenaDTO } from '~/use-cases/arena'
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
 import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.interface'
 
@@ -20,6 +21,32 @@ class ArenaHandler {
   async paginate(@Query() query: Record<string, string>) {
     const arenas = await arenaRepository.listAll()
     return { success: true, arenas, query }
+  }
+
+  @Get('/:arenaId')
+  async getArena(@Req() req: AuthorizedApiRequest) {
+    const { query } = req
+    const id = Number(query?.params?.[0] || 0) as number
+    if (!id) throw new HttpException(400, 'id is required')
+
+    const arena = await arenaRepository.getOne(id)
+    if (!arena) throw new HttpException(404, 'Arena not found')
+
+    return { success: true, arena: instanceToPlain(arena) }
+  }
+
+  @Patch('/:arenaId')
+  async updateArena(@Body(ValidationPipe) body: UpdateArenaDTO, @Req() req: AuthorizedApiRequest) {
+    const { query, auth } = req
+
+    const updatedBy = auth.userId
+    const arenaId = Number(query?.params?.[0] || 0) as number
+    if (!arenaId) throw new HttpException(400, 'id is required')
+
+    console.log('arenaId', arenaId, body)
+    const arena = await arenaRepository.update(arenaId, { ...body, updatedBy })
+
+    return { success: true, arena: instanceToPlain(arena) }
   }
 }
 
