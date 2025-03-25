@@ -3,18 +3,20 @@ import React from 'react'
 import { ModalBody, ModalCloseButton, ModalHeader, type ModalProps } from '@chakra-ui/react'
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 
-import { FormAdminArena } from '../FormAdminArena'
+import { FormAdminArena, type FormAdminProps } from '../FormAdminArena'
 
 type ModalArenaProps = Omit<ModalProps, 'children'> & {
   arenaId?: number
+  onSuccess?: FormAdminProps['onSuccess']
 }
 
-export const ModalArena: React.FC<ModalArenaProps> = ({ arenaId, onClose, ...props }) => {
+export const ModalArena: React.FC<ModalArenaProps> = ({ arenaId, onClose, onSuccess, ...props }) => {
   const title = arenaId && arenaId > 0 ? 'Editar arena' : 'Criar arena'
 
   const handleClose = () => {
     if (onClose) onClose?.()
   }
+
   return (
     <Modal closeOnOverlayClick={false} {...props} onClose={handleClose}>
       <ModalOverlay />
@@ -22,7 +24,7 @@ export const ModalArena: React.FC<ModalArenaProps> = ({ arenaId, onClose, ...pro
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <FormAdminArena arenaId={arenaId} onCancel={onClose} />
+          <FormAdminArena arenaId={arenaId} onCancel={onClose} onSuccess={onSuccess} />
         </ModalBody>
       </ModalContent>
     </Modal>

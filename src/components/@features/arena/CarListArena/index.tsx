@@ -23,9 +23,14 @@ export const CarListArena: React.FC = () => {
     setOpenForm(+id)
   }
 
+  const handleSuccess = async () => {
+    setOpenForm(0)
+    list()
+  }
+
   return (
     <>
-      <ModalArena isOpen={!!openForm} onClose={handleClickClose} arenaId={openForm} />
+      <ModalArena isOpen={!!openForm} onClose={handleClickClose} arenaId={openForm} onSuccess={handleSuccess} />
       <Card>
         <CardHeader>
           <Flex gap={4}>
