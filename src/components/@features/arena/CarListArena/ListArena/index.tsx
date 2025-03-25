@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { SkeletonListItem } from '@/components/SkeletonListItem'
-import { useCoachClassroomList } from '@/services/api/coach/useCoachClassroom'
+import { useAdminArenaList } from '@/services/api/admin/arena/useAdminArena'
 import { List } from '@chakra-ui/react'
 
 import { ListItemArena, type ClickEditHandler } from './ListItemArena'
@@ -12,14 +12,14 @@ type Props = {
 }
 
 export const ListArena: React.FC<Props> = ({ onEdit }) => {
-  const [classrooms, isLoading] = useCoachClassroomList()
+  const [arenas, isLoading] = useAdminArenaList()
 
   if (isLoading) return <SkeletonListItem />
 
   return (
     <List spacing={3}>
-      {classrooms.map(classroom => (
-        <ListItemArena {...classroom} onEdit={onEdit} key={classroom.id} />
+      {arenas.map(arenas => (
+        <ListItemArena {...arenas} onEdit={onEdit} key={arenas.id} />
       ))}
     </List>
   )

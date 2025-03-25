@@ -35,7 +35,7 @@ export const CarListArena: React.FC = () => {
               </Box>
             </Flex>
             <IconButton colorScheme="gray" aria-label="Adicionar" icon={<FiPlus />} onClick={handleClickNew} />
-            <IconButton colorScheme="gray" aria-label="Atalizar" icon={<FiRefreshCcw />} onClick={list} isDisabled={!!loading} />
+            <IconButton colorScheme="gray" aria-label="Atualizar" icon={<FiRefreshCcw />} onClick={list} isDisabled={!!loading} />
           </Flex>
         </CardHeader>
         <CardBody>

@@ -3,15 +3,15 @@ import React from 'react'
 
 import type { ClassroomDTO } from '@/@server-side/use-cases/classroom'
 import useFetcher from '@/hooks/useFetcher'
-import type { IResponseClassroom } from '@/services/api/classroom'
+import type { IResponseArena } from '@/services/api/arena'
 import useSWR, { useSWRConfig } from 'swr'
 
 import { type StoreArenaParams, adminGetArenaList, adminStoreArena } from './admin-arena.api'
 
 export function useAdminArenaList(): [ClassroomDTO[], boolean] {
-  const { data, isLoading } = useSWR<IResponseClassroom>(`/admin/arena`)
+  const { data, isLoading } = useSWR<IResponseArena>(`/admin/arena`)
 
-  return [data?.classrooms || [], isLoading] as const
+  return [data?.arenas || [], isLoading] as const
 }
 
 export function useAdminArena() {
