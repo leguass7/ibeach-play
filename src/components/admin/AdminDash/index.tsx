@@ -15,6 +15,9 @@ export const AdminDash: React.FC = () => {
   return (
     <SimpleGrid gap={5} columns={{ lg: 4, xl: 4, md: 3, base: 1, sm: 2 }}>
       <GridItem>
+        <CardLinkIcon icon={TbUsers} title="Usuários" description={`${userCount} usuários cadatrados`} link="/admin/user" isLoading={isLoading} />
+      </GridItem>
+      <GridItem>
         <CardLinkIcon icon={TbShareplay} title="Arenas" description={`${arenaCount} arenas cadatradas`} link="/admin/arena" isLoading={isLoading} />
       </GridItem>
       <GridItem>
@@ -25,9 +28,6 @@ export const AdminDash: React.FC = () => {
           link="/admin/tournament"
           isLoading={isLoading}
         />
-      </GridItem>
-      <GridItem>
-        <CardLinkIcon icon={TbUsers} title="Usuários" description={`${userCount} usuários cadatrados`} link="/admin/user" isLoading={isLoading} />
       </GridItem>
     </SimpleGrid>
   )
