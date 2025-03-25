@@ -6,8 +6,8 @@ import { parse } from 'next-useragent'
 
 import { secret } from '~/config'
 
-import type { AuthorizedApiRequest, IAuthorizedUser } from './auth.interface'
 import { sessionToAuthorizedDto, tokenToAuthorizedDto } from './auth.helper'
+import type { AuthorizedApiRequest, IAuthorizedUser } from './auth.interface'
 import { authOptions } from './auth.options'
 
 /** Decorator para autenticação das rotas com `next-api-decorators` */

@@ -1,7 +1,7 @@
-import { arenaService } from '@/@server-side/use-cases/arena'
 import { createHandler, Get, HttpCode, Req } from 'next-api-decorators'
 
-import type { PublicApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
+import { arenaService } from '~/use-cases/arena'
+import type { PublicApiRequest } from '~/use-cases/auth/auth.interface'
 
 class ArenaPublicHandler {
   @HttpCode(200)
