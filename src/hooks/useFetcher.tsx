@@ -4,7 +4,7 @@ import React from 'react'
 export default function useFetcher<F extends (...args: any) => Promise<any>>(
   func: F,
   deps?: readonly any[]
-): [F, boolean, Awaited<ReturnType<F>> | null, Error | undefined] {
+): [callback: F, loading: boolean, result: Awaited<ReturnType<F>> | null, error: Error | undefined] {
   const isMountedRef = React.useRef(true)
   const [loading, setLoading] = React.useState(false)
   const [response, setResponse] = React.useState<Awaited<ReturnType<F>> | null>(null)
