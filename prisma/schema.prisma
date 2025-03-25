@@ -241,7 +241,7 @@ model Tournament {
 }
 
 model TournamentStage {
-  id           String      @id @default(cuid())
+  id           Int         @id @default(autoincrement())
   tournamentId Int
   arenaId      Int
   name         String
@@ -262,7 +262,7 @@ model TournamentStage {
 
 model Enrollment {
   id        String   @id @default(cuid())
-  stageId   String
+  stageId   Int
   userId    Int?
   name      String? // Para inscritos não cadastrados
   weight    Float?   @default(0)
@@ -278,7 +278,7 @@ model Enrollment {
 
 model Team {
   id        String   @id @default(cuid())
-  stageId   String
+  stageId   Int
   playerAId String
   playerBId String
   groupId   String?
@@ -296,7 +296,7 @@ model Team {
 
 model Group {
   id        String   @id @default(cuid())
-  stageId   String
+  stageId   Int
   name      String
   createdAt DateTime @default(now())
 
@@ -308,7 +308,7 @@ model Group {
 
 model Match {
   id        String   @id @default(cuid())
-  stageId   String
+  stageId   Int
   teamAId   String
   teamBId   String
   round     Int
