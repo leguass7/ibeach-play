@@ -10,6 +10,8 @@ export function adminGetArena(classroomId: number): Promise<IResponseArena | nul
 }
 
 export function adminCreateArena(data: FormArenaData): Promise<IResponseArena | null> {
+  if (!data?.cityId) data.cityId = 2304400 // FIXME: temporary
+  if (!data?.userId) data.userId = 1 // FIXME: temporary
   return apiService.post('/admin/arena', data)
 }
 
