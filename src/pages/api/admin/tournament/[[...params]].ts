@@ -1,8 +1,8 @@
-import type { AuthorizedApiRequest } from '@/@server-side/use-cases/auth/auth.interface'
 import { instanceToPlain } from 'class-transformer'
 import { Body, createHandler, Delete, Get, HttpCode, HttpException, Patch, Post, Req, ValidationPipe } from 'next-api-decorators'
 
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
+import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.interface'
 import { tournamentRepository } from '~/use-cases/tournament'
 import { TournamentDTO } from '~/use-cases/tournament/tournament.dto'
 

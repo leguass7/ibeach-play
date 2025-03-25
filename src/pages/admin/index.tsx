@@ -1,38 +1,32 @@
-'use client'
-import { AdminCardArena } from '@/components/admin/AdminCardArena'
-import { CardStatButton } from '@/components/dash/CardStatButton'
+import { authOptions } from '@/@server-side/use-cases/auth/auth.options'
+import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
-import { GridItem, SimpleGrid } from '@chakra-ui/react'
-import { useRouter } from 'next/navigation'
-import type { NextPage } from 'next/types'
+import { getServerSession } from 'next-auth'
+import dynamic from 'next/dynamic'
+import type { GetServerSideProps, NextPage } from 'next/types'
+
+const AdminDash = dynamic(() => import('@/components/admin/AdminDash').then(ctx => ctx.AdminDash), { ssr: false })
 
 type Props = {
-  children?: React.ReactNode
+  [x: string]: unknown
 }
 
-const AdminDashPage: NextPage<Props> = ({ children }) => {
-  const navigation = useRouter()
-
-  const handleClick = (path: string) => {
-    return () => {
-      navigation.push(path)
-    }
-  }
+const AdminDashPage: NextPage<Props> = () => {
   return (
     <LayoutContainer>
-      <SimpleGrid gap={5} columns={{ lg: 4, xl: 6, md: 3, base: 1, sm: 2 }}>
-        <GridItem>
-          <AdminCardArena />
-        </GridItem>
-        <GridItem>
-          <CardStatButton title="Usuários cadastrados" onClick={handleClick('/admin/user')} />
-        </GridItem>
-        <GridItem h="10" bg="blue.500" />
-        <GridItem h="10" bg="blue.500" />
-      </SimpleGrid>
-      {children}
+      <BreadcrumbNavigation />
+      <AdminDash />
     </LayoutContainer>
   )
 }
 
 export default AdminDashPage
+
+export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
+  const session = await getServerSession(ctx.req, ctx.res, authOptions)
+  if (!session?.user) return { redirect: { destination: '/login', permanent: false } }
+
+  return {
+    props: { session }
+  }
+}

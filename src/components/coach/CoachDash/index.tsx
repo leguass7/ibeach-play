@@ -3,7 +3,7 @@ import { PiStudentFill } from 'react-icons/pi'
 import { SiGoogleclassroom } from 'react-icons/si'
 
 import { CardLinkIcon } from '@/components/CardLinkIcon'
-import { useCoachDash } from '@/services/api/coach/userCoachDash'
+import { useCoachDash } from '@/services/api/coach/useCoachDash'
 import { SimpleGrid, GridItem } from '@chakra-ui/react'
 
 export const CoachDash: React.FC = () => {
