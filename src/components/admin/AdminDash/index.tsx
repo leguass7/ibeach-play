@@ -1,5 +1,5 @@
 import React from 'react'
-import { TbShareplay, TbTournament } from 'react-icons/tb'
+import { TbShareplay, TbTournament, TbUsers } from 'react-icons/tb'
 
 import { CardLinkIcon } from '@/components/CardLinkIcon'
 import { useAdminDash } from '@/services/api/admin/useAdminDash'
@@ -10,6 +10,7 @@ export const AdminDash: React.FC = () => {
 
   const arenaCount = data?.arenaCount || 0
   const tournamentCount = data?.tournamentCount || 0
+  const userCount = data?.userCount || 0
 
   return (
     <SimpleGrid gap={5} columns={{ lg: 4, xl: 4, md: 3, base: 1, sm: 2 }}>
@@ -24,6 +25,9 @@ export const AdminDash: React.FC = () => {
           link="/admin/tournament"
           isLoading={isLoading}
         />
+      </GridItem>
+      <GridItem>
+        <CardLinkIcon icon={TbUsers} title="Usuários" description={`${userCount} usuários cadatrados`} link="/admin/user" isLoading={isLoading} />
       </GridItem>
     </SimpleGrid>
   )

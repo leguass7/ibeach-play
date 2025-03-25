@@ -6,6 +6,11 @@ import { type CreateTournamentDTO, TournamentDTO, type UpdateTournamentDTO } fro
 
 export class TournamentRepository {
   constructor(private readonly prisma: PrismaClientSingleton) {}
+
+  async count() {
+    return this.prisma.tournament.count()
+  }
+
   async create(data: CreateTournamentDTO): Promise<TournamentDTO> {
     const tournament = await this.prisma.tournament.create({
       data: {

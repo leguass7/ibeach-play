@@ -10,6 +10,10 @@ import { userToAdapterUser } from './user.helper'
 export class UserRepository {
   constructor(private readonly prisma: PrismaClientSingleton) {}
 
+  async count() {
+    return this.prisma.user.count()
+  }
+
   async createAdapterUser({ id: _, ...data }: AdapterUser) {
     const email = data?.email as string
     if (email) {

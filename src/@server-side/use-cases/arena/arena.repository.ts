@@ -7,6 +7,10 @@ import type { CreateArenaDTO } from './arena.dto'
 export class ArenaRepository {
   constructor(private readonly prisma: PrismaClientSingleton) {}
 
+  async count() {
+    return this.prisma.arena.count()
+  }
+
   async create(data: CreateArenaDTO) {
     return this.prisma.arena.create({ data })
   }
