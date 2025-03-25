@@ -4,22 +4,22 @@ import { useForm } from 'react-hook-form'
 
 import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
-import { adminGetArena } from '@/services/api/admin/arena'
-import { useAdminArena } from '@/services/api/admin/arena/useAdminArena'
+import { adminGetTournament } from '@/services/api/admin/tournament/admin-tournament.api'
+import { useAdminTournament } from '@/services/api/admin/tournament/useAdminTournament'
 import type { FormArenaData } from '@/services/api/arena'
 import { Button, Divider, FormControl, FormErrorMessage, FormLabel, Input, SimpleGrid, useToast, VStack } from '@chakra-ui/react'
 
 import { formTournamentInDto, formTournamentOutDto } from './helpers'
 
 export type FormAdminTournamentProps = {
-  arenaId?: number
+  tournamentId?: number
   onSuccess?: () => Promise<void>
   onCancel?: () => void
 }
 
-export const FormAdminTournament: React.FC<FormAdminTournamentProps> = ({ arenaId, onSuccess, onCancel }) => {
-  const { store, loading } = useAdminArena()
-  const [requestData, loadingInit, data] = useFetcher(adminGetArena)
+export const FormAdminTournament: React.FC<FormAdminTournamentProps> = ({ tournamentId, onSuccess, onCancel }) => {
+  const { store, loading } = useAdminTournament()
+  const [requestData, loadingInit, data] = useFetcher(adminGetTournament)
   const toast = useToast()
 
   const {
@@ -33,22 +33,22 @@ export const FormAdminTournament: React.FC<FormAdminTournamentProps> = ({ arenaI
 
   // Fetch inicial dos dados
   React.useEffect(() => {
-    if (arenaId && data?.arena) {
-      const formData = formTournamentInDto(data.arena)
+    if (tournamentId && data?.tournament) {
+      const formData = formTournamentInDto(data.tournament)
       if (formData) {
         reset(formData)
       }
     }
-  }, [arenaId, data, reset])
+  }, [tournamentId, data, reset])
 
   const fetchInitialData = React.useCallback(async () => {
-    if (arenaId && arenaId > 0) await requestData(arenaId)
-  }, [arenaId, requestData])
+    if (tournamentId && tournamentId > 0) await requestData(tournamentId)
+  }, [tournamentId, requestData])
 
   useOnceCall(fetchInitialData)
 
   const handleFormSubmit = async (formData: FormArenaData) => {
-    const payload = formTournamentOutDto(formData, arenaId)
+    const payload = formTournamentOutDto(formData, tournamentId)
 
     const response = await store(payload)
     if (response?.success) {
@@ -65,10 +65,10 @@ export const FormAdminTournament: React.FC<FormAdminTournamentProps> = ({ arenaI
   }
 
   const isLoading = loadingInit || loading
-  const edit = !!arenaId && arenaId > 0
+  const edit = !!tournamentId && tournamentId > 0
 
   return (
-    <form key={`${data?.arena?.id}`} onSubmit={handleSubmit(handleFormSubmit)}>
+    <form key={`${data?.tournament?.id}`} onSubmit={handleSubmit(handleFormSubmit)}>
       <VStack spacing={4} align="stretch">
         <FormControl isInvalid={!!errors.name}>
           <FormLabel>Nome da Arena</FormLabel>

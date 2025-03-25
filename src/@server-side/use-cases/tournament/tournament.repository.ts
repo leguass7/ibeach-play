@@ -21,7 +21,7 @@ export class TournamentRepository {
     return plainToInstance(TournamentDTO, tournament)
   }
 
-  async update(id: string, data: UpdateTournamentDTO): Promise<TournamentDTO> {
+  async update(id: number, data: UpdateTournamentDTO): Promise<TournamentDTO> {
     const tournament = await this.prisma.tournament.update({
       where: { id },
       data: {
@@ -33,13 +33,13 @@ export class TournamentRepository {
     return plainToInstance(TournamentDTO, tournament)
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.prisma.tournament.delete({
       where: { id }
     })
   }
 
-  async getOne(id: string): Promise<TournamentDTO | null> {
+  async getOne(id: number): Promise<TournamentDTO | null> {
     const tournament = await this.prisma.tournament.findUnique({
       where: { id }
     })

@@ -11,9 +11,12 @@ class TournamentHandler {
   @Post()
   @HttpCode(201)
   async createTournament(@Body(ValidationPipe) body: TournamentDTO, @Req() req: AuthorizedApiRequest) {
+    const { auth } = req
     const tournament = await tournamentRepository.create({
       ...body,
-      createdBy: req.auth.userId
+      createdBy: auth.userId,
+      endDate: new Date(),
+      startDate: new Date()
     })
     return { success: true, tournament: instanceToPlain(tournament) }
   }
@@ -27,7 +30,7 @@ class TournamentHandler {
   @Get('/:tournamentId')
   async getTournament(@Req() req: AuthorizedApiRequest) {
     const { query } = req
-    const tournamentId = query?.params?.[0] as string
+    const tournamentId = Number(query?.params?.[0] || 0) as number
     if (!tournamentId) throw new HttpException(400, 'Tournament ID is required')
 
     const tournament = await tournamentRepository.getOne(tournamentId)
@@ -39,7 +42,7 @@ class TournamentHandler {
   @Patch('/:tournamentId')
   async updateTournament(@Body(ValidationPipe) body: TournamentDTO, @Req() req: AuthorizedApiRequest) {
     const { query } = req
-    const tournamentId = query?.params?.[0] as string
+    const tournamentId = Number(query?.params?.[0] || 0) as number
     if (!tournamentId) throw new HttpException(400, 'Tournament ID is required')
 
     const tournament = await tournamentRepository.update(tournamentId, {
@@ -54,7 +57,7 @@ class TournamentHandler {
   @HttpCode(204)
   async deleteTournament(@Req() req: AuthorizedApiRequest) {
     const { query } = req
-    const tournamentId = query?.params?.[0] as string
+    const tournamentId = Number(query?.params?.[0] || 0) as number
     if (!tournamentId) throw new HttpException(400, 'Tournament ID is required')
 
     await tournamentRepository.delete(tournamentId)

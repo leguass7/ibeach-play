@@ -2,13 +2,13 @@ import { Type } from 'class-transformer'
 import { IsDateString, IsInt, IsOptional, IsString, Length } from 'class-validator'
 
 export class TournamentDTO {
-  id: string
+  id: number
   name: string
   description?: string
-  startDate: Date
-  endDate: Date
-  createdBy: number
-  createdAt: Date
+  startDate?: Date
+  endDate?: Date
+  createdBy?: number
+  createdAt?: Date
   updatedBy?: number
   updatedAt?: Date
 }

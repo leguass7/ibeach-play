@@ -1,6 +1,8 @@
-import type { ArenaDTO } from '@/@server-side/use-cases/arena'
 import type { StoreArenaParams } from '@/services/api/admin/arena/admin-arena.api'
 import type { FormArenaData } from '@/services/api/arena'
+import type { FormTournamentData } from '@/services/api/tournament'
+
+import type { TournamentDTO } from '~/use-cases/tournament'
 
 export function formTournamentOutDto(data: FormArenaData, arenaId?: number): StoreArenaParams {
   const id = arenaId && arenaId > 0 ? arenaId : data?.id
@@ -10,12 +12,12 @@ export function formTournamentOutDto(data: FormArenaData, arenaId?: number): Sto
   }
 }
 
-export function formTournamentInDto(data?: ArenaDTO): FormArenaData | undefined {
+export function formTournamentInDto(data?: TournamentDTO): FormTournamentData | undefined {
   if (!data) return undefined
   const { id, name } = data
 
   return {
     id,
     name: name || ''
-  } as FormArenaData
+  } as FormTournamentData
 }
