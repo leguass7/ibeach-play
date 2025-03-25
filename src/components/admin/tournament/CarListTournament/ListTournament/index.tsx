@@ -7,6 +7,7 @@ import { List } from '@chakra-ui/react'
 import { ListItemTournament, type ClickEditHandler } from './ListItemTournament'
 
 export type { ClickEditHandler }
+
 type Props = {
   onEdit: ClickEditHandler
 }
