@@ -5,13 +5,13 @@ import { useState } from 'react'
 import { useOnceCall } from '@/hooks/useOnceCall'
 import { Box, Alert, ChakraProvider } from '@chakra-ui/react'
 
-import { useTournament } from '../lib/tournament-provider'
+import { useTournamentStageProvider } from '../TournamentStageProvider'
 import HeaderPair from './HeaderPair'
 import ManualPairForm from './ManualPairForm'
 import PairTable from './PairTable'
 
 export default function PairGenerator({ onSuccess }: { onSuccess: () => void }) {
-  const { pairs, fetchPeople, generatePairs, clearPairs, loading } = useTournament()
+  const { pairs, fetchPeople, generatePairs, clearPairs, loading } = useTournamentStageProvider()
 
   const [sortMethod, setSortMethod] = useState<string>('balanced')
   const [error, setError] = useState<string | null>(null)

@@ -12,6 +12,7 @@ const predefinedPaths = [
   { label: 'Alunos', path: 'student' },
   { label: 'Usuários', path: 'user' },
   { label: 'Torneios', path: 'tournament' },
+  { label: 'Etapas', path: 'stage' },
   { label: 'Arenas', path: 'arena' }
 ]
 

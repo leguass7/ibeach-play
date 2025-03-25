@@ -49,7 +49,7 @@ interface TournamentContextType {
 
 const TournamentContext = createContext<TournamentContextType | undefined>(undefined)
 
-export function TournamentProvider({ children }: { children: ReactNode }) {
+export function TournamentStageProvider({ children }: { children: ReactNode }) {
   const [people, setPeople] = useState<IPerson[]>([])
   const [pairs, setPairs] = useState<IPair[]>([])
   const [bracketRounds, setBracketRounds] = useState<IBracketRound[]>([])
@@ -193,7 +193,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
   return <TournamentContext.Provider value={value}>{children}</TournamentContext.Provider>
 }
 
-export function useTournament() {
+export function useTournamentStageProvider() {
   const context = useContext(TournamentContext)
   if (context === undefined) {
     throw new Error('useTournament must be used within an ApiProvider')

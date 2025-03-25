@@ -4,7 +4,7 @@ import type { IPair } from '@/services/api/tournament/pair/pair.interface'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box, CircularProgress, IconButton, Text, useToast, Tag } from '@chakra-ui/react'
 
-import { useTournament } from '../../lib/tournament-provider'
+import { useTournamentStageProvider } from '../../TournamentStageProvider'
 import PersonRow from './PersonRow'
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const PairTable = ({ pairs, loading }: Props) => {
-  const { deletePair } = useTournament()
+  const { deletePair } = useTournamentStageProvider()
   const toast = useToast()
 
   const handleDeletePair = async (pairId: string) => {

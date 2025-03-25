@@ -7,7 +7,7 @@ import { useOnceCall } from '@/hooks/useOnceCall'
 import type { IBracketMatch } from '@/services/api/tournament/bracket/bracket.interface'
 import { Box, Spinner, Text, Alert, AlertIcon, VStack } from '@chakra-ui/react'
 
-import { useTournament } from '../lib/tournament-provider'
+import { useTournamentStageProvider } from '../TournamentStageProvider'
 import BracketControls from './BracketControls'
 import BracketRounds from './BracketRounds'
 import ScoreDialog from './ScoreDialog'
@@ -17,7 +17,7 @@ interface TournamentBracketProps {
 }
 
 export default function TournamentBracket({ onSuccess }: TournamentBracketProps) {
-  const { pairs, bracketRounds, fetchPairs, fetchBracketRounds, generateBracket, updateMatchScore, loading } = useTournament()
+  const { pairs, bracketRounds, fetchPairs, fetchBracketRounds, generateBracket, updateMatchScore, loading } = useTournamentStageProvider()
 
   const [bracketSize, setBracketSize] = useState<number>(4)
   const [error, setError] = useState<string | null>(null)
@@ -67,7 +67,7 @@ export default function TournamentBracket({ onSuccess }: TournamentBracketProps)
   }
 
   return (
-    <VStack spacing={4}>
+    <VStack spacing={4} align="stretch">
       <BracketControls
         bracketSize={bracketSize}
         setBracketSize={setBracketSize}
