@@ -23,13 +23,13 @@ export class CreateTournamentDTO {
   @Length(0, 1048)
   description?: string
 
-  @IsDateString()
-  @Type(() => Date)
-  startDate: Date
+  // @IsDateString()
+  // @Type(() => Date)
+  // startDate: Date
 
-  @IsDateString()
-  @Type(() => Date)
-  endDate: Date
+  // @IsDateString()
+  // @Type(() => Date)
+  // endDate: Date
 
   @IsOptional()
   @IsInt()
@@ -47,15 +47,15 @@ export class UpdateTournamentDTO {
   @Length(0, 1048)
   description?: string
 
-  @IsOptional()
-  @IsDateString()
-  @Type(() => Date)
-  startDate?: Date
+  // @IsOptional()
+  // @IsDateString()
+  // @Type(() => Date)
+  // startDate?: Date
 
-  @IsOptional()
-  @IsDateString()
-  @Type(() => Date)
-  endDate?: Date
+  // @IsOptional()
+  // @IsDateString()
+  // @Type(() => Date)
+  // endDate?: Date
 
   @IsOptional()
   @IsInt()

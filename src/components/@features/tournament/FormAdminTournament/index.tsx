@@ -71,7 +71,7 @@ export const FormAdminTournament: React.FC<FormAdminTournamentProps> = ({ tourna
     <form key={`${data?.tournament?.id}`} onSubmit={handleSubmit(handleFormSubmit)}>
       <VStack spacing={4} align="stretch">
         <FormControl isInvalid={!!errors.name}>
-          <FormLabel>Nome da Arena</FormLabel>
+          <FormLabel>Nome do Torneio</FormLabel>
           <Input
             {...register('name', {
               required: 'Nome é obrigatório',
@@ -86,7 +86,7 @@ export const FormAdminTournament: React.FC<FormAdminTournamentProps> = ({ tourna
 
         <SimpleGrid columns={2} spacing={4}>
           <Button type="submit" colorScheme="blue" isLoading={isLoading}>
-            {edit ? 'Atualizar' : 'Criar'} Arena
+            {edit ? 'Atualizar' : 'Criar'} Torneio
           </Button>
           {onCancel ? (
             <Button variant="outline" onClick={onCancel}>

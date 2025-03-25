@@ -4,20 +4,16 @@ import { Body, createHandler, Delete, Get, HttpCode, HttpException, Patch, Post,
 import { AuthJwtGuard } from '~/use-cases/auth/auth-jwt.guard'
 import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.interface'
 import { tournamentRepository } from '~/use-cases/tournament'
-import { TournamentDTO } from '~/use-cases/tournament/tournament.dto'
+import { UpdateTournamentDTO, CreateTournamentDTO } from '~/use-cases/tournament/tournament.dto'
 
 @AuthJwtGuard()
 class TournamentHandler {
   @Post()
   @HttpCode(201)
-  async createTournament(@Body(ValidationPipe) body: TournamentDTO, @Req() req: AuthorizedApiRequest) {
+  async createTournament(@Body(ValidationPipe) body: CreateTournamentDTO, @Req() req: AuthorizedApiRequest) {
     const { auth } = req
-    const tournament = await tournamentRepository.create({
-      ...body,
-      createdBy: auth.userId,
-      endDate: new Date(),
-      startDate: new Date()
-    })
+    const createdBy = auth.userId
+    const tournament = await tournamentRepository.create({ ...body, createdBy })
     return { success: true, tournament: instanceToPlain(tournament) }
   }
 
@@ -40,15 +36,13 @@ class TournamentHandler {
   }
 
   @Patch('/:tournamentId')
-  async updateTournament(@Body(ValidationPipe) body: TournamentDTO, @Req() req: AuthorizedApiRequest) {
-    const { query } = req
+  async updateTournament(@Body(ValidationPipe) body: UpdateTournamentDTO, @Req() req: AuthorizedApiRequest) {
+    const { query, auth } = req
     const tournamentId = Number(query?.params?.[0] || 0) as number
     if (!tournamentId) throw new HttpException(400, 'Tournament ID is required')
 
-    const tournament = await tournamentRepository.update(tournamentId, {
-      ...body,
-      updatedBy: req.auth.userId
-    })
+    const updatedBy = auth.userId
+    const tournament = await tournamentRepository.update(tournamentId, { ...body, updatedBy })
 
     return { success: true, tournament: instanceToPlain(tournament) }
   }
