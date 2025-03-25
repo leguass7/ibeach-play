@@ -224,13 +224,13 @@ model Student {
 }
 
 model Tournament {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   name        String
-  description String?  @db.Text
+  description String?   @db.Text
   startDate   DateTime
   endDate     DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
   createdBy   Int
   updatedBy   Int?
 
@@ -247,10 +247,10 @@ model TournamentStage {
   tournamentId String
   arenaId      Int
   name         String
-  date         DateTime
+  date         DateTime?
   status       StageStatus @default(PENDING)
   createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  updatedAt    DateTime?   @updatedAt
 
   arena       Arena        @relation(fields: [arenaId], references: [id])
   tournament  Tournament   @relation(fields: [tournamentId], references: [id])
@@ -267,7 +267,7 @@ model Enrollment {
   stageId   String
   userId    Int?
   name      String? // Para inscritos não cadastrados
-  weight    Float    @default(0)
+  weight    Float?   @default(0)
   createdAt DateTime @default(now())
 
   stage  TournamentStage @relation(fields: [stageId], references: [id])
