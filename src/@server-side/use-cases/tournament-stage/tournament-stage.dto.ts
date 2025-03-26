@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer'
-import { IsDateString, IsInt, IsOptional, IsString, Length } from 'class-validator'
+import { IsDate, IsDateString, IsInt, IsOptional, IsString, Length } from 'class-validator'
 
 export type StageStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'
 
@@ -25,7 +25,7 @@ export class CreateTournamentStageDTO {
   @Length(3, 255)
   name: string
 
-  @IsDateString()
+  @IsDate()
   @Type(() => Date)
   date: Date
 

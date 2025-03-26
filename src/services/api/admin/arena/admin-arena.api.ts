@@ -1,5 +1,9 @@
 import { apiService } from '@/services/api/api.service'
-import type { FormArenaData, IResponseArena } from '@/services/api/arena'
+import type { FormArenaData, IResponseArena, IResponseArenaOptions } from '@/services/api/arena'
+
+export function adminGetArenaOptions(): Promise<IResponseArenaOptions | null> {
+  return apiService.get(`/admin/arena/options`)
+}
 
 export function adminGetArenaList(): Promise<IResponseArena | null> {
   return apiService.get(`/admin/arena`)

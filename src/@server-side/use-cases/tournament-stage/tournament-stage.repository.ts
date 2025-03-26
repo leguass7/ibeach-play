@@ -36,8 +36,9 @@ export class TournamentStageRepository {
     return tournament ? plainToInstance(TournamentStageDTO, tournament) : null
   }
 
-  async listAll(): Promise<TournamentStageDTO[]> {
-    const tournaments = await this.prisma.tournamentStage.findMany({ orderBy: { createdAt: 'desc' } })
-    return plainToInstance(TournamentStageDTO, tournaments)
+  async listAll(tournamentId?: number | null): Promise<TournamentStageDTO[]> {
+    const where = !!tournamentId ? { tournamentId } : undefined
+    const tournamentStages = await this.prisma.tournamentStage.findMany({ orderBy: { createdAt: 'desc' }, where })
+    return plainToInstance(TournamentStageDTO, tournamentStages)
   }
 }

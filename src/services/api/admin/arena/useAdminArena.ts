@@ -7,7 +7,8 @@ import useSWR, { useSWRConfig } from 'swr'
 
 import type { ArenaDTO } from '~/use-cases/arena'
 
-import { type StoreArenaParams, adminDeleteArena, adminGetArenaList, adminStoreArena } from './admin-arena.api'
+import { type StoreArenaParams, adminDeleteArena, adminGetArenaList, adminGetArenaOptions, adminStoreArena } from './admin-arena.api'
+import { arenaToOptionsDto, type FetchHandler, type Options } from './admin-arena.helper'
 
 export function useAdminArenaList(): [ArenaDTO[], boolean] {
   const { data, isLoading } = useSWR<IResponseArena>(`/admin/arena`)
@@ -49,4 +50,15 @@ export function useAdminArena() {
   }, [loadingList, loadingStore, loadingRemove])
 
   return { list, store, loading, remove }
+}
+
+export function useAdminArenaOptions(): [fetcher: FetchHandler, loading: boolean, data: Options] {
+  const [requestList, loading, data] = useFetcher(adminGetArenaOptions)
+
+  const fetcher = React.useCallback<FetchHandler>(async () => {
+    const result = await requestList()
+    return arenaToOptionsDto(result?.arenas || [])
+  }, [requestList])
+
+  return [fetcher, loading, arenaToOptionsDto(data?.arenas)] as const
 }

@@ -1,16 +1,17 @@
 import React from 'react'
 
-import type { TournamentDTO } from '@/@server-side/use-cases/tournament'
 import { AvatarListItem } from '@/components/admin/AvatarListItem'
 
-export type ClickEditHandler = (id: string | number) => void
+import type { TournamentStageDTO } from '~/use-cases/tournament-stage'
 
-type Props = Partial<TournamentDTO> & {
+export type ClickEditHandler = (id: string | number) => void | Promise<void>
+
+type Props = Partial<TournamentStageDTO> & {
   onEdit?: ClickEditHandler
   onDelete?: ClickEditHandler
 }
 
-export const ListItemTournament: React.FC<Props> = ({ id, onEdit, onDelete, name }) => {
+export const ListItemTournamentStage: React.FC<Props> = ({ id, onEdit, onDelete, name, tournamentId }) => {
   const handleClickEdit = () => {
     if (id && onEdit) onEdit?.(id)
   }
@@ -19,7 +20,7 @@ export const ListItemTournament: React.FC<Props> = ({ id, onEdit, onDelete, name
     if (id && onDelete) onDelete?.(id)
   }
 
-  const link = `/admin/tournament/${id}`
+  const link = `/admin/tournament/${tournamentId}/stage/${id}`
 
   return <AvatarListItem onEdit={handleClickEdit} onDelete={handleClickDelete} avatar={name} title={name} link={link} />
 }

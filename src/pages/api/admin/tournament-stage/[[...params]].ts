@@ -7,25 +7,29 @@ import { tournamentStageRepository } from '~/use-cases/tournament-stage'
 import { CreateTournamentStageDTO, UpdateTournamentStageDTO } from '~/use-cases/tournament-stage'
 
 @AuthJwtGuardAdmin()
-class TournamentHandler {
+class TournamentStageHandler {
   @Post()
   @HttpCode(201)
-  async createTournament(@Body(ValidationPipe) body: CreateTournamentStageDTO, @Req() req: AuthorizedApiRequest) {
-    const { auth } = req
-    const createdBy = auth.userId
-    const tournament = await tournamentStageRepository.create({ ...body, createdBy })
+  async createTournament(@Body(ValidationPipe) body: CreateTournamentStageDTO) {
+    const tournament = await tournamentStageRepository.create({ ...body })
     return { success: true, tournament: instanceToPlain(tournament) }
   }
 
   @Get()
-  async listTournaments() {
-    const tournaments = await tournamentStageRepository.listAll()
-    return { success: true, tournaments: instanceToPlain(tournaments) }
+  async listTournamentStages(@Req() req: AuthorizedApiRequest) {
+    const { query } = req
+
+    const tournamentId = Number(query?.tournamentId || 0) as number
+    if (!tournamentId) throw new HttpException(400, 'Tournament ID is required')
+
+    const tournamentStages = await tournamentStageRepository.listAll(tournamentId)
+    return { success: true, tournamentStages: instanceToPlain(tournamentStages) }
   }
 
   @Get('/:stageId')
   async getStage(@Req() req: AuthorizedApiRequest) {
     const { query } = req
+
     const stageId = Number(query?.params?.[0] || 0) as number
     if (!stageId) throw new HttpException(400, 'id is required')
 
@@ -59,4 +63,4 @@ class TournamentHandler {
   }
 }
 
-export default createHandler(TournamentHandler)
+export default createHandler(TournamentStageHandler)

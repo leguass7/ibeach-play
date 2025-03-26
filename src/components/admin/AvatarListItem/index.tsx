@@ -1,7 +1,8 @@
 import React from 'react'
-import { FiTrash, FiEdit2 } from 'react-icons/fi'
+import { FiTrash, FiEdit2, FiExternalLink } from 'react-icons/fi'
 
 import { Avatar, Flex, IconButton, ListItem, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/navigation'
 
 export type ClickButtonHandler = () => void | Promise<void>
 
@@ -10,9 +11,16 @@ export type AvatarListItemProps = {
   onDelete?: ClickButtonHandler
   avatar?: string
   title?: string
+  link?: string
 }
 
-export const AvatarListItem: React.FC<AvatarListItemProps> = ({ onDelete, onEdit, avatar, title }) => {
+export const AvatarListItem: React.FC<AvatarListItemProps> = ({ onDelete, onEdit, avatar, title, link }) => {
+  const navigation = useRouter()
+
+  const handleClickLink = () => {
+    if (link) navigation.push(link)
+  }
+
   return (
     <ListItem
       p={4}
@@ -30,8 +38,9 @@ export const AvatarListItem: React.FC<AvatarListItemProps> = ({ onDelete, onEdit
           <Text as={'span'} fontWeight="bold" flex={1}>
             {title}
           </Text>
-          {onEdit ? <IconButton aria-label="Editar turma" icon={<FiEdit2 />} size="sm" variant="outline" onClick={onEdit} /> : null}
-          {onDelete ? <IconButton aria-label="Remover turma" icon={<FiTrash />} size="sm" variant="outline" onClick={onDelete} /> : null}
+          {link ? <IconButton aria-label="Abrir" icon={<FiExternalLink />} size="sm" variant="outline" onClick={handleClickLink} /> : null}
+          {onEdit ? <IconButton aria-label="Editar" icon={<FiEdit2 />} size="sm" variant="outline" onClick={onEdit} /> : null}
+          {onDelete ? <IconButton aria-label="Remover" icon={<FiTrash />} size="sm" variant="outline" onClick={onDelete} /> : null}
         </Flex>
       </Flex>
     </ListItem>

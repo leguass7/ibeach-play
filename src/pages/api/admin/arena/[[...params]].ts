@@ -8,6 +8,15 @@ import type { AuthorizedApiRequest } from '~/use-cases/auth/auth.interface'
 
 @AuthJwtGuardAdmin()
 class ArenaHandler {
+  @HttpCode(200)
+  @Get('/options')
+  async list(@Req() req: AuthorizedApiRequest) {
+    const coachId = req.auth?.userId
+    if (!coachId) throw new Error('Unauthorized')
+    const arenas = await arenaRepository.findAllOptions()
+    return { success: true, arenas }
+  }
+
   @Post()
   @HttpCode(201)
   async create(@Body(ValidationPipe) body: CreateArenaDTO, @Req() req: AuthorizedApiRequest) {

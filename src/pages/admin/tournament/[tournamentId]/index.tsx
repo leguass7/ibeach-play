@@ -1,3 +1,4 @@
+import { AdminTournamentStages } from '@/components/admin/tournament-stage/AdminTournamentStages'
 import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
 import { LayoutContainer } from '@/components/layout/LayoutContainer'
 import type { GetServerSideProps, NextPage } from 'next'
@@ -8,13 +9,14 @@ import { authOptions } from '~/use-cases/auth/auth.options'
 type Props = {
   [x: string]: unknown
   session: Session
+  tournamentId: number
 }
 
-const PageAdminTournamentOne: NextPage<Props> = () => {
+const PageAdminTournamentOne: NextPage<Props> = ({ tournamentId }) => {
   return (
     <LayoutContainer>
       <BreadcrumbNavigation />
-      <h1>Admin Tournament One</h1>
+      <AdminTournamentStages tournamentId={tournamentId} />
     </LayoutContainer>
   )
 }
@@ -28,7 +30,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   // validação de administrador
   if (!session?.groups?.includes(1)) return { redirect: { destination: '/login', permanent: false } }
 
+  const tournamentId = Number(ctx.params?.tournamentId)
+
   return {
-    props: { session }
+    props: { session, tournamentId }
   }
 }
