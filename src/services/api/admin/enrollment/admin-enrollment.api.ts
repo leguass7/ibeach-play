@@ -21,6 +21,6 @@ export function deleteEnrollment(id: string): Promise<IEnrollmentResponse | null
 }
 
 // Import multiple people
-export function importEnrollemnt(data: FormEnrollmentData[]): Promise<IEnrollmentResponse | null> {
+export function importEnrollment(data: FormEnrollmentData[]): Promise<IEnrollmentResponse | null> {
   return apiService.post('/admin/enrollment/import', { enrollment: data })
 }
