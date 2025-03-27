@@ -39,6 +39,10 @@ export class EnrollmentRepository {
     return plainToInstance(EnrollmentDTO, arena)
   }
 
+  async delete(id: string) {
+    return this.prisma.enrollment.delete({ where: { id } })
+  }
+
   async findAllOptions(where: Prisma.EnrollmentWhereInput = {}) {
     return this.prisma.enrollment.findMany({ where, select: { id: true, name: true } })
   }

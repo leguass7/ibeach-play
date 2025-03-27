@@ -8,6 +8,7 @@ export class EnrollmentDTO {
   createdAt?: Date
   updatedBy?: number | null
   updatedAt?: Date | null
+  weight?: number
 }
 
 export class CreateEnrollmentDTO {

@@ -1,5 +1,5 @@
 import { apiService } from '@/services/api/api.service'
-import type { IEnrollmentResponse, FormEnrollmentData } from '@/services/api/enrollment'
+import type { IEnrollmentResponse, FormEnrollmentData, UpdateEnrollmentData } from '@/services/api/enrollment'
 
 export function paginateEnrollment(): Promise<IEnrollmentResponse | null> {
   return apiService.get('/admin/enrollment')
@@ -11,7 +11,7 @@ export function createEnrollment(data: FormEnrollmentData): Promise<IEnrollmentR
 }
 
 // Update an existing person
-export function updateEnrollment(id: string, data: FormEnrollmentData): Promise<IEnrollmentResponse | null> {
+export function updateEnrollment(id: string, data: UpdateEnrollmentData): Promise<IEnrollmentResponse | null> {
   return apiService.patch(`/admin/enrollment/${id}`, data)
 }
 
