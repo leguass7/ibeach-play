@@ -1,24 +1,24 @@
 import { memo } from 'react'
 
-import type { IPair } from '@/services/api/tournament/pair/pair.interface'
+import type { TeamDTO } from '@/@server-side/use-cases/team'
 import { DeleteIcon } from '@chakra-ui/icons'
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box, CircularProgress, IconButton, Text, useToast, Tag } from '@chakra-ui/react'
+import { Box, CircularProgress, IconButton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useToast } from '@chakra-ui/react'
 
 import { useTournamentStageProvider } from '../../TournamentStageProvider'
 import PersonRow from './PersonRow'
 
 interface Props {
-  pairs: IPair[]
+  pairs: TeamDTO[]
   loading: boolean
 }
 
 const PairTable = ({ pairs, loading }: Props) => {
-  const { deletePair } = useTournamentStageProvider()
+  const { onDeleteOneTeam } = useTournamentStageProvider()
   const toast = useToast()
 
   const handleDeletePair = async (pairId: string) => {
     try {
-      await deletePair(pairId)
+      await onDeleteOneTeam(pairId)
       toast({ title: 'Pair deleted successfully.', status: 'success' })
     } catch (_error) {
       toast({ title: 'Failed to delete pair.', status: 'error' })
@@ -56,13 +56,13 @@ const PairTable = ({ pairs, loading }: Props) => {
           {pairs?.map(pair => (
             <Tr key={pair?.id}>
               <Td>
-                <PersonRow person={pair?.person1} />
-                <PersonRow person={pair?.person2} />
+                <PersonRow personId={pair?.playerAId} />
+                <PersonRow personId={pair?.playerBId} />
               </Td>
-              <Td>
+              {/* <Td>
                 <Tag colorScheme="green">{pair?.totalWeight}</Tag>
-              </Td>
-              <Td>{pair?.hasSeeded ? 'Sim' : 'Não'}</Td>
+              </Td> */}
+              {/* <Td>{pair?.hasSeeded ? 'Sim' : 'Não'}</Td> */}
               <Td isNumeric>
                 <IconButton size="sm" colorScheme="red" aria-label="Delete Pair" icon={<DeleteIcon />} onClick={() => handleDeletePair(pair?.id)} />
               </Td>

@@ -1,27 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import type { IPerson } from '@/services/api/tournament/person/person.interface'
+import type { EnrollmentDTO } from '@/@server-side/use-cases/enrollment'
+import type { FormEnrollmentData } from '@/services/api/enrollment'
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  Button,
   FormControl,
   FormLabel,
   Input,
-  Button,
-  Checkbox,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spinner,
   useDisclosure
 } from '@chakra-ui/react'
 
 interface PersonFormDialogProps {
   open: boolean
-  person: IPerson | null
+  person: EnrollmentDTO | null
   onClose: () => void
-  onSave: (data: Omit<IPerson, 'id'>) => void
+  onSave: (data: FormEnrollmentData) => void
   loading: boolean
 }
 
@@ -30,11 +30,14 @@ export default function PersonFormDialog({ open, person, onClose, onSave, loadin
 
   const [name, setName] = useState(person?.name || '')
   const [weight, setWeight] = useState(person?.weight || 1)
-  const [isSeeded, setIsSeeded] = useState(person?.isSeeded || false)
+  // const [isSeeded, setIsSeeded] = useState(person?.isSeeded || false)
 
   const handleSubmit = () => {
     if (!name.trim()) return
-    onSave({ name, weight, isSeeded })
+    onSave({
+      name,
+      weight
+    } as FormEnrollmentData)
     closeModal()
   }
 
@@ -58,11 +61,11 @@ export default function PersonFormDialog({ open, person, onClose, onSave, loadin
             <FormLabel>Peso (1-10)</FormLabel>
             <Input type="number" value={weight} onChange={e => setWeight(Number(e.target.value) || 1)} />
           </FormControl>
-          <FormControl mb={4}>
+          {/* <FormControl mb={4}>
             <Checkbox isChecked={isSeeded} onChange={e => setIsSeeded(e.target.checked)}>
               Cabeça de Chave
             </Checkbox>
-          </FormControl>
+          </FormControl> */}
         </ModalBody>
         <ModalFooter>
           <Button onClick={onClose} mr={3}>

@@ -5,6 +5,10 @@ export function paginateEnrollment(): Promise<IEnrollmentResponse | null> {
   return apiService.get('/admin/enrollment')
 }
 
+export function getOneEnrollment(id: string): Promise<IEnrollmentResponse | null> {
+  return apiService.get(`/admin/enrollment/${id}`)
+}
+
 // Add a new person
 export function createEnrollment(data: FormEnrollmentData): Promise<IEnrollmentResponse | null> {
   return apiService.post('/admin/enrollment', data)

@@ -7,7 +7,6 @@ import Head from 'next/head'
 
 import PairGenerator from '../PairGenerator'
 import PeopleManager from '../PeopleManager'
-import TournamentBracket from '../TournamentBracket'
 import { TournamentStageProvider } from '../TournamentStageProvider'
 
 type TournamentComponentPageProps = {
@@ -40,7 +39,7 @@ export const TournamentComponentPage: React.FC<TournamentComponentPageProps> = (
         <meta name="description" content="Aplicação para sorteio de chaves para torneio" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <TournamentStageProvider>
+      <TournamentStageProvider stageId={stageId} tournamentId={tournamentId}>
         <Card>
           <Tabs index={tabIndex} onChange={handleTabsChange} variant="enclosed" colorScheme="blue">
             <CardHeader>
@@ -53,7 +52,7 @@ export const TournamentComponentPage: React.FC<TournamentComponentPageProps> = (
                 <TabList>
                   <Tab>Pessoas</Tab>
                   <Tab>Duplas</Tab>
-                  <Tab>Chaves</Tab>
+                  {/* <Tab>Chaves</Tab> */}
                 </TabList>
               </Flex>
             </CardHeader>
@@ -67,9 +66,9 @@ export const TournamentComponentPage: React.FC<TournamentComponentPageProps> = (
                   <PairGenerator onSuccess={showSuccessToast} />
                 </TabPanel>
 
-                <TabPanel>
+                {/* <TabPanel>
                   <TournamentBracket onSuccess={showSuccessToast} />
-                </TabPanel>
+                </TabPanel> */}
               </TabPanels>
             </CardBody>
           </Tabs>

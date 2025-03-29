@@ -11,13 +11,14 @@ import ManualPairForm from './ManualPairForm'
 import PairTable from './PairTable'
 
 export default function PairGenerator({ onSuccess }: { onSuccess: () => void }) {
-  const { pairs, fetchPeople, generatePairs, clearPairs, loading } = useTournamentStageProvider()
+  const { teams, fetchEnrollments, onGenerateAndSaveBalancedTeams, onGenerateAndSaveRandomTeams, onClearAllTeams, loading } =
+    useTournamentStageProvider()
 
   const [sortMethod, setSortMethod] = useState<string>('balanced')
   const [error, setError] = useState<string | null>(null)
   const [manualPairMode, setManualPairMode] = useState(false)
 
-  useOnceCall(fetchPeople)
+  useOnceCall(fetchEnrollments)
 
   const handleSortMethodChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortMethod(event.target.value)
@@ -25,9 +26,15 @@ export default function PairGenerator({ onSuccess }: { onSuccess: () => void }) 
 
   const handleGeneratePairs = async () => {
     setError(null)
+
     try {
-      await generatePairs(sortMethod)
-      onSuccess()
+      if (sortMethod === 'balanced') {
+        await onGenerateAndSaveBalancedTeams()
+        onSuccess()
+      } else {
+        await onGenerateAndSaveRandomTeams()
+        onSuccess()
+      }
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Erro ao gerar duplas.')
     }
@@ -35,7 +42,7 @@ export default function PairGenerator({ onSuccess }: { onSuccess: () => void }) 
 
   const handleClearAllPairs = async () => {
     try {
-      await clearPairs()
+      await onClearAllTeams()
       onSuccess()
     } catch (error) {
       console.error('Error clearing pairs:', error)
@@ -52,13 +59,13 @@ export default function PairGenerator({ onSuccess }: { onSuccess: () => void }) 
           onSortChange={handleSortMethodChange}
           onGenerate={handleGeneratePairs}
           onClear={handleClearAllPairs}
-          loading={loading.pairs}
-          hasPairs={pairs.length > 0}
+          loading={loading?.teams}
+          hasPairs={teams?.length > 0}
         />
 
         {error && <Alert status="error">{error}</Alert>}
 
-        {manualPairMode ? <ManualPairForm onSuccess={onSuccess} /> : <PairTable pairs={pairs} loading={loading.pairs} />}
+        {manualPairMode ? <ManualPairForm onSuccess={onSuccess} /> : <PairTable pairs={teams} loading={loading?.teams} />}
       </Box>
     </ChakraProvider>
   )

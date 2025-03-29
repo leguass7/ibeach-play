@@ -2,13 +2,13 @@
 
 import { useState } from 'react'
 
+import type { EnrollmentDTO } from '@/@server-side/use-cases/enrollment'
 import { useOnceCall } from '@/hooks/useOnceCall'
-import type { IPerson } from '@/services/api/tournament/person/person.interface'
-import { DownloadIcon, ArrowUpIcon } from '@chakra-ui/icons'
-import { Box, Button, Spinner, Stack, Heading } from '@chakra-ui/react'
+import type { FormEnrollmentData } from '@/services/api/enrollment'
+import { DownloadIcon } from '@chakra-ui/icons'
+import { Box, Button, Heading, Spinner, Stack } from '@chakra-ui/react'
 
 import { useTournamentStageProvider } from '../TournamentStageProvider'
-import ImportDialog from './ImportDialog'
 import PeopleTable from './PeopleTable'
 import PersonFormDialog from './PersonFormDialog'
 
@@ -17,32 +17,32 @@ interface PeopleManagerProps {
 }
 
 export default function PeopleManager({ onSuccess }: PeopleManagerProps) {
-  const { people, fetchPeople, addPerson, updatePerson, deletePerson, importPeople, loading } = useTournamentStageProvider()
+  const { enrollments, fetchEnrollments, addEnrollment, editEnrollment, deleteEnrollment, loading } = useTournamentStageProvider()
 
   const [formOpen, setFormOpen] = useState(false)
-  const [importOpen, setImportOpen] = useState(false)
-  const [currentPerson, setCurrentPerson] = useState<IPerson | null>(null)
+  // const [importOpen, setImportOpen] = useState(false)
+  const [currentPerson, setCurrentPerson] = useState<EnrollmentDTO | null>(null)
 
-  useOnceCall(fetchPeople)
+  useOnceCall(fetchEnrollments)
 
   const openAddDialog = () => {
     setCurrentPerson(null)
     setFormOpen(true)
   }
 
-  const openEditDialog = (person: IPerson) => {
+  const openEditDialog = (person: EnrollmentDTO) => {
     setCurrentPerson(person)
     setFormOpen(true)
   }
 
-  const openImportDialog = () => {
-    setImportOpen(true)
-  }
+  // const openImportDialog = () => {
+  //   setImportOpen(true)
+  // }
 
   const handleExport = () => {
-    if (people.length === 0) return
+    if (enrollments.length === 0) return
 
-    const dataStr = JSON.stringify(people, null, 2)
+    const dataStr = JSON.stringify(enrollments, null, 2)
     const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`
     const linkElement = document.createElement('a')
     linkElement.setAttribute('href', dataUri)
@@ -71,10 +71,10 @@ export default function PeopleManager({ onSuccess }: PeopleManagerProps) {
           flex="1"
           justify={{ base: 'flex-start', md: 'flex-end' }}
         >
-          <Button leftIcon={<ArrowUpIcon />} onClick={openImportDialog} variant="outline">
+          {/* <Button leftIcon={<ArrowUpIcon />} onClick={openImportDialog} variant="outline">
             Importar
-          </Button>
-          <Button leftIcon={<DownloadIcon />} onClick={handleExport} variant="outline" isDisabled={people?.length === 0}>
+          </Button> */}
+          <Button leftIcon={<DownloadIcon />} onClick={handleExport} variant="outline" isDisabled={enrollments?.length === 0}>
             Exportar
           </Button>
           <Button colorScheme="blue" onClick={openAddDialog}>
@@ -83,40 +83,40 @@ export default function PeopleManager({ onSuccess }: PeopleManagerProps) {
         </Stack>
       </Box>
 
-      {loading.people ? (
+      {loading.enrollments ? (
         <Box display="flex" justifyContent="center" py={5}>
           <Spinner />
         </Box>
       ) : (
-        <PeopleTable people={people} onEdit={openEditDialog} onDelete={deletePerson} />
+        <PeopleTable people={enrollments} onEdit={openEditDialog} onDelete={deleteEnrollment} />
       )}
 
       <PersonFormDialog
         open={formOpen}
         person={currentPerson}
         onClose={() => setFormOpen(false)}
-        onSave={async (data: Omit<IPerson, 'id'>) => {
+        onSave={async (data: FormEnrollmentData) => {
           if (currentPerson) {
-            await updatePerson(currentPerson?.id, data)
+            await editEnrollment(currentPerson?.id, data)
           } else {
-            await addPerson(data)
+            await addEnrollment(data)
           }
           setFormOpen(false)
           onSuccess()
         }}
-        loading={loading.people}
+        loading={loading.enrollments}
       />
 
-      <ImportDialog
+      {/* <ImportDialog
         open={importOpen}
         onClose={() => setImportOpen(false)}
-        onImport={async (data: Omit<IPerson, 'id'>[]) => {
-          await importPeople(data)
+        onImport={async (data: FormEnrollmentData[]) => {
+          await importEnrollments(data)
           setImportOpen(false)
           onSuccess()
         }}
-        loading={loading.people}
-      />
+        loading={loading.enrollments}
+      /> */}
     </Box>
   )
 }

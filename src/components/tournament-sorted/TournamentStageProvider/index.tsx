@@ -3,190 +3,230 @@ import { createContext, useContext, useState, type ReactNode } from 'react'
 
 import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
-import { generateTournamentBracket, paginatedBracketRounds, updateTournamentMatchScore } from '@/services/api/tournament/bracket'
-import type { IBracketRound } from '@/services/api/tournament/bracket/bracket.interface'
+import { createTeam, deleteAllTeams, deleteTeam, paginateTeam } from '@/services/api/admin/team/admin-team.api'
 import {
-  addTournamentPair,
-  clearTournamentPairs,
-  deleteTournamentPair,
-  generateTournamentPairs,
-  paginatedTournamentPair
-} from '@/services/api/tournament/pair'
-import type { IPair } from '@/services/api/tournament/pair/pair.interface'
-import { importPerson, paginateTournamentPerson, registerPerson, updatePerson } from '@/services/api/tournament/person'
-import type { IPerson } from '@/services/api/tournament/person/person.interface'
+  createEnrollment,
+  deleteEnrollment,
+  getOneEnrollment,
+  importEnrollment,
+  paginateEnrollment,
+  updateEnrollment,
+  type FormEnrollmentData,
+  type UpdateEnrollmentData
+} from '@/services/api/enrollment'
+import type { ITeamResponse } from '@/services/api/team'
+
+import type { EnrollmentDTO } from '~/use-cases/enrollment'
+import type { TeamDTO } from '~/use-cases/team'
+
+import { createManualTeam, generateBalancedTeams, generateRandomTeams } from './helper/team-genarete'
+
+type TournamentStageProviderProps = {
+  children: ReactNode
+  stageId: number
+  tournamentId: number
+}
 
 interface TournamentContextType {
   // Pessoas
-  people: IPerson[]
-  fetchPeople: () => Promise<IPerson[]>
-  addPerson: (person: Omit<IPerson, 'id'>) => Promise<IPerson>
-  updatePerson: (id: string, person: Partial<IPerson>) => Promise<IPerson>
-  deletePerson: (id: string) => Promise<void>
-  importPeople: (people: Omit<IPerson, 'id'>[]) => Promise<IPerson[]>
+  enrollments: EnrollmentDTO[]
+  enrollment: EnrollmentDTO | null
+  fetchEnrollments: () => Promise<EnrollmentDTO[]>
+  addEnrollment: (person: FormEnrollmentData) => Promise<EnrollmentDTO>
+  editEnrollment: (id: string, person: UpdateEnrollmentData) => Promise<EnrollmentDTO>
+  deleteEnrollment: (id: string) => Promise<void>
+  importEnrollments: (persons: FormEnrollmentData[]) => Promise<EnrollmentDTO[]>
+  requestEnrollment: (id: string) => Promise<EnrollmentDTO>
 
-  // Pares
-  pairs: IPair[]
-  fetchPairs: () => Promise<IPair[]>
-  generatePairs: (method: string) => Promise<IPair[]>
-  addPair: (person1Id: string, person2Id: string) => Promise<IPair>
-  deletePair: (id: string) => Promise<void>
-  clearPairs: () => Promise<void>
-
-  // Torneios
-  bracketRounds: IBracketRound[]
-  fetchBracketRounds: () => Promise<IBracketRound[]>
-  generateBracket: (size: number) => Promise<IBracketRound[]>
-  updateMatchScore: (roundIndex: number, matchIndex: number, score1: number, score2: number) => Promise<IBracketRound[]>
+  //Duplas
+  teams: TeamDTO[]
+  fetchTeams: () => Promise<TeamDTO[]>
+  onGenerateAndSaveBalancedTeams: () => Promise<void>
+  onGenerateAndSaveRandomTeams: () => Promise<void>
+  onCreateAndSaveManualTeam: (playerAId: string, playerBId: string) => Promise<TeamDTO | null>
+  onDeleteOneTeam: (id: string) => Promise<void>
+  onClearAllTeams: () => Promise<void>
 
   // Estados de carregamento
   loading: {
-    people: boolean
-    pairs: boolean
-    brackets: boolean
+    enrollment: boolean
+    enrollments: boolean
+    teams: boolean
   }
 }
 
 const TournamentContext = createContext<TournamentContextType | undefined>(undefined)
 
-export function TournamentStageProvider({ children }: { children: ReactNode }) {
-  const [people, setPeople] = useState<IPerson[]>([])
-  const [pairs, setPairs] = useState<IPair[]>([])
-  const [bracketRounds, setBracketRounds] = useState<IBracketRound[]>([])
+export function TournamentStageProvider({ children, stageId, tournamentId }: TournamentStageProviderProps) {
+  const [enrollments, setEnrollment] = useState<EnrollmentDTO[]>([])
+  const [teams, setTeams] = useState<TeamDTO[]>([])
 
   // Hooks fetcher
-  const [fetchPeoples, loadingPeoples] = useFetcher(async () => {
-    const data = await paginateTournamentPerson()
-    const persons = data?.persons || []
-    setPeople(persons)
-    return persons
+  const [fetchEnrollments, loadingEnrollments] = useFetcher(async () => {
+    const data = await paginateEnrollment()
+    const enrollments = data?.enrollments || []
+    setEnrollment(enrollments)
+    return enrollments
   })
-  const [fetchPairs, loadingPairs] = useFetcher(async () => {
-    const data = await paginatedTournamentPair()
-    const pairs = data?.pairs || []
-    setPairs(pairs)
-    return pairs
+
+  const [fetchTeams, loadingTeams] = useFetcher(async () => {
+    const data = await paginateTeam()
+    const teams = data?.teams || []
+    setTeams(teams)
+    return teams
   })
-  const [fetchBracketRounds, loadingBracketRounds] = useFetcher(async () => {
-    const data = await paginatedBracketRounds()
-    const rounds = data?.rounds || []
-    setBracketRounds(rounds)
-    return rounds
+
+  const [requestEnrollment, loadingRequestEnrollment, responseDataRequestEnrollment] = useFetcher(async (id: string) => {
+    const response = await getOneEnrollment(id)
+    if (!response || !response?.enrollment) {
+      throw new Error('Failed to fetch enrollment: enrollment data is undefined')
+    }
+    return response.enrollment
   })
 
   // Manipulação de pessoas
-  const addPerson = async (person: Omit<IPerson, 'id'>): Promise<IPerson> => {
-    const newPerson = await registerPerson(person)
-    if (newPerson) {
-      setPeople(prev => [...prev, ...(newPerson?.person ? [newPerson?.person] : [])])
+  const addEnrollment = async (person: FormEnrollmentData): Promise<EnrollmentDTO> => {
+    const newEnrolled = await createEnrollment({ ...person, stageId })
+    if (newEnrolled?.enrollment) {
+      setEnrollment(prev => [...prev, newEnrolled.enrollment])
+      return newEnrolled.enrollment
     }
-
-    if (!newPerson?.person) {
-      throw new Error('Failed to add person: person data is undefined')
-    }
-    return newPerson?.person
+    throw new Error('Failed to add person: person data is undefined')
   }
 
-  const editPerson = async (id: string, person: Partial<IPerson>): Promise<IPerson> => {
-    const updatedPerson = await updatePerson(id, person)
-    if (updatedPerson?.person) {
-      setPeople(prev => prev.map(p => (p.id === id && updatedPerson.person ? updatedPerson.person : p)))
+  const editEnrollment = async (id: string, person: UpdateEnrollmentData): Promise<EnrollmentDTO> => {
+    const enrollmentUpdate = await updateEnrollment(id, { ...person, stageId })
+    if (enrollmentUpdate?.enrollment) {
+      setEnrollment(prev => prev.map(p => (p.id === id ? enrollmentUpdate.enrollment : p)))
+      return enrollmentUpdate.enrollment
     }
-    if (!updatedPerson?.person) {
-      throw new Error('Failed to update person: person data is undefined')
-    }
-    return updatedPerson.person
+    throw new Error('Failed to update person: person data is undefined')
   }
 
-  const deletePerson = async (id: string): Promise<void> => {
-    await deletePerson(id)
-    setPeople(prev => prev.filter(p => p.id !== id))
+  const deleteEnrollmentPerson = async (id: string): Promise<void> => {
+    await deleteEnrollment(id)
+    setEnrollment(prev => prev.filter(p => p.id !== id))
   }
 
-  const importPeople = async (peopleToImport: Omit<IPerson, 'id'>[]): Promise<IPerson[]> => {
-    const importedPeople = await importPerson(peopleToImport)
-    if (importedPeople?.persons) {
-      setPeople(prev => [...prev, ...importedPeople?.persons])
+  const importEnrollments = async (peopleToImport: FormEnrollmentData[]): Promise<EnrollmentDTO[]> => {
+    const importedEnrollments = await importEnrollment(
+      peopleToImport.map(person => ({ ...person, stageId })) // Adicionando stageId automaticamente para cada pessoa importada
+    )
+    if (importedEnrollments?.enrollments) {
+      setEnrollment(prev => [...prev, ...importedEnrollments.enrollments])
+      return importedEnrollments.enrollments
+    }
+    return []
+  }
+
+  //Manipulação de duplas
+  const generateAndSaveBalancedTeams = async (): Promise<void> => {
+    if (enrollments.length < 2) return
+
+    const newTeams = generateBalancedTeams(enrollments)
+    const createdTeams = await Promise.all(
+      newTeams?.map(team =>
+        createTeam({
+          stageId,
+          playerAId: team?.playerAId,
+          playerBId: team?.playerBId
+        })
+      )
+    )
+
+    setTeams(prev => [
+      ...prev,
+      ...createdTeams
+        .filter((teamResponse): teamResponse is ITeamResponse => teamResponse !== null)
+        .map(teamResponse => ({
+          id: teamResponse?.team?.id,
+          playerAId: teamResponse?.team?.playerAId,
+          playerBId: teamResponse?.team?.playerBId,
+          stageId: teamResponse?.team?.stageId
+        }))
+    ])
+  }
+
+  const generateAndSaveRandomTeams = async (): Promise<void> => {
+    if (enrollments.length < 2) return
+
+    const newTeams = generateRandomTeams(enrollments)
+    const createdTeams = await Promise.all(
+      newTeams?.map(team =>
+        createTeam({
+          stageId,
+          playerAId: team?.playerAId,
+          playerBId: team?.playerBId
+        })
+      )
+    )
+
+    setTeams(prev => [
+      ...prev,
+      ...createdTeams
+        .filter((teamResponse): teamResponse is ITeamResponse => teamResponse !== null)
+        .map(teamResponse => ({
+          id: teamResponse?.team?.id,
+          playerAId: teamResponse?.team?.playerAId,
+          playerBId: teamResponse?.team?.playerBId,
+          stageId: teamResponse?.team?.stageId
+        }))
+    ])
+  }
+
+  const createAndSaveManualTeam = async (playerAId: string, playerBId: string): Promise<TeamDTO | null> => {
+    const newTeam = createManualTeam(enrollments, playerAId, playerBId)
+    if (!newTeam) return null
+
+    const response = await createTeam({
+      stageId,
+      playerAId: newTeam.playerAId,
+      playerBId: newTeam.playerBId
+    })
+
+    if (response?.team) {
+      setTeams(prev => [...prev, response?.team])
     }
 
-    return importedPeople?.persons || []
+    return response?.team ?? null
   }
 
-  // Manipulação de pares
-  const generatePairs = async (method: string): Promise<IPair[]> => {
-    const data = await generateTournamentPairs(method)
-    if (data?.pairs) {
-      setPairs(data?.pairs || [])
-    }
-
-    return data?.pairs || []
+  const deleteOneTeam = async (id: string): Promise<void> => {
+    await deleteTeam(id)
+    setTeams(prev => prev.filter(team => team?.id !== id))
   }
 
-  const addPair = async (person1Id: string, person2Id: string): Promise<IPair> => {
-    const newPair = await addTournamentPair(person1Id, person2Id)
-    if (newPair?.pair) {
-      setPairs(prev => [...prev, ...(newPair.pair ? [newPair.pair] : [])])
-    }
-    if (!newPair?.pair) {
-      throw new Error('Failed to add pair: pair data is undefined or null')
-    }
-    return newPair.pair
-  }
-
-  const deletePair = async (id: string): Promise<void> => {
-    await deleteTournamentPair(id)
-    setPairs(prev => prev.filter(pair => pair.id !== id))
-  }
-
-  const clearPairs = async (): Promise<void> => {
-    await clearTournamentPairs()
-    setPairs([])
-  }
-
-  // Manipulação de torneios
-  const generateBracket = async (size: number): Promise<IBracketRound[]> => {
-    const data = await generateTournamentBracket(size)
-    if (data?.rounds) {
-      setBracketRounds(data?.rounds || [])
-    }
-
-    return data?.rounds || []
-  }
-
-  const updateMatchScore = async (roundIndex: number, matchIndex: number, score1: number, score2: number): Promise<IBracketRound[]> => {
-    const data = await updateTournamentMatchScore(roundIndex, matchIndex, score1, score2)
-    if (data?.rounds) {
-      setBracketRounds(data?.rounds || [])
-    }
-    return data?.rounds || []
+  const clearAllTeams = async (): Promise<void> => {
+    await deleteAllTeams()
+    setTeams([])
   }
 
   // Inicializar dados
-  useOnceCall(fetchPeoples)
-  useOnceCall(fetchPairs)
-  useOnceCall(fetchBracketRounds)
+  useOnceCall(fetchEnrollments)
+  useOnceCall(fetchTeams)
 
   const value = {
-    people,
-    fetchPeople: fetchPeoples,
-    addPerson,
-    updatePerson: editPerson,
-    deletePerson,
-    importPeople,
-    pairs,
-    fetchPairs,
-    generatePairs,
-    addPair,
-    deletePair,
-    clearPairs,
-    bracketRounds,
-    fetchBracketRounds,
-    generateBracket,
-    updateMatchScore,
+    enrollments,
+    enrollment: responseDataRequestEnrollment,
+    fetchEnrollments,
+    addEnrollment,
+    editEnrollment,
+    deleteEnrollment: deleteEnrollmentPerson,
+    importEnrollments,
+    requestEnrollment,
+
+    teams,
+    fetchTeams,
+    onGenerateAndSaveBalancedTeams: generateAndSaveBalancedTeams,
+    onGenerateAndSaveRandomTeams: generateAndSaveRandomTeams,
+    onCreateAndSaveManualTeam: createAndSaveManualTeam,
+    onClearAllTeams: clearAllTeams,
+    onDeleteOneTeam: deleteOneTeam,
+
     loading: {
-      people: loadingPeoples,
-      pairs: loadingPairs,
-      brackets: loadingBracketRounds
+      enrollment: loadingRequestEnrollment,
+      enrollments: loadingEnrollments,
+      teams: loadingTeams
     }
   }
 

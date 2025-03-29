@@ -5,13 +5,13 @@ import { Grid, Button, FormControl, FormLabel, Select, Spinner, Box } from '@cha
 import { useTournamentStageProvider } from '../TournamentStageProvider'
 
 export default function ManualPairForm({ onSuccess }: { onSuccess: () => void }) {
-  const { people, addPair, loading } = useTournamentStageProvider()
+  const { enrollments, onCreateAndSaveManualTeam, loading } = useTournamentStageProvider()
   const [selectedPerson1, setSelectedPerson1] = useState('')
   const [selectedPerson2, setSelectedPerson2] = useState('')
 
-  const handleAddPair = async () => {
+  const handleOnCreateAndSaveManualTeam = async () => {
     if (selectedPerson1 && selectedPerson2) {
-      await addPair(selectedPerson1, selectedPerson2)
+      await onCreateAndSaveManualTeam(selectedPerson1, selectedPerson2)
       setSelectedPerson1('')
       setSelectedPerson2('')
       onSuccess()
@@ -24,7 +24,7 @@ export default function ManualPairForm({ onSuccess }: { onSuccess: () => void })
         <FormControl>
           <FormLabel>Primeira pessoa</FormLabel>
           <Select value={selectedPerson1} onChange={e => setSelectedPerson1(e.target.value)} placeholder="Selecione uma pessoa">
-            {people.map(p => (
+            {enrollments.map(p => (
               <option key={p.id} value={p.id}>
                 {p.name}
               </option>
@@ -36,7 +36,7 @@ export default function ManualPairForm({ onSuccess }: { onSuccess: () => void })
         <FormControl>
           <FormLabel>Segunda pessoa</FormLabel>
           <Select value={selectedPerson2} onChange={e => setSelectedPerson2(e.target.value)} placeholder="Selecione uma pessoa">
-            {people
+            {enrollments
               .filter(p => p.id !== selectedPerson1)
               .map(p => (
                 <option key={p.id} value={p.id}>
@@ -47,8 +47,8 @@ export default function ManualPairForm({ onSuccess }: { onSuccess: () => void })
         </FormControl>
       </Box>
       <Box gridColumn="span 2">
-        <Button onClick={handleAddPair} isDisabled={loading?.people} colorScheme="blue" width="full">
-          {loading?.people ? <Spinner size="sm" /> : 'Adicionar'}
+        <Button onClick={handleOnCreateAndSaveManualTeam} isDisabled={loading?.enrollments} colorScheme="blue" width="full">
+          {loading?.enrollments ? <Spinner size="sm" /> : 'Adicionar'}
         </Button>
       </Box>
     </Grid>
