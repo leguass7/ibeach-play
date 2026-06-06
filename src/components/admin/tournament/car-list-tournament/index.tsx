@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { CardListHeader } from '@/components/admin/CardListHeader'
-import { ModalTournament } from '@/components/admin/tournament/ModalTournament'
+import { ModalTournament } from '@/components/admin/tournament/modal-tournament'
+import { CardListHeader } from '@/components/ui/card-list-header'
 import { useAdminTournament } from '@/services/api/admin/tournament/useAdminTournament'
 import { Card, CardBody } from '@chakra-ui/react'
 
-import { ListTournament, type ClickEditHandler } from './ListTournament'
+import { ListTournament, type ClickEditHandler } from './list-tournament'
 
 export const CarListTournament: React.FC = () => {
   const { list, loading, remove } = useAdminTournament()

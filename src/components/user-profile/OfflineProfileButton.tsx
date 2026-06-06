@@ -1,9 +1,8 @@
 import React from 'react'
 import { FaArrowCircleRight } from 'react-icons/fa'
 
+import { PrimaryButton } from '@/components/ui/primary-button'
 import { useRouter } from 'next/navigation'
-
-import { PrimaryButton } from '../Buttons/PrimaryButton'
 
 export const OfflineProfileButton: React.FC = () => {
   const navigation = useRouter()

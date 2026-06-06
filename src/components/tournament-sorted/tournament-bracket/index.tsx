@@ -7,7 +7,7 @@ import { useOnceCall } from '@/hooks/useOnceCall'
 import type { IBracketMatch } from '@/services/api/tournament/bracket/bracket.interface'
 import { Box, Spinner, Text, Alert, AlertIcon, VStack } from '@chakra-ui/react'
 
-import { useTournamentStageProviderOld } from '../TournamentStageProviderOld'
+import { useTournamentStageProviderOld } from '../tournament-stage-provider-old'
 import BracketControls from './BracketControls'
 import BracketRounds from './BracketRounds'
 import ScoreDialog from './ScoreDialog'

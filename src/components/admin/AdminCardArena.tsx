@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { CardStatButton } from '@components/dash/CardStatButton'
+import { CardStat as CardStatButton } from '@components/ui/card-stat'
 
 export const AdminCardArena: React.FC = () => {
   const navigation = useRouter()

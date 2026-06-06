@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { AdminUser } from '@/components/admin/user/AdminUser'
-import { LayoutContainer } from '@/components/layout/LayoutContainer'
+import { LayoutContainer } from '@/components/layout/layout-container'
 import { tryInteger } from '@/helpers/number'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getServerSession } from 'next-auth'

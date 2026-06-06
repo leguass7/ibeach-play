@@ -5,7 +5,7 @@ import { IoTennisball } from 'react-icons/io5'
 import { MdArrowOutward, MdEventBusy } from 'react-icons/md'
 
 import thumbArena from '@/assets/speed-img.png'
-import { PrimaryButton } from '@/components/Buttons/PrimaryButton'
+import { PrimaryButton } from '@/components/ui/primary-button'
 import { Badge, Box, Card, CardFooter, CardHeader, Flex, Heading, HStack, IconButton, Image, Link, Stack, Text } from '@chakra-ui/react'
 
 interface Props {

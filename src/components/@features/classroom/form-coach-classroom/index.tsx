@@ -3,7 +3,7 @@ import React from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { FiPlus, FiTrash } from 'react-icons/fi'
 
-import { SelectOptions } from '@/components/Inputs/selects/SelectOptions'
+import { SelectOptions } from '@/components/ui/select-options'
 import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
 import type { FormClassroomData } from '@/services/api/classroom'

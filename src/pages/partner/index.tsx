@@ -1,4 +1,4 @@
-import { LayoutContainer } from '@/components/layout/LayoutContainer'
+import { LayoutContainer } from '@/components/layout/layout-container'
 import type { NextPage } from 'next/types'
 
 const PartnerDashPage: NextPage = () => {

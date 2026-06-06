@@ -4,8 +4,8 @@ import { FiPlus, FiRefreshCcw } from 'react-icons/fi'
 import { useCoachClassroom } from '@/services/api/coach/useCoachClassroom'
 import { Box, Card, CardBody, CardHeader, Flex, Heading, IconButton } from '@chakra-ui/react'
 
-import { ModalClassroom } from '../ModalClassroom'
-import { ListClassroom, type ClickEditHandler } from './ListClassroom'
+import { ModalClassroom } from '../modal-classroom'
+import { ListClassroom, type ClickEditHandler } from './list-classroom'
 
 export const CarListClassroom: React.FC = () => {
   const { list, loading } = useCoachClassroom()

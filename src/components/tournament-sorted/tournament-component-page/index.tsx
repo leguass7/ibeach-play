@@ -5,9 +5,9 @@ import { useState } from 'react'
 import { Box, Heading, Tabs, TabList, Tab, TabPanels, TabPanel, useToast, Card, CardHeader, Flex, CardBody } from '@chakra-ui/react'
 import Head from 'next/head'
 
-import PairGenerator from '../PairGenerator'
-import PeopleManager from '../PeopleManager'
-import { TournamentStageProvider } from '../TournamentStageProvider'
+import PairGenerator from '../pair-generator'
+import PeopleManager from '../people-manager'
+import { TournamentStageProvider } from '../tournament-stage-provider'
 
 type TournamentComponentPageProps = {
   tournamentId: number

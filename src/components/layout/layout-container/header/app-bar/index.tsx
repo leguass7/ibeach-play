@@ -4,7 +4,7 @@ import React from 'react'
 
 import iconLogo from '@/assets/logo/iconLogo.png'
 import type { IRoutes } from '@/components/layout/layout.type'
-import { UserProfile } from '@/components/UserProfile'
+import { UserProfile } from '@/components/user-profile'
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { Box, Flex, HStack, Icon, IconButton, Stack, Text, useColorModeValue, useDisclosure, Image } from '@chakra-ui/react'
 

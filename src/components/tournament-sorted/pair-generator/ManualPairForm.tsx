@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Grid, Button, FormControl, FormLabel, Select, Spinner, Box } from '@chakra-ui/react'
 
-import { useTournamentStageProvider } from '../TournamentStageProvider'
+import { useTournamentStageProvider } from '../tournament-stage-provider'
 
 export default function ManualPairForm({ onSuccess }: { onSuccess: () => void }) {
   const { enrollments, onCreateAndSaveManualTeam, loading } = useTournamentStageProvider()

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { Options, FetchHandler, ItemOption, LoadedHandler } from '@/components/Inputs/selects/SelectFetcher'
+import type { Options, FetchHandler, ItemOption, LoadedHandler } from '@ui/select-fetcher'
 import useFetcher from '@/hooks/useFetcher'
 
 import type { ArenaOptionDto } from '../arena'

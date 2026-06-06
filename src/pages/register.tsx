@@ -1,7 +1,7 @@
 import React from 'react'
 
 import bgDefault from '@/assets/login-bg-default.png'
-import { SignupForm } from '@/components/Forms/SignupForm'
+import { SignupForm } from '@/components/forms/signup-form'
 import { Box, Flex, HStack, Image, Link, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 

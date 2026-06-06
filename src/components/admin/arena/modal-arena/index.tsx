@@ -3,7 +3,7 @@ import React from 'react'
 import { ModalBody, ModalCloseButton, ModalHeader, type ModalProps } from '@chakra-ui/react'
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 
-import { FormAdminArena, type FormAdminProps } from '../FormAdminArena'
+import { FormAdminArena, type FormAdminProps } from '../form-admin-arena'
 
 type ModalArenaProps = Omit<ModalProps, 'children'> & {
   arenaId?: number

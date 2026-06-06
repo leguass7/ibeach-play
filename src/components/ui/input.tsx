@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Input, InputGroup, InputLeftElement, type InputProps, FormErrorMessage, FormControl, InputRightElement } from '@chakra-ui/react'
+import { FormControl, FormErrorMessage, Input, InputGroup, InputLeftElement, InputRightElement, type InputProps } from '@chakra-ui/react'
 
-export interface CommonInputProps extends InputProps {
+export interface PrimaryInputProps extends InputProps {
   inputRef?: React.LegacyRef<HTMLInputElement> | React.ForwardedRef<HTMLInputElement>
   start?: React.ReactNode
   end?: React.ReactNode
@@ -10,7 +10,7 @@ export interface CommonInputProps extends InputProps {
   children?: React.ReactNode
 }
 
-export const PrimaryInput: React.FC<CommonInputProps> = React.forwardRef((prop, ref) => {
+export const PrimaryInput: React.FC<PrimaryInputProps> = React.forwardRef((prop, ref) => {
   const {
     inputRef,
     start,

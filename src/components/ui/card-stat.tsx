@@ -1,16 +1,15 @@
 import React from 'react'
 
-import { Card, CardBody, Center } from '@chakra-ui/react'
-import { Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from '@chakra-ui/react'
+import { Card, CardBody, Center, Stat, StatArrow, StatHelpText, StatLabel, StatNumber } from '@chakra-ui/react'
 
-export type CardStatButtonProps = {
+export type CardStatProps = {
   title?: string
   value?: number | string
   percentage?: number
   onClick?: () => void
 }
 
-export const CardStatButton: React.FC<CardStatButtonProps> = ({ title, percentage, value, onClick }) => {
+export const CardStat: React.FC<CardStatProps> = ({ title, percentage, value, onClick }) => {
   return (
     <Card>
       <CardBody>

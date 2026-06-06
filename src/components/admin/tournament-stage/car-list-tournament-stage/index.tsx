@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { CardListHeader } from '@/components/admin/CardListHeader'
+import { CardListHeader } from '@/components/ui/card-list-header'
 import { useAdminTournamentStage } from '@/services/api/admin/tournament-stage/useAdminTournamentStage'
 import { Card, CardBody } from '@chakra-ui/react'
 
-import { ModalTournamentStage } from '../ModalTournamentStage'
-import { ListTournamentStage, type ClickEditHandler } from './ListTournamentStage'
+import { ModalTournamentStage } from '../modal-tournament-stage'
+import { ListTournamentStage, type ClickEditHandler } from './list-tournament-stage'
 
 type Props = {
   tournamentId: number

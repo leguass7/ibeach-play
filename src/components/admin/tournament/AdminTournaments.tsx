@@ -2,7 +2,7 @@ import React from 'react'
 
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
 
-import { CarListTournament } from './CarListTournament'
+import { CarListTournament } from './car-list-tournament'
 
 export const AdminTournaments: React.FC = () => {
   return (

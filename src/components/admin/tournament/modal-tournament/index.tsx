@@ -3,7 +3,7 @@ import React from 'react'
 import { ModalBody, ModalCloseButton, ModalHeader, type ModalProps } from '@chakra-ui/react'
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 
-import { FormAdminTournament, type FormAdminTournamentProps } from '../../tournament/FormAdminTournament'
+import { FormAdminTournament, type FormAdminTournamentProps } from '../../tournament/form-admin-tournament'
 
 type ModalTournamentProps = Omit<ModalProps, 'children'> & {
   tournamentId?: number

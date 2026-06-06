@@ -3,9 +3,9 @@ import { FaEye, FaEyeSlash, FaLock } from 'react-icons/fa'
 
 import { Box } from '@chakra-ui/react'
 
-import { type CommonInputProps, PrimaryInput } from './PrimaryInput'
+import { type PrimaryInputProps, PrimaryInput } from '@ui/input'
 
-export type PasswordInputProps = Omit<CommonInputProps, 'start' | 'end' | 'type'>
+export type PasswordInputProps = Omit<PrimaryInputProps, 'start' | 'end' | 'type'>
 
 export const PasswordInput: React.FC<PasswordInputProps> = React.forwardRef<HTMLInputElement>((prop, ref) => {
   const { ...rest } = prop

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 
-import { PrimaryButton } from '@/components/Buttons/PrimaryButton'
-import { PasswordInput } from '@/components/Inputs/PasswordInput'
+import { PasswordInput } from '@/components/ui/password-input'
+import { PrimaryButton } from '@/components/ui/primary-button'
 import { FormChangePasswordSchema, type FormChangePasswordData } from '@/services/api/me'
 import { meChangePass } from '@/services/api/me/me.api'
 import { Box, Stack } from '@chakra-ui/react'

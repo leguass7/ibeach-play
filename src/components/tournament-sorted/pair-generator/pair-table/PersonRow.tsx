@@ -2,7 +2,7 @@ import type { EnrollmentDTO } from '@/@server-side/use-cases/enrollment'
 import { useOnceCall } from '@/hooks/useOnceCall'
 import { Box, Spinner, Tag, Text } from '@chakra-ui/react'
 
-import { useTournamentStageProvider } from '../../TournamentStageProvider'
+import { useTournamentStageProvider } from '../../tournament-stage-provider'
 
 type PersonRowProps = {
   personId: EnrollmentDTO['id']

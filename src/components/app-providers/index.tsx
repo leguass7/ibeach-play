@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { AlertProvider } from '@/components/Alert'
+import { AlertProvider } from '@/components/alert'
 
-import { LoadingProvider } from './LoadingProvider'
+import { LoadingProvider } from './loading-provider'
 import { SWRProvider } from './SWRProvider'
 
 type Props = {

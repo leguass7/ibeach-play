@@ -1,5 +1,5 @@
-import { FormChangePassword } from '@/components/Forms/FormChangePassword'
-import { LayoutContainer } from '@/components/layout/LayoutContainer'
+import { FormChangePassword } from '@/components/forms/form-change-password'
+import { LayoutContainer } from '@/components/layout/layout-container'
 import { Button, Divider } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/navigation'

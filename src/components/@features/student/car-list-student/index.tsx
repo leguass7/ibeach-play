@@ -4,7 +4,7 @@ import { FiPlus, FiRefreshCcw } from 'react-icons/fi'
 import { useCoachStudent } from '@/services/api/coach/student/useCoachStudent'
 import { Box, Card, CardBody, CardHeader, Flex, Heading, IconButton } from '@chakra-ui/react'
 
-import { ListStudent, type ClickEditHandler } from './ListStudent'
+import { ListStudent, type ClickEditHandler } from './list-student'
 
 export const CarListStudent: React.FC = () => {
   const { list, loading } = useCoachStudent()

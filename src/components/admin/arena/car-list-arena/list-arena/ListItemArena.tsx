@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AvatarListItem } from '@/components/admin/AvatarListItem'
+import { AvatarListItem } from '@/components/ui/avatar-list-item'
 
 import type { ArenaDTO } from '~/use-cases/arena'
 

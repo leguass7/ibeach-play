@@ -1,7 +1,7 @@
 import React from 'react'
 
 import bgDefault from '@/assets/login-bg-default.png'
-import { LoginForm } from '@/components/Forms/LoginForm'
+import { LoginForm } from '@/components/forms/login-form'
 import { Box, Flex, HStack, Image, Link, Stack, Text, useBreakpointValue } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'

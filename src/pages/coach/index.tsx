@@ -1,12 +1,12 @@
-import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
-import { LayoutContainer } from '@/components/layout/LayoutContainer'
+import { BreadcrumbNavigation } from '@/components/breadcrumb-navigation'
+import { LayoutContainer } from '@/components/layout/layout-container'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getServerSession } from 'next-auth'
 import dynamic from 'next/dynamic'
 
 import { authOptions } from '~/use-cases/auth/auth.options'
 
-const CoachDash = dynamic(() => import('@/components/coach/CoachDash').then(ctx => ctx.CoachDash), { ssr: false })
+const CoachDash = dynamic(() => import('@/components/coach/coach-dash').then(ctx => ctx.CoachDash), { ssr: false })
 
 type Props = {
   [x: string]: unknown

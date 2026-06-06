@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { CardListHeader } from '@/components/admin/CardListHeader'
+import { CardListHeader } from '@/components/ui/card-list-header'
 import { useAdminArena } from '@/services/api/admin/arena/useAdminArena'
 import { Card, CardBody } from '@chakra-ui/react'
 
-import { ModalArena } from '../ModalArena'
-import { ListArena, type ClickEditHandler } from './ListArena'
+import { ModalArena } from '../modal-arena'
+import { ListArena, type ClickEditHandler } from './list-arena'
 
 export const CarListArena: React.FC = () => {
   const { list, loading, remove } = useAdminArena()

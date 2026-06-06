@@ -2,8 +2,8 @@ import React from 'react'
 import { FaEye, FaEyeSlash, FaLock, FaUserAlt } from 'react-icons/fa'
 import { MdAlternateEmail } from 'react-icons/md'
 
-import { PrimaryButton } from '@/components/Buttons/PrimaryButton'
-import { PrimaryInput } from '@/components/Inputs/PrimaryInput'
+import { PrimaryInput } from '@/components/ui/input'
+import { PrimaryButton } from '@/components/ui/primary-button'
 import { Box, FormControl, Heading, InputGroup, InputRightElement, Stack } from '@chakra-ui/react'
 
 type SignupFormProps = {

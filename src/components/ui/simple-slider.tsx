@@ -6,7 +6,7 @@ import { IconButton, Stack } from '@chakra-ui/react'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 
-interface Props {
+export type SimpleSliderProps = {
   children: ReactNode
   dots?: boolean
   infinite?: boolean
@@ -18,7 +18,7 @@ interface Props {
   variableWidth?: boolean
 }
 
-export const SimpleSlider: React.FC<Props> = ({
+export const SimpleSlider: React.FC<SimpleSliderProps> = ({
   isMobile = false,
   children,
   dots = true,
@@ -42,7 +42,7 @@ export const SimpleSlider: React.FC<Props> = ({
         settings: {
           slidesToShow: mobileSlidesToShow,
           slidesToScroll: 1,
-          variableWidth: variableWidth
+          variableWidth
         }
       }
     ]
@@ -50,13 +50,8 @@ export const SimpleSlider: React.FC<Props> = ({
 
   const sliderRef = React.useRef<Slider>(null)
 
-  const handleNext = () => {
-    sliderRef.current?.slickNext()
-  }
-
-  const handlePrev = () => {
-    sliderRef.current?.slickPrev()
-  }
+  const handleNext = () => sliderRef.current?.slickNext()
+  const handlePrev = () => sliderRef.current?.slickPrev()
 
   return (
     <Stack position="relative" width="full" mx="auto">

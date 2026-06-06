@@ -1,4 +1,4 @@
-import type { Options, FetchHandler, ItemOption, LoadedHandler } from '@/components/Inputs/selects/SelectFetcher'
+import type { Options, FetchHandler, ItemOption, LoadedHandler } from '@ui/select-fetcher'
 import type { ArenaOptionDto } from '@/services/api/arena'
 
 export type { Options, FetchHandler, ItemOption, LoadedHandler }

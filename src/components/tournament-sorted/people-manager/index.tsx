@@ -8,7 +8,7 @@ import type { FormEnrollmentData } from '@/services/api/enrollment'
 import { DownloadIcon } from '@chakra-ui/icons'
 import { Box, Button, Heading, Spinner, Stack } from '@chakra-ui/react'
 
-import { useTournamentStageProvider } from '../TournamentStageProvider'
+import { useTournamentStageProvider } from '../tournament-stage-provider'
 import PeopleTable from './PeopleTable'
 import PersonFormDialog from './PersonFormDialog'
 

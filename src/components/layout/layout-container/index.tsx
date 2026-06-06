@@ -4,9 +4,9 @@ import bgDefault from '@/assets/bg-app.jpg'
 import useMobile from '@/hooks/useMobile'
 import { Box, Container } from '@chakra-ui/react'
 
-import { Footer, type FooterResizeHandler } from './Footer'
-import { Header, type HeaderResizeHandler } from './Header'
-import { MainContainer } from './MainContainer'
+import { Footer, type FooterResizeHandler } from './footer'
+import { Header, type HeaderResizeHandler } from './header'
+import { MainContainer } from './main-container'
 
 type Props = {
   children: React.ReactNode

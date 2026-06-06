@@ -22,7 +22,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
   icon,
   ...rest
 }) => {
-  const hasChild = children ? true : false
+  const hasChild = !!children
   const isOutline = variant === 'outline'
   return (
     <Button

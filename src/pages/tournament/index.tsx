@@ -1,5 +1,5 @@
-import { LayoutContainer } from '@/components/layout/LayoutContainer'
-import { TournamentStageProviderOld } from '@/components/tournament-sorted/TournamentStageProviderOld'
+import { LayoutContainer } from '@/components/layout/layout-container'
+import { TournamentStageProviderOld } from '@/components/tournament-sorted/tournament-stage-provider-old'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/navigation'
 

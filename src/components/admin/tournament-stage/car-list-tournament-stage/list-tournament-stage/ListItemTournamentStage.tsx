@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { AvatarListItem } from '@/components/admin/AvatarListItem'
+import { AvatarListItem } from '@/components/ui/avatar-list-item'
+import { useRouter } from 'next/navigation'
 
 import type { TournamentStageDTO } from '~/use-cases/tournament-stage'
 
@@ -12,6 +13,8 @@ type Props = Partial<TournamentStageDTO> & {
 }
 
 export const ListItemTournamentStage: React.FC<Props> = ({ id, onEdit, onDelete, name, tournamentId }) => {
+  const router = useRouter()
+
   const handleClickEdit = () => {
     if (id && onEdit) onEdit?.(id)
   }
@@ -20,7 +23,7 @@ export const ListItemTournamentStage: React.FC<Props> = ({ id, onEdit, onDelete,
     if (id && onDelete) onDelete?.(id)
   }
 
-  const link = `/admin/tournament/${tournamentId}/stage/${id}`
+  const handleClickLink = () => router.push(`/admin/tournament/${tournamentId}/stage/${id}`)
 
-  return <AvatarListItem onEdit={handleClickEdit} onDelete={handleClickDelete} avatar={name} title={name} link={link} />
+  return <AvatarListItem onEdit={handleClickEdit} onDelete={handleClickDelete} onLink={handleClickLink} avatar={name} title={name} />
 }

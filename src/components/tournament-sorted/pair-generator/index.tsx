@@ -5,10 +5,10 @@ import { useState } from 'react'
 import { useOnceCall } from '@/hooks/useOnceCall'
 import { Box, Alert, ChakraProvider } from '@chakra-ui/react'
 
-import { useTournamentStageProvider } from '../TournamentStageProvider'
+import { useTournamentStageProvider } from '../tournament-stage-provider'
 import HeaderPair from './HeaderPair'
 import ManualPairForm from './ManualPairForm'
-import PairTable from './PairTable'
+import PairTable from './pair-table'
 
 export default function PairGenerator({ onSuccess }: { onSuccess: () => void }) {
   const { teams, fetchEnrollments, onGenerateAndSaveBalancedTeams, onGenerateAndSaveRandomTeams, onClearAllTeams, loading } =

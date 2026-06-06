@@ -2,11 +2,13 @@ import React from 'react'
 import { PiStudentFill } from 'react-icons/pi'
 import { SiGoogleclassroom } from 'react-icons/si'
 
-import { CardLinkIcon } from '@/components/CardLinkIcon'
+import { CardLinkIcon } from '@/components/ui/card-link-icon'
 import { useCoachDash } from '@/services/api/coach/useCoachDash'
 import { SimpleGrid, GridItem } from '@chakra-ui/react'
+import { useRouter } from 'next/navigation'
 
 export const CoachDash: React.FC = () => {
+  const router = useRouter()
   const { data, isLoading } = useCoachDash()
 
   const classroomCount = data?.classroomCount || 0
@@ -19,7 +21,7 @@ export const CoachDash: React.FC = () => {
           icon={SiGoogleclassroom}
           title="Turmas"
           description={`${classroomCount} turmas cadatradas`}
-          link="/coach/classroom"
+          onClick={() => router.push('/coach/classroom')}
           isLoading={isLoading}
         />
       </GridItem>
@@ -28,7 +30,7 @@ export const CoachDash: React.FC = () => {
           icon={PiStudentFill}
           title="Alunos"
           description={`${studentCount} alunos cadatrados`}
-          link="/coach/student"
+          onClick={() => router.push('/coach/student')}
           isLoading={isLoading}
         />
       </GridItem>

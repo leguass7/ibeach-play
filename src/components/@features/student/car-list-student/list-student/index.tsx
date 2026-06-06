@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SkeletonListItem } from '@/components/SkeletonListItem'
+import { SkeletonListItem } from '@/components/ui/skeleton-list-item'
 import { useCoachStudentList } from '@/services/api/coach/student/useCoachStudent'
 import { List } from '@chakra-ui/react'
 

@@ -2,8 +2,8 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { DatePicker } from '@/components/Inputs/DatePicker'
-import { SelectOptions } from '@/components/Inputs/selects/SelectOptions'
+import { DatePicker } from '@/components/ui/date-picker'
+import { SelectOptions } from '@/components/ui/select-options'
 import useFetcher from '@/hooks/useFetcher'
 import { useOnceCall } from '@/hooks/useOnceCall'
 import { useAdminArenaOptions } from '@/services/api/admin/arena/useAdminArena'

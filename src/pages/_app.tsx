@@ -1,7 +1,7 @@
 import '@/styles/globals.css'
 import { Provider as ReduxProvider } from 'react-redux'
 
-import { AppProviders } from '@/components/AppProviders'
+import { AppProviders } from '@/components/app-providers'
 import { persistor, store } from '@/store'
 import theme from '@/styles/theme'
 import { ChakraProvider } from '@chakra-ui/react'

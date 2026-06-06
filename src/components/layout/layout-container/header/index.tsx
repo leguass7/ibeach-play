@@ -4,7 +4,7 @@ import { useResizeDetector, type OnResizeCallback } from 'react-resize-detector'
 import { Box } from '@chakra-ui/react'
 
 import type { IRoutes } from '../../layout.type'
-import { AppBar } from './AppBar'
+import { AppBar } from './app-bar'
 
 export type HeaderResizeHandler = OnResizeCallback
 type Props = {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TextLimited } from '@/components/TextLimited'
+import { TextLimited } from '@/components/ui/text-limited'
 import { useAppRecentArena, type RecentItemArena } from '@/hooks/store/useAppRecent'
 import { Heading, LinkBox, LinkOverlay } from '@chakra-ui/react'
 

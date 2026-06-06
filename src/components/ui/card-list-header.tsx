@@ -3,7 +3,7 @@ import { FiPlus, FiRefreshCcw } from 'react-icons/fi'
 
 import { Box, CardHeader, Flex, Heading, IconButton } from '@chakra-ui/react'
 
-type CardListHeaderProps = {
+export type CardListHeaderProps = {
   onClickNew?: () => void
   onClickRefresh?: () => void
   loading?: boolean

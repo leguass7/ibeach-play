@@ -4,7 +4,7 @@ import type { TeamDTO } from '@/@server-side/use-cases/team'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { Box, CircularProgress, IconButton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useToast } from '@chakra-ui/react'
 
-import { useTournamentStageProvider } from '../../TournamentStageProvider'
+import { useTournamentStageProvider } from '../../tournament-stage-provider'
 import PersonRow from './PersonRow'
 
 interface Props {

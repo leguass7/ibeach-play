@@ -1,5 +1,5 @@
-import { BreadcrumbNavigation } from '@/components/BreadcrumbNavigation'
-import { LayoutContainer } from '@/components/layout/LayoutContainer'
+import { BreadcrumbNavigation } from '@/components/breadcrumb-navigation'
+import { LayoutContainer } from '@/components/layout/layout-container'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getServerSession, type Session } from 'next-auth'
 import dynamic from 'next/dynamic'

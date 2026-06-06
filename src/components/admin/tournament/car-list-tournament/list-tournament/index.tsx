@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { useAlert } from '@/components/Alert'
-import { SkeletonListItem } from '@/components/SkeletonListItem'
+import { useAlert } from '@/components/alert'
+import { SkeletonListItem } from '@/components/ui/skeleton-list-item'
 import { useAdminTournamentList } from '@/services/api/admin/tournament/useAdminTournament'
 import { List } from '@chakra-ui/react'
 

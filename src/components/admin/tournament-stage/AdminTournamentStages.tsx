@@ -2,7 +2,7 @@ import React from 'react'
 
 import { GridItem, SimpleGrid } from '@chakra-ui/react'
 
-import { CarListTournamentStage } from './CarListTournamentStage'
+import { CarListTournamentStage } from './car-list-tournament-stage'
 
 type Props = {
   tournamentId: number

@@ -50,7 +50,7 @@ export const SelectFetcher: React.FC<SelectFetcherProps> = ({
     [onLoaded]
   )
 
-  const fetcData = React.useCallback(async () => {
+  const fetchData = React.useCallback(async () => {
     if (fetcher) {
       setLoading(true)
       const response = await fetcher?.()
@@ -60,7 +60,7 @@ export const SelectFetcher: React.FC<SelectFetcherProps> = ({
     }
   }, [fetcher, loadedHandler])
 
-  useOnceCall(fetcData)
+  useOnceCall(fetchData)
 
   const disabled = !!(isDisabled || loading)
 
