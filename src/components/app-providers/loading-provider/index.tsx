@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { LoadingContext } from './LoadingContext'
 import { LoadingLayout } from './loading-layout'
 import { LoadingProgress } from './loading-progress'
+import { LoadingContext } from './LoadingContext'
 
 type Props = {
   children: React.ReactNode

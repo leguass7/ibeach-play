@@ -2,7 +2,6 @@ import React from 'react'
 import { FaEye, FaEyeSlash, FaLock } from 'react-icons/fa'
 
 import { Box } from '@chakra-ui/react'
-
 import { type PrimaryInputProps, PrimaryInput } from '@ui/input'
 
 export type PasswordInputProps = Omit<PrimaryInputProps, 'start' | 'end' | 'type'>

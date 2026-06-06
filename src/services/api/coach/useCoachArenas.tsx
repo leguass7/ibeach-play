@@ -1,7 +1,7 @@
 import React from 'react'
 
-import type { Options, FetchHandler, ItemOption, LoadedHandler } from '@ui/select-fetcher'
 import useFetcher from '@/hooks/useFetcher'
+import type { Options, FetchHandler, ItemOption, LoadedHandler } from '@ui/select-fetcher'
 
 import type { ArenaOptionDto } from '../arena'
 import { coachGetArenaOptions } from './coach-arena.api'
